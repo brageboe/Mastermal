@@ -1,0 +1,118 @@
+\documentclass[pdftex,12pt,b5paper,twoside]{book}
+\usepackage[lmargin=25mm,rmargin=25mm,tmargin=27mm,bmargin=30mm]{geometry}
+\usepackage{marginnote}
+%\usepackage{amsmath}
+\usepackage{gensymb}
+
+%% To-do notes
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
+% 
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+%% 
+
+\usepackage[maxfloats=40]{morefloats}   % added 11/6/17
+\usepackage{multirow}   % used in table/tabular
+\usepackage{subcaption} % caption subfigures   
+\usepackage{rotating}   % for \begin{sidewaysfigure} i think
+%%
+% FIGURE PLACEMENT
+\usepackage{placeins}
+
+\let\Oldsection\section
+\renewcommand{\section}{\FloatBarrier\Oldsection}
+
+\let\Oldsubsection\subsection
+\renewcommand{\subsection}{\FloatBarrier\Oldsubsection}
+
+\let\Oldsubsubsection\subsubsection
+\renewcommand{\subsubsection}{\FloatBarrier\Oldsubsubsection}
+
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{color} %[usenames, dvipsnames]
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{lipsum}
+\usepackage{subcaption} %Added
+%\usepackage{color}
+\usepackage[Lenny]{fncychap}
+\usepackage[pdftex,bookmarks=true]{hyperref}
+\usepackage[pdftex]{hyperref}
+\hypersetup{
+    colorlinks,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=black,%
+    urlcolor=black
+}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{fancyhdr}
+\usepackage{times}
+%\usepackage[intoc]{nomencl}
+%\renewcommand{\nomname}{List of Abbreviations}
+%\makenomenclature
+
+\usepackage[utf8]{inputenc}
+
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+
+\usepackage{url}
+
+
+%\usepackage{natbib}
+\usepackage{cite}
+\usepackage{notoccite}
+
+%\usepackage{afterpage}
+
+\usepackage{float}
+%\floatstyle{boxed} 
+\restylefloat{figure}
+
+% ShareLaTeX does not support glossaries now. Sorry...
+%\usepackage[number=none]{glossary}
+%\makeglossary
+%\newglossarytype[abr]{abbr}{abt}{abl}
+%\newglossarytype[alg]{acronyms}{acr}{acn}
+%\newcommand{\abbrname}{Abbreviations} 
+%\newcommand{\shortabbrname}{Abbreviations}
+%%\makeabbr
+
+%\usepackage{acro}   % Acronyms
+%\usepackage[acronym]{glossaries}
+\usepackage{acro}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\renewcommand*\contentsname{Table of Contents}
+
+\renewcommand{\v}[1]{\ensuremath{\mathbf{#1}}} % for vectors
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\bb}[1]{\mathbf{#1}}
+\newcommand{\avg}[1]{\left< #1 \right>} % for average
+\newcommand{\gv}[1]{\ensuremath{\mbox{\boldmath$ #1 $}}}
+\newcommand{\abs}[1]{\left| #1 \right|} % for absolute value
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+\newcommand{\uv}[1]{\ensuremath{\mathbf{\hat{#1}}}} % for unit vector
+\renewcommand{\d}[2]{\frac{d #1}{d #2}} % for derivatives
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\renewcommand{\headrulewidth}{0.1ex}
+\renewcommand{\footrulewidth}{0.1ex}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[LE,RO]{\thepage}\renewcommand{\headrulewidth}{0ex}}

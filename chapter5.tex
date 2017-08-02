@@ -1,0 +1,17 @@
+%===================================== CHAP 5 =================================
+
+\chapter{Conclusion and outlook}
+
+\subsection*{Conclusion}
+
+Hvilken ny info har vi funnet vha COMSOL modellene?
+
+In principle should be easy to simulate any periodic nanostructure in COMSOL now that a model template is created. Minor adjustments are likely, such as mesh setup (depending on structure geometry).
+
+
+\subsection*{Outlook}
+\text{\color{red}improve}Optimization is a never ending story. The simulations done here have not fully exploited symmetry of the nanostructures. By building the geometry only to its symmetry point, one may greatly reduce the computational cost. E.g. splitting sample 5B unit cell in half would likely let us simulate lower wavelengths than the 250 nm done here, as it would effectively half the amount of elements to solve. I don't, however, think this is trivial to implement in COMSOL. In short, outlook: exploit symmetry to create computationally less expensive models and compare results with full 3D models.
+
+
+
+\cleardoublepage

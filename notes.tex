@@ -1,0 +1,513 @@
+%===================================== NOTES =================================
+% Her kan alt mulig skrives ned, f.eks stoff som ikke enda har fått plass i et bestemt kapitell eller sammendrag av artikler osv.
+% Dvs selve kapitellet her skal ikke inkluderes i sluttproduktet
+
+\chapter{Notes}
+
+\section{Article summaries}
+\subsection{RCWA \url{http://emlab.utep.edu/ee5390cem/Lecture}...}
+%% http://emlab.utep.edu/ee5390cem/Lecture%201%20--%20Introduction%20to%20CEM.pdf
+
+Rigorous coupled wave approximation (RCWA) is good for modelling diffraction off periodic dielectric structures with longitudinal periodicity.
+
+
+Pros:
+\begin{itemize}
+    \item Extremely fast and efficient for all-dielectric structures where index-contrast is low to moderate.
+    
+    \item Thickness of layers can be anything without numerical cost
+    
+    \item Easily incorporates polarization and angle of incidence.
+    
+    \item Excellent especially for structures large in the longitudinal direction
+    
+    \item Accurate and robust
+    
+    \item Unconditionally stable
+\end{itemize}
+
+Cons:
+\begin{itemize}
+    \item Scales poorly in transverse direction
+    
+    \item Less efficient for high contrast dielectrics and metals due to Gibbs phenomenon
+    
+    \item Slow convergence if fast Fourier factorization isn't used
+    
+    \item Poor method for finite structures
+    
+    \item "In real‐space, poor grid resolution led to fluctuations in conservation and [of?] energy and other very recognizable signs that things are wrong. \emph{The danger of RCWA is that results can “look” correct even with very few spatial harmonics.}
+
+    Conservation of energy will always be obeyed in RCWA  even using just one spatial harmonic. It must become habit to look for convergence, as there are no other signs that more spatial harmonics are needed."
+    
+    % http://emlab.utep.edu/ee5390cem/Lecture%2023%20--%20RCWA%20Extras.pdf
+\end{itemize}
+
+\subsection{RCWA Reticolo}
+Reticolo is a MATLAB code that solves The diffraction problem by a grating that is defined by a stack of layers (in the z-direction), all of which have identical periods in the x-direction and are invariant in the y-direction. The code is written with the $\exp (-i\omega t)$ convention for the complex field notation. Thus, for absorbing materials, all indices are expected to have a positive imaginary part.
+
+
+\section{Notes from books}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Dielectric function models}
+\begin{itemize}
+    \item Lorentz oscillator: based on the classical model of harmonic motion where an electron (negative charge) is bound to an atomic nucleus (positive charge) with a spring between them. The nucleus mass is assumed to be much larger than the electron. An external time-harmonic electric field $E = E_0 \exp(-i\omega t)$ will induce a polarization, forcing the electron to oscillate in the same manner $x(t) = A \exp(-i\omega t)$. By applying Newton's second law with terms describing the external electric field (driving force), the displacement of a mass attached to a spring (spring force by  Hook's law), and a damping term due to energy-dissipation (damping force), one can derive a dielectric response function as
+    \begin{equation}
+        \epsilon(\omega) = 1 - \frac{\omega_p^2}{\omega^2-\omega_0^2+i\omega\Gamma}
+        \label{eq:lorentz osc single}
+    \end{equation}
+    where $\omega_p$ is the collective frequency of valence electrons called plasma frequency, $\omega_0$ is the system resonance frequency as a result of the driving force, and $\Gamma$ is a damping coefficient. The electron will oscillate as if it was in a viscous fluid, $\Gamma$ is a constant proportional to this viscous force \marginnote{tja, kanskje drop analogien}
+    
+    This simple model neglects several types of forces. One can more accurately describe the material as a sum of Lorentzian oscillators, generalizing equation (\ref{eq:lorentz osc single}) as
+    \begin{equation}
+        \epsilon(\omega) = \epsilon_\infty - \omega_p^2\sum_{j}\frac{f_j}{\omega^2-\omega_j^2+i\omega\Gamma_j}
+        \label{eq:lorentz osc sum}
+    \end{equation}
+    where $f_j$ is the oscillator strength with $\sum f_j = 1$. It is convenient to summarize all higher energy frequencies into the real-valued parameter $\epsilon_\infty$, describing the relative permittivity at infinite energy, often equating to unity. In practical work equation (\ref{eq:lorentz osc sum}) is often rewritten in terms of photon energy $E$ instead of frequency $\omega$. The Lorentz model is valid only for energies (significantly) lower than the band gap energy. \marginnote{finn ref}
+    
+    \item Drude oscillator: used to describe free carrier effects in the dielectric function. Same approach as in the derivation of a Lorentz oscillator but with no restoring-force term in the equation of motion. Basically a Lorentz oscillator placed at zero energy[???]. Setting resonance frequency $\omega_0$ to zero in the Lorentz equation.
+    
+    \item Tauc-Lorentz and Cody-Lorentz: both use a broad Lorentzian line shape with zero absorption below a defined band gap to accound for the main absorption for amorphous materials \marginnote{direkte kopi}\footnote{amorphous material: a non-crystalline solid, i.e. lacks long-range order of symmetry}
+    
+    \item Cauchy layer: an empirical model used to describe optical properties of transparent or partially transparent materials (zero or very low absorption). If there is an absorption tail in the UV part of experimental data, the model can be improved by including a term called an Urbach's tail.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Interaction between matter and light}
+
+
+The optical response function has a few general properties that are caused by causality, i.e. its reaction is only dependent on past events and not future events. This leads to, among other things, the Kramers Kronig relations. 
+
+From causality we have
+\begin{equation}
+    \mathbf{D}(t) = \epsilon_0 \mathbf{E}(t) + \mathbf{P}(t)
+\end{equation}
+solved for $\mathbf{P}$ we have 
+\begin{equation}
+    \mathbf{P} = (\epsilon-1)\epsilon_0 \mathbf{E}
+\end{equation}
+It is clear that the term $(\epsilon-1)$ represents the optical response as it relates the electric field $\mathbf{E}$ to the polarization $\mathbf{P}$, i.e. the term gives the relation between the \emph{cause} $\mathbf{E}$ and \emph{effect} $\mathbf{P}$.
+
+\begin{itemize}
+    \item A consequence of Kramers Kronig relations is that if one of the functions (real part $\epsilon_1$ or imaginary $\epsilon_2$) are determined for all frequencies, then the other part can be calculated for all frequencies as well.
+    
+    \item Dispersion occurs when real part $\epsilon_1$ is non-constant. Absorption occurs when the imaginary part is non-zero, $\epsilon_2 \neq 0$.
+    
+    \item Both dispersion (described by $\epsilon_1$) and absorption (described by $\epsilon_2$) originate from the same underlying process, excitation of dipoles in the material. If the dipoles can follow the field instantaneously in a frequency region, there will be no absorption ($\epsilon_2 = 0$). For the same reason there will be no dispersion, as $\epsilon_1$ is constant.
+    
+    In the frequency region around a relaxation, the dipoles will still try to match the field but cannot follow it completely. The dipoles will not move as much as at lower frequencies and thus the polarization becomes smaller ($\epsilon_1$ decreases). At the same time absorption occurs ($\epsilon_2 \neq 0$) because energy is tapped from the electromagnetic field into the dipoles and then subsequently into the material.
+    
+    I.e. absorption and dispersion are coupled properties of the same phenomenon. No dispersion can occur if there is no absorption and vice versa.
+    
+    \item Studying the dielectric function as a function of frequency over a vast spectrum, one observes that energy is mainly absorbed at relaxation or resonance frequencies. Why does it not cost energy to excite dipoles at lower frequencies? It does in fact cost energy, but this energy is paid back to the field from the dipoles. This is called virtual dispersion.
+    
+    \item For frequencies far above all absorption bands $\epsilon_1$ approaches the free-space value 1; the frequencies are so high that none of the polarization mechanisms can respond.
+    
+    At low frequencies $\epsilon_1$ is the sum of contributions from each polarization mechanism (electronic, vibrational, dipolar), with the lowest-frequency mechanism contributing the most.
+    
+    At $\omega=0$, the dielectric function is composed of contributions from permanent dipoles, vibrational oscillators and electronic oscillators. As the frequency increases, the permanent dipoles cannot respond and the real part $\epsilon_1$ drops to a value at a frequency low compared to the characteristic vibrational frequency. As the frequency increases through the vibrational region, $\epsilon_1$ oscillates and settles down at a low-frequency limit for electronic modes. After finally the frequency reaches beyond the point where all electronic modes are exhausted, $\epsilon_1$ approaches 1.
+    
+    At each relaxation frequency of $\epsilon_1$ there is an associative peak in absorption $\epsilon_2$.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Plasmonics}
+Two types of surface plasmons. One is a dispersive electromagnetic wave coupled to the electron plasma of a conducting material propagating along the interface between the conductor and a dielectric. This is called a surface plasmon polariton resonance (SPPR), or just SPP or SPR. The other type is a non-propagating excitation of the electron plasma of metallic nanostructures coupled to an incident electromagnetic field called a localized surface plasmon resonance (LSPR).
+
+\subsubsection{Surface Plasmon Polaritons}
+\begin{itemize}
+    \item Surface Plasmon Polaritons (SPP) are electromagnetic excitations propagating along the surface between a dielectric and a conductor, evanescently confined at the interface.
+    
+    \item Arises due to coupling of an external electromagnetic field and the electron plasma oscillations in the conductor.
+    
+    \item The existence of SPPs requires a negative real part on the dielectric function $\epsilon_1$ of one of the media (metal), while the other media (dielectric) has a real-valued dielectric function $\epsilon_2$. \footnote{Hans Arwin\cite{hans_arwin}: requires negative imaginary part of dielectric constant. Maier\cite{maier} and \cite{Stockman:11}: requires negative real part.} The condition of Re$[\epsilon_1]<0$ is fulfilled for metals at frequencies belom the bulk plasmon frequency $\omega_p$.
+    
+    Propose a semi-infinite insulator/conductor system where the interface between the two media is along the $xy$-plane; a dielectric, non-absorbing medium in the $z>0$ half space with positive real dielectric constant $\epsilon_2$, and a metal in the adjacent $z<0$ half space described with dielectric function $\epsilon_1(\omega)$. A dispersion relation may be derived from the wave equation of such a system, assuming harmonic time dependence, absence of external charge and current densities, propagation along the x-direction so that there is no spatial variation in the perpendicular, in-plane y-direction, so that $\epsilon = \epsilon(z)$. For TM modes, this results in a set of governing equations, one of which is the wave equation
+    \begin{equation}
+        \label{eq:maier wave eq TM}
+        \frac{\partial^2H_y}{\partial z^2} + (k_0^2\epsilon - \beta ^2)H_y = 0
+    \end{equation}
+    which is coupled with other equations for $E_x$ and $E_z$ (not listed here). Here, $k_0 = \omega/c$ is the wave vector of the propagating wave in vacuum and $\beta = k_x$ is known as the \emph{propagation constant}, which corresponds to the component of the wave vector in the direction of propagation.
+    
+    By using equations (\ref{eq:maier wave eq TM}) and $E_x$, $E_z$, one may find expressions for these field components. \marginnote{rompe skrevet} If $k_i \equiv k_{z,i}$ $(i=1,2)$ are the wave vector components perpendicular to the interface in the two media, continuity conditions of $H_y$ and $\epsilon_i E_z$ at this interface leads to \cite{maier}
+    \begin{equation}
+        \label{eq:maier 2.12}
+        \frac{k_2}{k_1} = -\frac{\epsilon_2}{\epsilon_1},
+    \end{equation}
+    i.e. confinement to the surface demands Re$[\epsilon_1]<0$ if $\epsilon_2>0$, the surface waves only exist at interfaces between materials with opposite signs of the real part of their dielectric permittivities.
+    
+    Furthermore, the expression for $H_y$ has to fulfill the wave equation (\ref{eq:maier wave eq TM}). The result of this (not listed) combined with equation (\ref{eq:maier 2.12}) leads to the dispersion relation of SPPs propagating along the interface between two half spaces
+    
+    \begin{equation}
+        \beta = k_0 \sqrt{\frac{\epsilon_1\epsilon_2}{\epsilon_1+\epsilon_2}}.
+    \end{equation}
+    This equation is valid for both real and complex $\epsilon_1$, for conductors with and without attenuation.
+    
+    \item SPPs exists only for TM polarization (p-polarization). This can be seen by inspecting the field components of the electric and magnetic fields derived from the TE wave equation for a metal/insulator system\footnote{The same procedure for TM leads to equation (\ref{eq:maier 2.12})}. If the proposed surface-bound wave propagates in x-direction with z-direction being normal to the interface, continuity of $E_y$ and $H_x$ leads to the condition
+    \begin{equation}
+        A_1(k_1+k_2)=0.
+    \end{equation}
+    Surface confinement requires that $k_1$ and $k_2$ both be positive, so we are only left with the mathematically trivial solution $A_1 = 0 => A_1 = A_2 = 0$. Thus meaning that there may not exist surface modes for TE polarization\cite{maier}.
+    
+    \item From \cite{hans_arwin}. A SPP can be excited using light. The wave vector of a TM wave of light is $\mathbf{k}_a^{light} = (k_{xa}^{light},0,k_{za}^{light})$, where $|\mathbf{k}_a^{light}| =2\pi \sqrt{\epsilon_a}/\lambda$. In order to excite a SPP, the wave vector component of light parallel to the interface incident towards the substrate, 
+    \begin{equation}
+        k_{xa}^{light} = \frac{2\pi}{\lambda}\sqrt{\epsilon_a} \sin \theta_a ,
+    \end{equation}
+    must then be equal to the corresponding component of such a surface bound wave 
+    \begin{equation}
+        k_x = k_{sp}^\infty = \frac{2\pi}{\lambda}\sqrt{\frac{\epsilon_a\epsilon_s}{\epsilon_a+\epsilon_s}}.
+    \end{equation} Subscripts $a$ and $s$ indicates ambient and substrate, respectively, and the TM wave is propagating in xz-direction with $\hat{z}$ being equal to the surface normal. However, there is no angle of incidence that matches $k_{ka}^{light}$ to be equal to $k_{sp}^\infty$. One solution may be to let the light be incident through the metal, which is unfortunately impossible in our semi-infinite media case due to absorption in the metal. A solution to this is to use a thin semi-transparent metal film between a glass prism and the SPP flow channel.
+\end{itemize}
+\subsubsubsection{Figures 2.3 and 2.4 Maier}    
+    
+\begin{itemize}
+    \item See fig 2.3 in Maier. SPP excitation correspond to the part of the dispersion curve lying to the right of their light lines, while radiation into metals occur in the transparency regime $\omega > \omega_p$. Thus, there is a region (frequency gap) between the bound and radiative modes with a purely imaginary $\beta$ where propagation cannot exist. Bound modes lie to the right of the light. 
+    
+    \item Low frequency wave vectors close to $k_0$ (light line), mid-IR or lower, the waves extend over many wavelengths into the dielectric space. In this regime the SPPs acquire the nature of a grazing-incidence light field (aka Sommerfield-Zenneck waves)
+    
+    \item The bound SPPs of real metals featuring both free-electron and interband damping will approach a maximum finite (in contrast to an ideal conductor with negligible damping of the conduction electron oscillation, implying Im$[\epsilon_1] = 0$, in fig 2.3) wave vector at the surface plasmon frequency $\omega_{sp}$ of the system, see fig 2.4.
+    \begin{equation}
+        \omega_{sp} = \frac{\omega_p}{\sqrt{1+\epsilon_2}}
+    \end{equation}
+    This puts a lower limit both for the surface plasmon wavelength $\lambda_{sp} = 2\pi/$Re$[\beta]$ and the amount of mode confinement perpendicular to the interface, since the evanescent SPP field in the dielectric falls off as $e^{-|k_z| |z|}$, where $k_z = \sqrt{\beta^2 - \epsilon_2 (\omega/c)^2}$. In addition, the prohibited regime between $\omega_{sp}$ and $\omega_p$ is now allowed, in contrast to the case of an ideal conductor where Re$[\beta]=0$ in this region (fig 2.3).
+    
+    \item Fig 2.8 Example: gold/air/gold metal-insulator-metal (MIM) heterostructure. Along with an increased localization of the field to the gold/air interface (either via small gap sizes or excitation closer to $\omega_{sp}$) comes a shift of the energy into the metal regions.
+    
+    
+    \item Fig 2.8 cont. SPPs at frequencies close to $\omega_{sp}$ experience a large field confinement to the interface, and also a small propagation length $L$ due to increased damping. The better the confinement (meaning bound closer to interface), the lower the propagation length.
+    
+    \item Fig 2.8 summarized: (a) Smaller gap size $=>$ larger $\beta$; (b) Smaller gap size $=>$ larger fraction of energy residing inside the metal half space; (c) Smaller gap size $=>$ shorter mode length $L_{eff}$.
+    
+    \item (a) With increasing $\beta$ the mode is becoming more electron-plasma in character, suggesting that the electromagnetic energy is residing increasingly in the metal half-spaces. (c) Despite the penetration of a significant amount of the SPP energy into the metal (for excitation near $\omega_{sp}$ or with small gap sizes), the associated large $\beta$ ensure that the effective extent of the mode perpendicular to the interface(s), $L_{eff}$, drops well below the diffraction limit.
+    
+\end{itemize}
+
+\subsubsection{Excitation of Surface Plasmon Polaritons}
+\begin{itemize}
+    \item Confinement is achieved due to the propagation constant $\beta$ is greater than the wave vector in the dielectric $k$, leading to evanescent decay on both sides of the interface. The SPP dispersion curve therefore lies to the right of the light line ($\omega = ck$, see fig 2.3 and 2.4), and excitation of three-dimensional light beams is impossible without special techniques for phase matching $\beta$ and $k$.
+    
+    \item Problem: mismatch in wave vector between the in-plane momentum $k_x$ of incident photons and the required SPP momentum $\beta$. SPPs on a flat insulator/conductor interface cannot be directly excited by light beams since $\beta>k$ (where $k$ is the wave vector of light on the dielectric side).
+\end{itemize}
+
+\subsubsubsection{Prism Coupling}
+
+\subsubsubsection{Grating Coupling}
+
+\subsubsection{Localized Surface Plasmon Resonances}
+\begin{itemize}
+    \item Resonances that creates an enhanced local electromagnetic field. Non-propagating excitations of the electron plasma of metallic nanostructures coupled to the electromagnetic field.
+    
+    \item Occurs naturally in the scattering of an oscillating electromagnetic field from a small, sub-wavelength conductive nanoparticle. The surface curvature of the particle acts as an effective restoring force on the driven electron-plasma so that a resonance arises. 
+    
+    \item In contrast to the propagating surface plasmon polaritons, localized surface plasmon resonances can be directly excited with no need for clever phase-matching techniques. This is another consequence of the curved surface of the conductive nanoparticle.
+
+    \item Can be excited in nanostructures of noble metals by radiation in optical regime. Optical characterization methods can therefore be used.
+    
+    \item The excitation is polarization dependent [Maier]. Ellipsometry is therefore a useful tool to study this phenomenon as it is non-destructive and sensitive to an anisotropic dielectric function. 
+    
+    \item EM energy can be confined into volumes smaller than the diffraction limit $(\lambda_0/2n)^3$, where $n$ is the refractive index of the surrounding medium. This high confinement leads to an additional (but small?) field enhancement and is of prime importance in plasmonics.
+    
+    \item The second fundamental excitation of plasmonics.
+    
+    \item For gold and silver nanoparticles, the resonances occur in visible light. Bright colors are therefore observed in both transmitted and reflected light due to resonantly enhanced absorption and scattering.
+    
+\end{itemize}
+
+\subsubsubsection{\bf{5.1 Normal Modes of Sub-Wavelength Metal Particles}}
+\begin{itemize}
+    \item Quasi-static approximation: If the particle size is much smaller than the wavelength of light in the surrounding medium, $d\ll \lambda$, then the interaction process may be examined using the \emph{quasi-static approximation}. The phase of the harmonically oscillating field is then assumed to be practically constant over the particle volume, so that the spatial field distribution can be calculated by assuming that the particle is surrounded by an electrostatic field. The harmonic time dependence may be added to the solution once the field distributions are known.
+    
+    In other words: Ignore spatial retardation effects over the particle volume while allowing harmonic time varying fields. A reasonable approximation for spherical and ellipsoidal particles with dimensions below $100$ nm when illuminated by visual or near-IR light.
+    
+    \item Will from here on concider the example of a homogeneous, isotropic sphere of radius $a$ located at the origin in a uniform, static electric field $\mathbf{E}=E_0\mathbf{\hat{z}}$. The surrounding isotropic non-absorbing medium has dielectric constant $\epsilon_m$ while the dielectric response of the sphere is $\epsilon$.
+    
+    \item The distribution of the electric field $\mathbf{E}=-\nabla \Phi$ can be calculated from the solution of the Laplace equation $\nabla ^2 \Phi = 0$. Since the problem has azimuthal symmetry, the general solution is of the form
+    \begin{equation}
+        \Phi (r,\theta) = \sum_{l=0}^\infty[A_lr^l + B_lr^{-(l+1)}] P_l(\cos\theta),
+    \end{equation}
+    with Legendre polynomials $P_l(\cos\theta)$ of order $l$, and $\theta$ being the angle between origo (centre of sphere) of z-axis and the position vector $\mathbf{r}$.
+    
+    \item The potentials must be finite at the origin, the potentials inside and outside the sphere may therefore be written as
+    \begin{align}
+        \Phi_{in}(r,\theta) &= \sum_{l=0}^\infty A_l r^l P_l(\cos\theta) \\
+        \Phi_{out}(r,\theta) &= \sum_{l=0}^\infty [B_l r^l + C_l r^{-(l+1)}] P_l(\cos\theta). 
+    \end{align}
+    
+    \item Coefficients $A_l$, $B_l$, $C_l$ may be determined from the boundary conditions at $r \to \infty$ and $r=a$. On the former limit it is required that $\Phi_{out} \to -E_0z = -E_0r\cos\theta$ which demands that $B_1 = -E_0$ and $B_l=0$ for all other $l$. The remaining coefficients are found from the latter limit on the particle surface, by equating tangential components of the electric field outside and inside the sphere at $r=a$, and similarly by equating the normal components of the displacement field. This leads to $A_l = C_l = 0$ for $l \neq 1$, and by calculating the remaining $A_1$ and $C_1$ the potentials end up as
+    
+    \begin{align}
+        \Phi_{in} &= -\frac{3\epsilon_m}{\epsilon+2\epsilon_m}E_0 r \cos\theta  \\
+        \Phi_{out} &= -E_0 r \cos\theta + \frac{\epsilon-\epsilon_m}{\epsilon+2\epsilon_m} E_0 a^3 \frac{\cos\theta}{r^2}.
+    \end{align}
+    
+    Physical interpretation of the last equation: $\Phi_{out}$ describes the superposition of the applied field and that of a dipole located at the particle center.
+    
+    \item $\Phi_{out}$ may be rewritten in terms of dipole moment $\mathbf{p}$ as
+    \begin{align}
+        \Phi_{out} &= -E_0 r \cos\theta + \frac{\mathbf{p}\cdot \mathbf{r}}{4\pi\epsilon_0\epsilon_mr^3}    \\
+        \mathbf{p} &= 4\pi\epsilon_0\epsilon_m a^3 \frac{\epsilon-\epsilon_m}{\epsilon+2\epsilon_m} \mathbf{E_0}.
+    \end{align}
+    Thus, as said above, the applied field induces a dipole moment inside the sphere proportional to the electric field. The radiation of this dipole leads to \emph{scattering} of the plane wave by the sphere, which can be represented as radiation by a point dipole as here.
+    
+    \item An interesting property that is fitting to introduce here is the polarizability $\alpha$, defined as $\mathbf{p} = \epsilon_0\epsilon_m\alpha\mathbf{E_0}$, which describes a material's ability to form instantaneous dipoles, or in other words, the relative tendency of a charge distribution to have its charges displaced by an external electric field. This definiton results in 
+    \begin{equation}
+        \alpha = 4\pi a^3 \frac{\epsilon-\epsilon_m}{\epsilon+2\epsilon_m}.
+    \end{equation}
+    We see that the polarizability is proportional to the particle radius cubed, and it is apparent that a resonant behaviour occurs when $|\epsilon+2\epsilon_m|$ is at a minimum. In the case of a small or slowly varying Im$[\epsilon]$ this resonance condition simplifies to 
+    \begin{equation}
+        \text{Re}[\epsilon(\omega)] = -2\epsilon_m.
+        \label{eq:frolich}
+    \end{equation}
+    This is known as the Frölich condition, and the associated mode is called the \emph{dipole surface plasmon} of the metal nanoparticle.
+    
+    \item From equation (\ref{eq:frolich}) it is evident that the resonance frequency depends strongly on the dielectric environment: for a Drude metal with a small Im$[\epsilon(\omega)]$ the resonance red-shifts as the dielectric constant of the surroundings $\epsilon_m$ increases. Metal nanoparticles are therefore a very promising mean of optical sensing of changes in refractive index.
+    
+    \item The magnitude of $\alpha$ at resonance is limited by the incomplete vanishing of its denominator, as Im$[\epsilon(\omega)] \neq 0$.
+    
+    \item Because of the relation $\mathbf{E} = -\nabla \Phi$, a resonance in polarizability implies a resonant enhancement of both internal and external (which includes the dipolar field) electric fields.
+    
+    \item In the near field ($kr \ll 1$) of an oscillating electric dipole, the electromagnetic fields are predominantly electric in nature. For static fields ($kr \to 0$) the magnetic field vanishes completely. In the far field aka radiation zone ($kr \gg 1$) the dipole fields are spherical in shape and proportional to $1/r$.
+    
+    \item A consequence of a resonantly enhanced polarizability is a concomitant (accompanying, in a lesser way) enhancement in the metal nanoparticle's ability to scatter and absorb light. This can be seen from the cross sections for scattering and absorption\cite{BH},
+    \begin{subequations}
+        \label{eq:cross_sections}
+        \begin{align}
+            C_{sca} &= \frac{k^4}{6\pi}|\alpha|^2 = \frac{8\pi}{3} k^3 a^6 \abs{ \frac{\epsilon-\epsilon_m}{\epsilon+2\epsilon_m} }^2 \\
+            C_{abs} &= k\text{Im}[\alpha] = 4 \pi k a^3 \text{Im}\left[ \frac{\epsilon-\epsilon_m}{\epsilon+2\epsilon_m} \right]
+        \end{align}
+    \end{subequations}
+    These equations are valid for all small spherical materials, no metallic assumption is made in the derivation. Due to the rapid scaling of $C_{sca} \propto a^6$ it is very difficult to pick out small objects from a background of large scatterers.
+    
+    Equations (\ref{eq:cross_sections}) show that for metallic nanoparticles both absorption and scattering (and thus extinction) is resonant at the dipole particle plasmon resonance when the Frölich condition is met. 
+    
+    \item Ellipsoids (radii $a_1$, $a_2$, $a_3$) and spheroids (e.g. $a_2=a_3$) can be studied and polarizabilities $\alpha_i$ derived along the principal axes ($i=1,2,3$) with a dependency on a geometrical form factor $L_i$,
+    \begin{equation}
+        \alpha_i = 4 \pi a_1 a_2 a_3 \frac{\epsilon(\omega) - \epsilon_m}{3\epsilon_m + 3L_i( \epsilon(\omega) - \epsilon )}.
+        \label{eq:polarizability_ellipsoid}
+    \end{equation}
+    The geometrical form factors satisfy $\sum L_i=1$, and for a sphere $L_1 = L_2 = L_3 = 1/3$. Alternatively, the polarizability in such geometries may be expressed in terms of depolarization factors $\~{L}_i$, defined via $E_{1i} = E_{0i}-\~{L}_iP_{1i}$, where $E_{1i}$ and $P_{1i}$ are the electric and induced polarization field inside the particle by the applied field $E_{0i}$.
+    
+    Equation (\ref{eq:polarizability_ellipsoid}) reveals that a spheroidal metal nanoparticle exhibits two spectrally seperated plasmon resonances, corresponding to oscillations of its conduction electrons along its major and minor axes. The resonances due to oscillations in the major axis can show a significant spectral red-shift compared to the plasmon resonance of a sphere of the same volume. Plasmon resonances can therefore be lowered into the near-IR region of the spectrum using large aspect-ratio metallic nanoparticles.
+    
+\end{itemize}
+
+\subsubsubsection{\bf{5.2 Mie Theory}}
+\begin{itemize}
+    \item Summary of the previous section: The theory of scattering and absorption of radiation by a small sphere predicts a resonant field enhancement due to a resonance in polarizability $\alpha$ when the Frölich condition is satisfied. Under these circumstances the nanoparticle acts as an electric dipole, resonantly absorbing and scattering electromagnetic fields. This theory of \emph{dipole} plasmon resonance is however only valid for very small particles (diameter below 100 nm!) where the quasi-static approximation is applicable.
+    
+    \item For larger particles where the phase-changes of the driving field over the particle volume is no longer insignificant, a rigorous electrodynamic approach is necessary. This is where Mie theory comes in. The approach of Mie theory is to expand the internal and external fields into a set of \emph{normal modes} described by vector harmonics. The quasi-static solution as we know them, valid for sub-wavelength spheres, are then recovered by a power series expansion of the absorption and scattering coefficients and retaining only the first term.
+\end{itemize}
+
+\subsubsubsection{\bf{5.5 Coupling between Localized Plasmons}}
+
+\begin{itemize}
+    \item For a \emph{single} metallic nanoparticle we have seen that the localized plasmon resonance frequency can be shifted from the Frölich frequency, defined in equation (\ref{eq:frolich}), by altering particle shape or size. In particle \emph{ensembles}, additional shifts are to be expected due to electromagnetic interactions between the localized modes.
+    
+    \item For small particles, these interactions are essentially dipolar in behaviour, and can in a first approximation be treated as an ensemble of interacting dipoles.
+    
+    \item Interparticle coupling will lead to shifts in the spectral position of the plasma resonance compared to the case of an isolated particle. Using the simple approximation of an array of interacting point dipoles, the direction of this resonance shift can be determined by studying the field lines of the Coulomb forces associated with the polarization of the particles.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Mie Theory}
+\begin{itemize}
+    \item Describes the scattering and absorption of an electromagnetic plane wave by spherical particles.
+    \item The solution takes the form of an infinite series of spherical multipole partial waves.
+    \item It is exact and analytical description. Perhaps the most important application is the scattering and absorption of a sphere with arbitrary radius and refractive index.
+    \item One may also use Mie theory to find solutions of Maxwell's equations for scattering by stratified spheres, infinite cylinders, or by other geometries where one can write separate equations for the radial and angular dependence of solutions. The term "Mie solution" is used for geometries other than homogeneous spheres.
+    \item The term "Mie theory" is often used for this collection of solutions and methods. It does not refer to an independent physical theory or law.
+    \itme "Mie scattering" suggests situations where the size of the scattering particle is comparable to the wavelength of light. Rayleigh scattering and geometric optics are approximations of Mie theory where the sizes of scattering particles are much smaller or much larger, respectively, than the wavelength of incident light.
+    \item The formalism allow the calculation of the electric and magnetic field inside and outside a spherical object and is generally used to calculate how much light is scattered (scattering cross section) or where it goes (the form factor). 
+    \item Among the results are the Mie resonances, particle sizes that scatter particularly strongly or weakly.
+    \item Extinction cross section is the combined effect of absorption and scattering in all directions.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Optical Elements}
+\begin{itemize}
+    \item Physically realizable Mueller Matrix: \\ \\
+    $P = \sqrt{S_1^2+S_2^2+S_3^2}/S_0 \leq 1$, degree of polarization cannot be greater than 1.,  \\ 
+    Tr$[\mathbf{M}\mathbf{M}^T] \leq 4$ \\ 
+    $|m_{ij}| \leq 1. 
+    
+\end{itemize}
+
+\subsection{Optical responses (1.6)}
+\begin{itemize}
+    \item Isotropic media: described by a scalar $\epsilon$, the material has a symmetric crystal systel, i.e. cubic.
+    
+    \item Anisotropic media: the crystal have an asymmetric structure, like uniaxial symmetry (tetragonal, hexagonal or trigonal crystal system), leading to an optical anisotropy.
+    
+    \item Anisotropy can be caused naturally by a material's crystalline or molecular structure, but it can also be induced by e.g. electromagnetic fields, pressure. Examples are the Pockels and Kerr effects (induced by electric fields), Faraday and Voigt/Cotton-Mouton effects (induced by magnetic fields). Structured materials may also inhabit anisotropy due to the spatial arrangement of the sample's constituents.
+    
+    \item Birefringence: light experiences two different indices of refraction depending on its direction of propagation through the medium. The \emph{optic axis} is defined along the direction of the extraordinary index of refraction. A measure of birefringence is $\Delta n = n_e - n_0$.
+    
+    \item Dichroism: light experiences different attenuation of the electric field depending on its direction.
+    
+    \item Optical activity: the linear polarization of light rotates throughout the medium. An optically active material show circular birefringence, by which is meant that circularly polarized light experience different index of refraction (i.e. travel at different speeds) depending on whether it is right-handed or left-handed polarized.
+    
+    \item Pockels effect (aka linear electro-optic effect) induces a change in refractive index, i.e. birefringence, that is linearly proportional to the applied electric field. \\
+    Kerr effect (aka quadratic electro-optic effect) induces a birefringence that is proportional to the square of the applied electric field.
+    
+    \item Faraday effect: an applied magnetic field induces a rotation of the linearly polarized light propagating through the medium which is under the influence of the field. The rotation is linearly proportional to the applied magnetic field. \\
+    Voigt effect: The induced birefringence is quadratically proportional to the applied magnetic field. Called the Cotton-Mouton effect when in liquids.
+    
+\end{itemize}
+
+\subsection{Optics of Layered Media (7)}
+\begin{itemize}
+    \item At any time on any point on the interface between two media, continuity is required between tangential components of the electric field and normal components of the displacement field (or magnetic field)
+    
+    \item Complex reflection coefficients: $r_p = E_{rp}/E_{ip}$, $r_s = E_{rs}/E_{is}$. \\
+    Reflectance, the total irradiance of incident light that appears in the reflected wave: $R_p = |r_p|^2$, $R_s = |r_s|^2$.
+    
+    \item Principal angle: the angle of incidence which results in a phase shift of $\pi/2$ between p- and s-reflection coefficients. At this angle, an incident linearly polarized wave will be reflected elliptically polarized with major and minor axes aligned parallel and perpendicular to the plane of incidence, or vice versa.
+    
+    \item An inhomogeneous wave: if the wave vector is complex and the real and imaginary parts are not parallel with each other.
+    
+    \item Brewster's angle: the angle of incidence which results in zero reflectance of p-polarized (TM) light, $R_p = 0$.
+    
+    \item Total internal reflection (TIR) may only occur if the incident wave is travelling in a medium of higher refractive index $n_0$ than the one it is about to hit $n_1$, i.e. $n_0>n_1$. Also, the angle of incidence (AOI) must be equal or larger than the critical angle defined by $\sin\theta_c = n_1/n_0$.
+    
+    \item Layered n-phase media may be treated by matrix formulation.
+    
+\end{itemize}
+
+\subsubsection{Anisotropic layered media (7.3)}
+
+\begin{itemize}
+    \item For a system with isotropic and homogeneous layers, each layer can be treated as a 2x2 transfer matrix based on Fresnel equations, dividing the total system Mueller Matrix into a superposition of MMs, each representing the interactions of individual layers. If the layers are anisotropic, a more demanding 4x4 matrix formulation is needed, as developed by Berreman and furthermore established by Schubert (REF)
+    
+    \item Must include possible conversions between p- and s-polarized light, which for reflection are the complex coefficients $r_{ps}$ and $r_{sp}$.
+    
+    \item Need to know the direction of optic axis. For example, if the optic axis is normal to the surface, then only the p-component (TM mode) of the electric field will experience anisotropy, and therefore the reflection Jones matrix will be diagonal as $r_{ps} = r_{sp} = 0$. If the optic axis is parallel to the surface (and not perpendicular or in the plane of incidence) then all four elements in the reflection matrix is non-zero.
+    
+    \item General formulation strategy: utilize the boundary condition that tangential fields must be continuous at interfaces in the layered system.
+
+    \item Objective: find elements of reflection/transmission Jones matrix of the layered system, i.e. find connections to the four wave amplitudes in the ambient, $A_s$,$A_p$ (incident) and $B_s$,$B_p$ (reflected), with the two amplitudes in the substrate, $F_s$, $F_p$ (transmitted). These connections are contained in the 4x4 general transfer matrix $\mathbf{T}$.
+    
+    \item $\mathbf{T}$ may be subdivided into an entrance matrix (describing ambient), partial transfer (describing the layer interactions), and an exit matrix (describing the substrate). For a system with $N$ layers, each with its own transfer matrix $\mathbf{T}_p$ and thickness $d_i$, the resulting total transfer matrix of the system is
+    \begin{equation}
+        \mathbf{T}_{sys} = \mathbf{L}_a^{-1} \prod_{i=1}^N [\mathbf{T}_{pi}(d_i)]^{-1} \mathbf{L}_s,
+        \label{eq:general_transfer_matrix}
+    \end{equation}
+    where $\mathbf{L}_a$ describes incident and reflected fields in the ambient, $\mathbf{L}_s$ the transmitted field in the substrate.
+    
+    \item Finding the partial transfer matrices $\mathbf{T}_i$ involves solving four differential equations based on the first order Maxwell equations and proper boundary conditions (REF). The in-plane components of the electric and magnetic fields are contained in the generalized field vector
+    \begin{equation}
+        \mathbf{\Psi}(z) = [E_x(z), E_y(z), H_x(z), H_y(z)]^T
+    \end{equation}
+    and follow the matrix wave equation
+    \begin{equation}
+        \frac{\partial}{\partial z}\mathbf{\Psi}(z) = i\frac{2\pi}{\lambda}\mathbf{\Delta}(z)\mathbf{\Psi}(z).
+        \label{eq:matrix_wave_eq}
+    \end{equation}
+    The 4x4 matrix $\mathbf{\Delta}(z)$ is called the wave transfer matrix and contains information about the layer optical properties. It involves a more general second rank tensor dielectric function, so that $\mathbf{\epsilon}$ is dependent on crystal symmetries in the material.
+    
+    \item For homogeneous materials $\mathbf{\Delta}$ is independent of $z$ so that the solution of equation (\ref{eq:matrix_wave_eq}) becomes 
+    \begin{subequations}
+    \begin{align}
+        \mathbf{\Psi}(z+d) &= e^{i\frac{2\pi}{\lambda}\mathbf{\Delta}d} \mathbf{\Psi}(z) = \mathbf{T}_p(d) \mathbf{\Psi}(z)    \\
+        \mathbf{T}_p &\equiv e^{i\frac{2\pi}{\lambda}\mathbf{\Delta}d}
+    \end{align}
+    \end{subequations}
+    The matrix $\mathbf{T}_p(d)$ connects the in-plane components of the electromagnetic field at two interfaces separated a distance $d$. Next, one must expand the matrix exponential in order to obtain the elements of $\mathbf{T}_p(d)$ in terms of the layer optical properties, i.e. the elements of  $\mathbf{\Delta}$. By applying Cayley-Hamilton's theorem (REF [83,84] i Arwin, [34,37] i BrakstadMaster) one may find an exact solution for arbitrary layer thickness $d$,
+    \begin{equation}
+        \mathbf{T}_p(d) = \beta_0\mathbf{I} + \beta_1\mathbf{\Delta} + \beta_2\mathbf{\Delta}^2 + \beta_3\mathbf{\Delta}^3
+    \end{equation}
+    where $\mathbf{I}$ is the identity matrix and the scalars $\beta_i$ are solutions to the set of the four equations
+    \begin{equation}
+        e^{i\frac{2\pi d}{\lambda}\lambda_k} = \beta_0 + \beta_1 \lambda_k + \beta_2 \lambda_k^2 + \beta_3 \lambda_k^3, \quad k=1,..,4
+    \end{equation}
+    and $\lambda_k$ are eigenvalues to $\mathbf{\Delta}$.
+\end{itemize}
+
+\subsubsection{Effective Medium Approximation (EMA)}
+
+\begin{itemize}
+    \item Approximating inhomogeneous materials with size features by describing them with an average optical response. 
+    
+    Basic definition: the extinction and scattering of radiation of a random unit cell (a cell that accounts for the essential features of the composite microstructure) embedded in the effective medium should be the same as if it was replaced with a material with the effective dielectric function.
+    
+    \item Examples of inhomogeneous structures are porous materials, surface roughness, composite materials, layers with nanotips and more.
+    
+    \item Assumptions: There are at least two materials, each having a large enough presence in domains so that they can be assigned optical properties in terms of dielectric functions;
+    The individual material domains are much smaller (10 times) than the wavelength of light (quasistatic approximation).
+    
+    The resulting average dielectric function is derived by EMAs. Once the optical response has been condensed into a macroscopic $\epsilon$, one can use Maxwell's equations and the laws of Fresnel and Snell to describe light and matter interactions.
+    
+    \item Distinguish between four different classes of media depending on whether the basic unit of EM interaction is a dipole, a domain, a structure, or an object.
+    
+    \emph{Interaction with dipoles}: Homogeneous in shape, most ordinary materials apply, common methodology is Clausius-Mossotti. Every material is in principle non-homogeneous as dipoles are located at lattice sites or more randomly in amorphous materials, i.e. they are not smeared out in a continuum and thus heterogeneous by definition. The Clausius-Mossotti expression is a result of averaging the optical response of microscopic dipoles at lattice sites to macroscopic a dielectric function. The field distribution inside a crystal depends on the magnitudes, positions and number of dipoles, and thus affecting the resulting macroscopic parameter $\epsilon$ or $n$. The resulting expression basically tells us that even though each individual dipole scatters the field, the total scattered field corresponds to a plane wave propagating through the medium.
+    
+    \emph{Interactions with domains}: Random in shape, examples are composite materials, this is where effective medium approximations (EMA) will apply. A material can be inhomogeneous in terms of having randomly mixed volumes of two or more materials. In an EMA approach, the average electric field is calculated and a dielectric function defined. Microstructural information is then lost and only averaging information like volume fractions are retained. In media without rotational symmetry, directional information is required to model and the average $\epsilon$ becomes a tensor.
+    
+    \emph{Interactions with structures}: Can vary in shape, from metamaterials to arbitrary small particles to photonic crystals and gratings. The methodology may differ for each shape, numerical methods (metamaterials), Rayleigh scattering and Mie theory (small particles) and diffraction theory (photonic crystals, gratings) whereas the latter examples tend to use structures of comparable size to the wavelength of light.
+    
+    \emph{Interactions with objects}: Macroscopic in size, ordinary objects, geometrical optics may be used as well as Fresnel and Snell.
+    
+    \item \emph{Clausius-Mossotti equation} for several types of dipoles, each with polarizability $\alpha_i$ and dipole number density $n_i$, is
+    \begin{equation}
+        \frac{\epsilon-1}{\epsilon+2} = \sum_i \frac{n_i\alpha_i}{3\epsilon_0}. 
+        \label{eq:clausius-mossotti}
+    \end{equation}
+    This result is important as it is a self-consistent solution including dipole-dipole interactions. It shows the coupling between micro (polarizability $\alpha$ of dipoles) and macro (dielectric function $\epsilon$ of the material). Furthermore it provides in principle the formalism for the effective medium theory for a homogeneous material. \marginnote{noe selvmotsigelser om dipolsystemet er homogent eller ikke} Basically, concidering the microscopic approach of the derivation (dipoles) and the macroscopic result, it turns out that a sphere placed in a uniform electric field will scatter the field in the same way as a dipole would do \footnote{i.e. Rayleigh approximation, $d\ll\lambda$}
+    
+    \item \emph{Screening effect}: In the case of a two-component composite, maximum screening occurs if all component boundaries are perpendicular to the applied field, so that the component with the lowest $\epsilon$ will dominate and screen the other component so it becomes less "visible" than what its volume fraction would imply. The macroscopic average dielectric function in such a case would be
+    \begin{equation}
+        \epsilon_\perp = \frac{1}{\frac{f_A}{\epsilon_A} + \frac{f_B}{\epsilon_B}}.
+    \end{equation}
+    The opposite case of zero screening is a microstructure where both component boundaries lie parallel to the applied field, so that
+    \begin{equation}
+        \epsilon_\parallel = f_A \epsilon_A + f_B \epsilon_B
+    \end{equation}
+    and the resulting dielectric function is simply a volume averaging, where each component contributes accordingly to their volumetric presence.
+    
+    These two maxima of screening are known as Wiener limits.
+    
+    \item \emph{Limitations on EMA models}: The inhomogeneities (imbedded particles, inclusions) cannot be too small, as they are assumed to have their own dielectric identity; the inhomogeneities cannot be too large either (smaller than wavelength of light) as scattering phenomena would occur (Mie theory) if their size becomes comparable to $\lambda$; inhomogeneities can also interact, this is difficult to account for.
+    
+    Because of these limitations the models for effective media have lower and upper limits for the component's filling factor $f$.
+    
+    \item Simple cases, like the three presented below, assume that the inhomogeneous materials have on average a rotational and translational symmetry, so that the inhomogeneities are on average spherical in shape and thus spherical random unit cells can be used. The medium can then be characterized by a scalar $\epsilon_{EMA}$. For other particle shapes one must consider a local field correction in different symmetry directions, which quickly becomes complicated when including the so-called depolarization factors.
+    
+    \item \emph{Lorentz-Lorenz effective medium} (Spheres in vacuum): Polarizability of a sphere with volume $V$ in vacuum surrounded by a uniform electric field is found to be [Arwin pp.57]
+    \begin{equation}
+        \alpha = 3\epsilon_0 V \frac{\epsilon_A - 1}{\epsilon_A + 2}.
+    \end{equation}
+    Inserting this equation into equation (\ref{eq:clausius-mossotti}) for a single type of dipole leads to the Lorentz-Lorenz effective medium expression
+    \begin{equation}
+        \frac{\epsilon - 1}{\epsilon + 2} = f_A \frac{\epsilon_A - 1}{\epsilon_A + 2}
+    \end{equation}
+    where $f_A=nV$ is the volume fraction occupied by spheres. It has limited practical use, really only valid for very dilute systems like spherical particles in air or vacuum.
+    
+    \item \emph{Maxwell Garnett effective medium} (Coated spheres): Basically Lorentz-Lorenz but the particles are surrounded by another material instead of vacuum. The grains of a material $\epsilon_A$ are embedded in a host material $\epsilon_B$, which can be represented by a random unit cell being a coated sphere consisting of a core $\epsilon_A$ surrounded by a shell $\epsilon_B$. The goal is to find the effective dielectric function $\epsilon$ of the composite material. 
+    
+    Based on this random unit cell and Mie theory, Maxwell Garnett derived
+    \begin{equation}
+        \frac{\epsilon - \epsilon_B}{\epsilon + 2\epsilon_B} = f_A \frac{\epsilon_A - \epsilon_B}{\epsilon_A + 2\epsilon_B}
+    \end{equation}
+    with filling factor $f_A = a^3/b^3$ where $a$ and $b$ are the radii of the inner and outer sphere in the random unit cell. This expression has a non-physical resonance if $\epsilon_A = -2\epsilon_B$ which may occur for metals in frequency areas of low imaginary part and negative real part. The theory give good approximations for grain filling factors up to about $f_A = 0.3$.
+    
+    \item \emph{Bruggeman effective medium} (Aggregate structure): Structural equivalence between the two constituents, where materials A and B are randomly mixed. The random unit cell can therefore be taken to be a sphere (if full rotational and translational symmetry is assumed, ellipsoid otherwise) whose dielectric function has a probability $f_A$ of being $\epsilon_A$ and $f_B = 1-f_A$ of being $\epsilon_B$. Based on this and Mie scattering, Bruggeman derived
+    \begin{equation}
+        f_a \frac{\epsilon_A - \epsilon}{\epsilon_A + 2\epsilon} + (1-f_A) \frac{\epsilon_B - \epsilon}{\epsilon_B + 2\epsilon} = 0
+        \label{eq:bruggeman}
+    \end{equation}
+    which can be used  all values of $f_A$. This model does not show resonances as in Maxwell Garnett theory.
+    
+    \item Bruggeman model is favoured in the absence of any independent information about microstructure because it reduces to the appropriate Maxwell Garnett-limit in either case, and it treats all constituents on an equal basis.
+    
+    \item \emph{Particle shape effects}: The local field inside and outside a particle will depend on its shape. This is dealt with by introducing depolarization factors in the local field correction terms. For ellipsoids in general the local field correction in different symmetry directions $i = 1,2,3$ is
+    \begin{equation}
+        E_i = E_{i,loc} - L_i \frac{P_i}{\epsilon_0}
+    \end{equation}
+    where $E$ is the macroscopic field, $E_{loc}$ is the local microscopic electric field at a lattice point, $P$ the macroscopic polarization field, and $L$ the depolarization factors with $\sum L_i = 1$. In the case of an ellipsoidal random unit cell in Bruggeman theory, equation (\ref{eq:bruggeman}) becomes instead
+    \begin{equation}
+        f_A \frac{\epsilon_A - \epsilon_i}{\epsilon_i + L_i (\epsilon_A - \epsilon_i)} + (1-f_A) \frac{\epsilon_B - \epsilon_i}{\epsilon_i + L_i (\epsilon_B - \epsilon_i)} = 0
+    \end{equation}
+    where the two components are assumed to have the same $L_i$ for both types of random unit cells in order to preserve symmetry.
+\end{itemize}
+
+\cleardoublepage

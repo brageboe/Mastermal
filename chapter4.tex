@@ -234,8 +234,9 @@ The new setup also included the option of rebuilding the mesh less frequently, w
     \caption{Computer performance in calculation of the tilted GaSb cones, where each iteration of wavelength (stepsize 5 nm) includes an auxiliary parametric sweep of azimuthal rotation $\phi_0$ valued from $0^\circ$ to $355^\circ$ (stepsize $5^\circ$).  (a) Calculation time (in minutes) as well as amount of physical memory used (unit in gigabytes) at a given wavelength iteration. Incident wave is TE polarized. (b) Number of elements at a given wavelength iteration. }
     \label{fig:GaSb_comptime}
 \end{figure}
-Computation time for each wavelength iteration increases exponentially with decreasing wavelength. This is best shown in the model of GaSb cones, as it is simulated for wavelengths down to 90 nm. Figure \ref{fig:GaSb_comptime} shows logarithmic plots of calculation time and memory usage as a function of wavelength, as well as the number of elements the mesh consists of at a given wavelength, illustrating how computation time is dependent on the amount of finite elements to solve. Due to the simulation being computationally demanding, it had to be split into smaller segments where each segment (run separately) calculated a smaller wavelength region. The sharp changes at 200 nm and 900 nm is where one segment is finished and another begins. This is further explained in section \ref{sec:results_gasb}. In the GaSb cone model, the number of elements seem to stagnate around 700 nm, suggesting that it is unnecessary to further update the mesh beyond this point, as it would not result in fewer elements to solve in order to reduce computation time.
+Computation time for each wavelength iteration increases exponentially with decreasing wavelength. This is best shown in the model of GaSb cones, as it is simulated for wavelengths down to 90 nm. Figure \ref{fig:GaSb_comptime} shows logarithmic plots of calculation time and memory usage as a function of wavelength, as well as the number of elements the mesh consists of at a given wavelength, illustrating how computation time is dependent on the amount of finite elements to solve. Due to the simulation being computationally demanding, it had to be split into smaller segments where each segment (run separately) calculated their own region of wavelength. The sharp changes at 200 nm and 900 nm is where one segment is finished and another begins. This is further explained in section \ref{sec:results_gasb}. In the GaSb cone model, the number of elements seem to stagnate around 700 nm, suggesting that it is unnecessary to further update the mesh beyond this point, as it would not result in fewer elements to solve in order to reduce computation time.
 
+The exponentially decreasing computation time with increasing wavelength seen in figure \ref{fig:GaSb_comptime} is a trend common for all the samples simulated. It is clear that implementing a physics dependent mesh has an extreme effect on the total computation time for each simulation. With it, the TE simulation for the GaSb cones were completed in 2 days and 2 hours, whereas the same simulation running for a constant mesh configured for the lowest wavelength would take almost 40 days to complete!
 %Judging from figure REFa, it was seen sufficient to update the mesh only every 300 nm, at 900nm, 1200nm and 1500nm when doing calculations above . 
 
 
@@ -250,7 +251,7 @@ Computation time for each wavelength iteration increases exponentially with decr
 
 Throughout most of the thesis work the height of physical domain remained a constant 1000 nm for most simulations as seen in figures \ref{fig:meshDomainHeight_a} and \ref{fig:meshDomainHeight_b}, so that the distance from the point of reflection to ports were comparable to the wavelength. Reducing the size of this domain without affecting accuracy of results would greatly improve computational performance.
 
-When using domain-backed ports as here\footnote{The ports are backed by the PML domains, see figures \ref{fig:implementation_ewfd_ports} and \ref{fig:implementation_ewfd_pml}.}, the port locations does not matter \text{\color{red}[source: COMSOL support...]} and should correctly extract the plane-wave component from the field regardless of distance. However, the distance to the PML domains \emph{does} matter. PMLs do not dampen evanescent diffraction orders, so that these must decay before reaching the PML\cite{PML_reflectionOfEvanescentWaves1}\cite{PML_reflectionOfEvanescentWaves2}. The decay length of the evanescent waves are given by equation (\ref{eq:decaylength_grating}), and for sub-wavelength nanostructures the criterion for neglecting evanescent wave-coupling with the PMLs becomes $h_{\text{air, sub}}\gg a_{x,y}/(2\pi)$, where $h_{\text{air, sub}}$ is the height of the air or substrate domain (\text{\color{red}fjern hvis introdusert tidligere}) and  $a_{x,y}=\text{max}(a_x,a_y)}$ is whichever lattice constant is the largest for the sample\cite{decaylength_comsolsupport}. A more practical criterion for the minimum distance from reflection point to PML is then 
+When using domain-backed ports as here\footnote{The ports are backed by the PML domains, see figures \ref{fig:implementation_ewfd_ports} and \ref{fig:implementation_ewfd_pml}.}, the port locations does not matter \text{\color{red}[source: COMSOL support...]} and should correctly extract the plane-wave component from the field regardless of distance. However, the distance to the PML domains \emph{does} matter. PMLs do not dampen evanescent diffraction orders, so that these must decay before reaching the PML\cite{PML_reflectionOfEvanescentWaves1}\cite{PML_reflectionOfEvanescentWaves2}. The decay length of the evanescent waves are given by equation (\ref{eq:decaylength_grating}), and for sub-wavelength nanostructures the criterion for neglecting evanescent wave-coupling with the PMLs becomes $h_{\text{air, sub}}\gg a_{x,y}/(2\pi)$, where $h_{\text{air, sub}}$ is the height of the air or substrate domain (\text{\color{red}fjern hvis introdusert tidligere}) and  $a_{x,y}=\text{max}(a_x,a_y)$ is whichever lattice constant is the largest for the sample\cite{decaylength_comsolsupport}. A more practical criterion for the minimum distance from reflection point to PML is then 
 \begin{equation}
     h_{\text{air, sub}}> \frac{a_{x,y}}{2},
     \label{eq:height_physicaldomain}
@@ -267,7 +268,7 @@ for the gold hemispheroidal samples, and
 \end{subequations}
 for the tilted GaSb cones. Distance to bottom port was set equal to $ h_{\text{air}}$, except for the GaSb model where it was halved, $h_{\text{sub}} = h_{\text{air}}/2$, due to the absorptive nature of the GaSb substrate.
 
-As seen in figure \ref{fig:meshDomainHeight} and table \ref{tab:domainHeight}, reducing the volume of the physical domain drastically reduce the amount of elements to solve and hence reduces the required amount of RAM and computation time, particularly at lower wavelengths.
+As seen in figure \ref{fig:meshDomainHeight} and table \ref{tab:domainHeight}, reducing the volume of the physical domain drastically reduce the amount of elements to solve and hence reduces the required amount of RAM and computation time, particularly at lower wavelengths. Without this volume reduction some of the sample results to be presented would not be possible to calculate, considering that certain simulations pushed the limits of the desktop computer even after reducing the computational domain (specifically the GaSb cones), 
 %Because samples 6, 5A and 5B vary a great deal in size, and it was desirable for the models to be effortlessly interchangeable by changing only the sample parameters, the actual height of ambient and substrate domains used in the final model was
 %\begin{equation}
 %    h_{\text{air, sub}} = a_{x,y} + R_z
@@ -324,7 +325,7 @@ As stated in equation (\ref{eq:MES=lambda/6n}), the maximum element size was dec
 \section{Sample 6}
 Sample 6 was first simulated with a fixed height of the computational domain, similar to figures \ref{fig:meshDomainHeight}a-b. At a polar AOI $\theta_0=55^\circ$ for the wavelengths $\lambda=210-1200$ nm and azimuthal AOI $\phi_0=0^\circ-360^\circ$, the total elapsed real-time it took to complete the COMSOL simulation (also known as the \emph{wall time}) was 312 hours and 35 minutes, including both TE and TM simulations. However, these two were running simultaneously on the same computer, effectively reducing the actual time spent by half. By default, COMSOL uses the total number of available physical CPU cores during calculations. Assuming that the code is well balanced in that each core does approximately the same amount of work, the \emph{CPU time} using COMSOL can be estimated as the wall time multiplied by the amount of physical cores. In this case the CPU time becomes 78 days, 3 hours and 30 minutes! At a later stage, the simulations were run again for a reduced height of the computational domain similar to figures \ref{fig:meshDomainHeight}c-d, which reduced the wall time to approximately 82 hours without affecting accuracy of the results. On average, this is about 10 seconds wall time per wavelength per azimuthal angle.
 
-\begin{figure}[h!]  %% Rpp & Rss contour E and phi
+\begin{figure}[h]  %% Rpp & Rss contour E and phi
     \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[width=0.99\linewidth, trim=1.1cm 1.8cm 6.7cm 0.3cm, clip]{figures/ch4/S6/contour/S6_Rpp.png}
@@ -356,7 +357,7 @@ Sample 6 was first simulated with a fixed height of the computational domain, si
     \label{fig:S6_contour_Rpp&Rss_peps&Psipp}
 \end{figure}
 
-Reflectance coefficients $R_{pp}$ and $R_{ss}$ as functions of photon energy and incident azimuthal angle can be found in figure \ref{fig:S6_contour_Rpp} and \ref{fig:S6_contour_Rss}, respectively. The LSPR can be seen at $2.1$ eV, fluctuating slightly. In order to better visualize the features weaker than the strong LSPR, a different colorbar is used for energies $E>2.5$ eV. The optical response for these energies are attributed to the Rayleigh anomalies related to grazing diffracted waves just at the onset of diffracted orders\cite{Brakstad:15}. The expression for the Rayleigh anomaly condition, equation (\ref{eq:RayleighLines}), is used to find for which wavelength and incidence azimuthal angle a particular diffraction order is triggered along the sample surface. These are superposed in figure \ref{fig:S6_contour_Rpp&Rss_peps&Psipp} and hereby referred to as \emph{Rayleigh lines}. The black lines correspond to the onset of the first diffraction mode in substrate (SiO$_2$) while the white lines similarly correspond to the first diffraction mode in the ambient (air). The dashed lines serves as extended Rayleigh lines \text{\color{red}utdyp? hva menes egentlig med extended}. In figures \ref{fig:S6_contour_peps} and \ref{fig:S6_contour_Psipp} the imaginary part of the pseudo-dielectric function $\text{Im}\langle\epsilon_{pp}\rangle$ and the ellipsometric angle $\Psi_{pp}$ are presented. Rayleigh lines for glass are seen to follow peaks in $\Psi_{pp}$, while for air they follow dips. 
+Reflectance coefficients $R_{pp}$ and $R_{ss}$ as functions of photon energy and incident azimuthal angle can be found in figure \ref{fig:S6_contour_Rpp} and \ref{fig:S6_contour_Rss}, respectively. The LSPR can be seen at $2.1$ eV, fluctuating slightly. In order to better visualize the features weaker than the strong LSPR, a different colorbar is used for energies $E>2.5$ eV. The optical response for these energies are attributed to the Rayleigh anomalies related to grazing diffracted waves just at the onset of diffracted orders\cite{Brakstad:15}. The expression for the Rayleigh anomaly condition, equation (\ref{eq:RayleighLines}), is used to find for which wavelength and incidence azimuthal angle a particular diffraction order is triggered along the sample surface. These are superposed in figure \ref{fig:S6_contour_Rpp&Rss_peps&Psipp} and hereby referred to as \emph{Rayleigh lines}. The black lines correspond to the onset of the first diffraction mode in substrate (SiO$_2$) while the white lines similarly correspond to the first diffraction mode in the ambient (air). The dashed lines serves as \emph{extended} Rayleigh lines, which are defined as those lines calculated from equation (\ref{eq:RayleighLines}) for e.g. $45^\circ \leq \phi_0 \leq 90^\circ$ using $\mathbf{G}_\parallel^{\bar{1}0}$. In figures \ref{fig:S6_contour_peps} and \ref{fig:S6_contour_Psipp} the imaginary part of the pseudo-dielectric function $\text{Im}\langle\epsilon_{pp}\rangle$ and the ellipsometric angle $\Psi_{pp}$ are presented. Rayleigh lines for glass corresponding to 1st BZ are seen to follow peaks in $\Psi_{pp}$, while for air they follow dips. The same Rayleigh lines are observed at peaks in $R_{pp}$ at the M-point, i.e. $\phi_0=45^\circ$ in figure \ref{fig:S6_contour_Rpp}. In $R_{ss}$, the extended Rayleigh lines for glass are seen to act as boundaries of a region with medium-sized peaks.
 
 
 Contour plots of the matrix elements of the normalized MM of sample 6 is presented in figure \ref{fig:S6_contour_MM}, where the photon energy $E$ and the azimuthal rotation angle $\phi_0$ represent the radius and the angle in each polar plot, respectively. One can observe that the MM is nearly block-diagonal, i.e. similar in shape as equation (\ref{eq:isotropicMM}) for non-depolarizing isotropic samples, for photon energies up till about $4$ eV. The LSPR is observed as a near-perfect circle around $2.1$ eV in all block diagonal elements. Rayleigh lines corresponding to the boundary of the 1st BZ in air (white lines) and substrate (black semi-square) are superposed in MM elements $m_{21}$ and $m_{33}$. In element $m_{24}$ the extended Rayleigh lines are additionally included. A slight polarization coupling is observed around the LSPR in the off-block-diagonal elements, while a stronger polarization conversion is clearly observed in the regions surrounding the Rayleigh lines of the same elements. The polarization coupling is more visible in the contour plots of $R_{sp}$, $R_{ps}$, $\Psi_{sp}$ and $\Psi_{ps}$ found in figure \ref{fig:S6_contour_Rsp&Rps_Psisp&Psips}. For convenience, figure \ref{fig:reciprocallattice} is repeated here in figure \ref{fig:S6_reciprocallattice_schematic}, showcasing how the azimuthal angle $\phi_0$ is defined as zero along the $\Gamma-X$-point of the reciprocal lattice.
@@ -364,14 +365,15 @@ Contour plots of the matrix elements of the normalized MM of sample 6 is present
 The normalized MM of the experimental data can be found in figure \ref{fig:S6_contour_MM_exp}, to be readily compared with figure \ref{fig:S6_contour_MM}. In figure \ref{fig:S6_NCS} experimental data is compared to COMSOL data in terms of the MM elements $N=m_{12}$, $C=m_{33}$, and $S=m_{34}$ for three selected angles. Note that $N$ and $\Psi_{pp}$ have similar profiles. The COMSOL simulation is found to be in good compliance with the experimental data. It is interesting, however, to note an additional polarization coupling observed at around $3$ eV in elements $m_{31}$ and $m_{32}$ in figure \ref{fig:S6_contour_MM}, which is not observed in the experimental data.
 
 %\clearpage
-\begin{figure}[h!]  %% radial MM
+\begin{figure}[h]  %% radial MM
+\begin{subfigure}{\textwidth}
     \centering
     \includegraphics[width=\linewidth, trim=3cm 1.5cm 0.5cm 0cm, clip]{figures/ch4/S6/contour/Mueller_rot_S6_COMSOLSIM_55(2)(1).pdf}
-    \caption{Contour plots of MM elements for sample 6 as simulated in COMSOL, where photon energy $E$ and azimuthal angle $\phi_0$ of the incident light corresponds to the radius and angle in each polar plot, respectively. The inner circle of the plots denote the lower limit photon energy of $1.03$ eV, while the outer circle corresponds to $5.9$ eV. In elements $m_{21}$ and $m_{33}$ the Rayleigh lines for BZ-1 in glass (black line) and air (white line) are shown, while element $m_{23}$ in addition includes the extended Rayleigh line for BZ-1 in glass.}
-    \label{fig:S6_contour_MM} 
-\end{figure}
-\begin{figure}
-    \begin{subfigure}{0.5\textwidth}
+    
+\end{subfigure}
+
+\begin{subfigure}{\textwidth}
+\begin{subfigure}{0.5\textwidth}
         \flushright
         \includegraphics[width=0.5\linewidth]{figures/Ch3/S6_SEM(1).png} %0.4
     \end{subfigure}
@@ -379,17 +381,22 @@ The normalized MM of the experimental data can be found in figure \ref{fig:S6_co
         \flushleft
         \includegraphics[width=0.4\linewidth]{figures/Ch2/ReciprocalLattice.png}    %0.33
     \end{subfigure}
-    \caption{SEM image of sample 6 next to a schematic of a square reciprocal lattice defining incidence angle $\phi_0$.}
+    %\caption{}
     \label{fig:S6_reciprocallattice_schematic}
+\end{subfigure}
+    \caption{Contour plots of MM elements for sample 6 as simulated in COMSOL, where photon energy $E$ and azimuthal angle $\phi_0$ of the incident light corresponds to the radius and angle in each polar plot, respectively. The inner circle of the plots denote the lower limit photon energy of $1.03$ eV, while the outer circle corresponds to $5.9$ eV. In elements $m_{21}$ and $m_{33}$ the Rayleigh lines for BZ-1 in glass (black line) and air (white line) are shown, while element $m_{23}$ in addition includes the extended Rayleigh line for BZ-1 in glass. A SEM image of sample 6 next to a schematic of a square reciprocal lattice defining incidence angle $\phi_0$ has been included below the MM.}
+    \label{fig:S6_contour_MM} 
 \end{figure}
-
-\begin{figure}[h!]
+\begin{figure}[h]
+    
+\end{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{figures/ch4/S6/exp/Muller_rot_S6_55.pdf}
     \caption{The experimental MM of sample 6, where the energy is plotted radially and the rotation angle is the azimuthal angle $\phi_0$, and the polar AOI is $\theta_0=55^\circ$. Inner circle corresponds to $0.73$ eV while outer circle corresopnd to $5.9$ eV. Rayleigh lines are superposed in elements $m_{21}$, $m_{13}$ and $m_{14}$. A scaling has been applied to $m_{21}$ for improved visibility \text{\color{red}MK:vet du hvilken scaling?}. Data from \cite{brakstad_thesis}.}
     \label{fig:S6_contour_MM_exp}
 \end{figure}
-\begin{figure}[h!]
+\begin{figure}[h]
    \begin{subfigure}{0.32\linewidth}
         \centering
         \includegraphics[width=\linewidth, trim= 0cm 0cm 2cm 0cm, clip]{figures/ch4/S6/NCS/S6_NCS_phi0.pdf}
@@ -405,10 +412,7 @@ The normalized MM of the experimental data can be found in figure \ref{fig:S6_co
    \caption{Sample 6 comparison between simulation (solid colored lines) and experimental data (black dashed lines) of the MM elements $m_{12}$,$m_{33}$ and $m_{34}$.}
    \label{fig:S6_NCS}
 \end{figure}
-\clearpage
-
-
-\begin{figure}[h!]  %% Psi_ps & Psi_sp contour E and phi
+\begin{figure}[h]  %% Psi_ps & Psi_sp contour E and phi
     \begin{subfigure}{0.5\textwidth}
         \centering
         \includegraphics[width=\linewidth, trim=1.1cm  1.8cm 6.7cm 0cm, clip]{figures/ch4/S6/contour/S6_Rsp.png}
@@ -432,6 +436,9 @@ The normalized MM of the experimental data can be found in figure \ref{fig:S6_co
     \label{fig:S6_contour_Rsp&Rps_Psisp&Psips}
 \end{figure}
 
+
+
+
 \begin{figure}[h!]
     \begin{subfigure}{0.5\textwidth}
         \centering
@@ -448,28 +455,25 @@ The normalized MM of the experimental data can be found in figure \ref{fig:S6_co
     \caption{(a) Peak values of $\Psi_{pp}$ for sample 6 at LSPR wavelengths $\lambda_{\text{LSPR}}$, plotted together with the wavelength at which the plasmon resonance peaks for a given $\phi_0$; (b) Azimuthal angle dependency of reflectances for p-polarized and s-polarized light $R_{pp}$ and $R_{ss}$, respectively, at plasmon resonance wavelengths shown in (a).}
     \label{fig:S6_LSPRvsphi}
 \end{figure}
-
-In previous figures there can be observed a small fluctuation of the LSPR. In figure \ref{fig:S6_LSPRvsphi_Psipp} the peak value of $\Psi_{pp}$ at the LSPR is plotted as a function of the incident azimuthal angle, together with the wavelength $\lambda_{\text{LSPR}}$ at which $\Psi_{pp}$ is at maximum. Obviously, using a smaller stepsize for wavelength would smoothen out the latter curve. The peak resonance of the LSPR exhibit a small dependency on azimuthal angle of incidence. Given the uniformity of sample 6 ($R_{x}=R_{y}$ and $a_x=a_y$), one might expect a $45^\circ$ symmetry. However, there is clearly anomalies to this at $45^\circ$ and $135^\circ$. \text{\color{red}Why?}
-
-
-
-
-Figure \ref{fig:S6_heatloss} shows a contour plot of heat dissipation $P_{\text{resistive}}$ integrated over Au particle volume as a function of the energy $E$ and azimuthal angle $\phi_0$ of the incident light. For energies below $2.5$ eV the heat loss is uniform for all azimuthal angles. Observe that peaks in $P_{\text{resistive}}$ follow Rayleigh lines of the substrate, while Rayleigh lines of the ambient air are recognized by dips in $P_{\text{resistive}}$.
 \begin{figure}[h!]  %% Resistive Heat Loss
     \begin{subfigure}{\textwidth}
         \centering
-        \includegraphics[width=\linewidth, trim=0cm 0cm 0cm 0cm, clip]{figures/ch4/S6/contour/S6_HeatLoss_contour(1).png}
+        \includegraphics[width=0.8\linewidth, trim=0cm 0cm 1cm 0.5cm, clip]{figures/ch4/S6/contour/S6_HeatLoss_contour(1).png}
     \end{subfigure}
     
     \begin{subfigure}{\textwidth}
         \centering
-        \includegraphics[width=0.8\linewidth, trim=0cm 0cm 0cm 0cm, clip]{figures/ch4/S6/contour/S6_HeatLoss_phi=0,25,45.png}
+        \includegraphics[width=0.6\linewidth, trim=0cm 0cm 0cm 0cm, clip]{figures/ch4/S6/contour/S6_HeatLoss_phi=0,25,45.png}
     \end{subfigure}
     
     \caption{Top: Contour plot of resistive heat loss over the volume of the gold particles in sample 6, with respect to photon energy and azimuthal angle of the incident light. Rayleigh lines corresponding to the 1st BZ in air (white lines) and glass substrate (black lines) have been superimposed. Bottom: Same plot but the full energy spectrum for a few chosen values of $\phi_0$, illustrating isotropic behaviour below 2.5 eV.}
     \label{fig:S6_heatloss}
 \end{figure}
+In previous figures there can be observed a small fluctuation of the LSPR. In figure \ref{fig:S6_LSPRvsphi_Psipp} the peak value of $\Psi_{pp}$ at the LSPR is plotted as a function of the incident azimuthal angle, together with the wavelength $\lambda_{\text{LSPR}}$ at which $\Psi_{pp}$ is at maximum. Obviously, using a smaller stepsize for wavelength would smoothen out the latter curve. The peak resonance of the LSPR exhibit a small dependency on azimuthal angle of incidence. Given the uniformity of sample 6 ($R_{x}=R_{y}$ and $a_x=a_y$), one might expect a $45^\circ$ symmetry. However, there is clearly anomalies to this at $45^\circ$ and $135^\circ$. \text{\color{red}Why?}
 
+Figure \ref{fig:S6_heatloss} shows a contour plot of heat dissipation $P_{\text{resistive}}$ integrated over Au particle volume as a function of the energy $E$ and azimuthal angle $\phi_0$ of the incident light. For energies below $2.5$ eV the heat loss is uniform for all azimuthal angles. Observe that peaks in $P_{\text{resistive}}$ follow Rayleigh lines of the substrate, while Rayleigh lines of the ambient air are recognized by dips in $P_{\text{resistive}}$.
+
+Figure \ref{fig:S6_normE_isosurface_LSPR} visualize the electric field norm $E_\text{norm}$ in the 3D space surrounding the Au particle and mound area. Red isosurface correspond to the strongest field (barely visible) while dark blue is weaker. The LSPR is seen to be strongly concentrated along the bottom edge of the gold particle.
 \begin{figure}[h]
     \begin{subfigure}{0.32\textwidth}
         \centering
@@ -489,7 +493,7 @@ Figure \ref{fig:S6_heatloss} shows a contour plot of heat dissipation $P_{\text{
     \caption{The electric field norm $E_\text{norm}$ plotted for five layers of isosurface when incident wave is TE polarized at wavelength $\lambda_{\text{LSPR}}=585$ nm and azimuthal angle $\phi_0=0^\circ$, i.e. propagating along $\hat{x}$-direction at polar incidence $\theta_0=55^\circ$. (a) General view (b) $\hat{x}$ is pointing out of paper (b) $\hat{z}$ is pointing out of paper.}
     \label{fig:S6_normE_isosurface_LSPR}
 \end{figure}
-\begin{figure}[h!]
+\begin{figure}[h]
     \begin{subfigure}{0.32\textwidth}
         \centering
         \includegraphics[width=\linewidth, trim=0.4cm 0 1.5cm 0, clip]{figures/ch4/S6/normE/Sample6_nomE_wl585_phi0_TM.png}
@@ -509,27 +513,26 @@ Figure \ref{fig:S6_heatloss} shows a contour plot of heat dissipation $P_{\text{
     \label{fig:S6_normE_isosurface_LSPR}
 \end{figure}
 
-Figure \ref{fig:S6_normE_isosurface_LSPR} visualize the electric field norm $E_\text{norm}$ in the 3D space surrounding the Au particle and mound area. Red isosurface correspond to the strongest field (barely visible) while dark blue is weaker. The LSPR is seen to be strongly concentrated along the bottom edge of the gold particle.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\clearpage
-\subsection{Effects of the mound \color{red}fjern?}
+%\subsection{Effects of the mound \color{red}fjern?}
 
-\begin{itemize}
-    \item Shape of mound more or less arbitrarily chosen as a smooth parabolic(?) as shown in figure [ref til fig av mound/Au sample6)]. 
-    \item Hvis tid: sammenlikn med mound som trekant (i tverrsnitt)
-\end{itemize}
+%\begin{itemize}
+    %\item Shape of mound more or less arbitrarily chosen as a smooth parabolic(?) as shown in figure [ref til fig av mound/Au sample6)]. 
+%    \item Hvis tid: sammenlikn med mound som trekant (i tverrsnitt)
+%\end{itemize}
 
 \clearpage
 %%%%%%%%%%%%%%% NEW SECTION %%%%%%%%%%%%%%%
 \section{Sample 5A}
-Due to the symmetry of the sample, it was deemed sufficient to simulate only for the first half of the azimuthal angles, then mirroring the results to gain the full rotational optical response. The total wall time, including both TE and TM simulations, each running for wavelengths $\lambda=210-1600$ nm with stepsize $\Delta\lambda=5$ nm and an auxiliary sweep of incident azimuthal angles $\phi_0=0^\circ-180^\circ$ with stepsize $\Delta\lambda=5^\circ$, was 38 hours and 50 minutes. In practice the actual simulation run-time is halved as both TE and TM simulations were running simultaneously. The approximate CPU time is then 9 days and 17 hours when assuming the workload was at all times evenly distributed among the six CPU cores.
+Due to the symmetry of the sample, it was deemed sufficient to simulate only for the first half of the azimuthal angles, then mirroring the results to gain the full rotational optical response. The total wall time, including both TE and TM simulations, each running for wavelengths $\lambda=210-1600$ nm with stepsize $\Delta\lambda=5$ nm and an auxiliary sweep of incident azimuthal angles $\phi_0=0^\circ-180^\circ$ with stepsize $\Delta\lambda=5^\circ$, was 38 hours and 50 minutes. In practice the actual simulation run-time is halved as both TE and TM simulations were running simultaneously. The approximate CPU time is 9 days and 17 hours when assuming the workload was at all times evenly distributed among the six CPU cores. Each of the two simulations used at most around $9.5$ GB RAM during the calculation, and spent 23 minutes solving $\lambda=210$ nm for all the incident angles whereas $\lambda=1600$ nm for all angles was completed in 1 min 40 seconds.
 
 The reflectances from both TE and TM simulations with respect to the energy and azimuthal angle of the incident beam can be found in figures \ref{fig:S5A_contour_Rpp}-b. One immediately observes patterns forming in the higher energy region as well as a strong LSPR resonance around $2$ eV. The LSPR is seen to fluctuate with respect to the incident angle, which is further investigated in figure \ref{fig:S5A_LSPRvsphi}. In figure \ref{fig:S5A_LSPRvsphi_Psipp}, where the resonance is represented by $\Psi_{pp}$, we see that the wavelength at which the LSPR is located $\lambda_{\text{LSPR}}$ is also shifted as the resonance fluctuates. Here we are reminded that the jagged lines are due to the relatively large stepsize of wavelength when scrutinizing a narrow region. On average, the LSPR is located at $\lambda_{\text{LSPR}}=625$ nm. Compared to the average LSPR position of the experimental sample, $\lambda_{\text{LSPR}}^\text{(exp)}=608$ nm, it might suggest that the sample parameters used in COMSOL are not entirely accurate. It is clear from these figures that sample 5A does not hold a perfect 45 degree symmetry, or even a 90 degree symmetry. Why this is, will be discussed in section \ref{sec:results_S5A_comparisons}.
 
 Ellipsometric angle $\Psi_{pp}$ and the imaginary part of the pseudo dielectric function, $\text{Im}\langle\epsilon\rangle_{pp}$, are presented in figures \ref{fig:S5A_contour_Psipp}-d. Here, Rayleigh lines have been superposed revealing an optical response highly dependent on the diffracted modes along the surface. The very same Rayleigh lines can be observed in the reflectances in figures \ref{fig:S5A_contour_Rpp}-b without the aid of drawn lines. The Rayleigh lines correspond to 1st and 2nd BZ in air (white lines) and substrate (black lines), as well as the 3rd BZ in substrate (top black solid line). These lines are also overlaid in the contour plots of $\Psi_{sp}$ and $\Psi_{ps}$ in figure \ref{fig:S5A_contour_Psips&Psisp}, and in the normalized MM in figure \ref{fig:S5A_contour_MM}. 
 
-The normalized MM of the experimental data can be found in in figure \ref{fig:S5A_contour_MM_exp}, and comparisons between experimental and COMSOL data of MM elements $m_{12}$, $m_{33}$ and $m_{34}$ at three specific azimuthal angles are found in figure \ref{fig:S5A_NCS}. In figures \ref{fig:S5A_stacked_PsippImeps} and \ref{fig:S5A_stacked_PsippImeps_exp}, $\Psi_{pp}$ and $\text{Im}\langle\epsilon\rangle_{pp}$ for angles $\phi_0=0^\circ-45^\circ$ are stacked on top of each other for COMSOL and experimental data, respectively. Figures \ref{fig:S5A_contour_MM}-\ref{fig:S5A_stacked_PsippImeps_exp} indicate a good agreement between simulated and experimental data \text{\color{red}snork! finn noe mer spesifikt å si?} Equation (\ref{eq:sumNCSsquared=1}) is plotted for all energies and incident angles in figure \ref{fig:S5A_sumNCSsquared}, indicating that the block-diagonal MM approach of equation (\ref{eq:isotropicMM}) can safely be assumed only at angles $\phi_0=0^\circ, 90^\circ$. \text{\color{red}usikker. hvor nærme $1$ burde man være?}
+The normalized MM of the experimental data can be found in in figure \ref{fig:S5A_contour_MM_exp}, and comparisons between experimental and COMSOL data of MM elements $m_{12}$, $m_{33}$ and $m_{34}$ at three specific azimuthal angles are found in figure \ref{fig:S5A_NCS}. In figures \ref{fig:S5A_stacked_PsippImeps} and \ref{fig:S5A_stacked_PsippImeps_exp}, $\Psi_{pp}$ and $\text{Im}\langle\epsilon\rangle_{pp}$ for angles $\phi_0=0^\circ-45^\circ$ are stacked on top of each other for COMSOL and experimental data, respectively. Figures \ref{fig:S5A_contour_MM}-\ref{fig:S5A_stacked_PsippImeps_exp} indicate a good agreement between simulated and experimental data. Note, however, that the off-block-diagonal elements have overall larger values in the simulated MM compared to the experimental MM, which suggest a stronger structure-induced anisotropy in the COMSOL model. This implies that the modeled dielectric mound is not quite true to its experimental counterpart, differing in shape or size or both, in which case would suggest that the estimated height profile is not as accurate as we thought. Figure \ref{fig:S5A_sumNCSsquared} plots equation (\ref{eq:sumNCSsquared=1}) for all energies and incident angles, indicating that the block-diagonal MM approach of equation (\ref{eq:isotropicMM}) can safely be assumed only at angles $\phi_0=0^\circ, 90^\circ$. \text{\color{red}usikker. hvor nærme $1$ burde man være?}
 
 The main features of the optical response for photon energies above the LSPR can be described by estimating the Rayleigh line. Boundaries of 1st and 2nd BZ in air are clearly visible in the block-diagonal elements of the MM contour plot. For example, in the $m_{12}=m_{21}$ elements they are seen as sharp dips. Seeing as the MM to a certain extent follows the block-diagonal form of equation (\ref{eq:isotropicMM}), one can assume to observe a similar dip in $\Psi_{pp}$, as is shown in figure \ref{fig:S5A_stacked_PsippImeps}. The strong dips for BZ-1 in air also indicate that mainly p-polarized light is coupled into the grazing diffracted mode, as the reflected light contains a reduced amount of p-polarized light at this Rayleigh line. In contrast, the peaks at BZ-1 in the SiO$_2$ substrate suggests an enhanced reflection of p-reflectance (or reduced s-reflectance) of the reflected beam at the Rayleigh line condition.
 
@@ -1060,7 +1063,7 @@ The plasmonic properties of elongated gold particles (or nanorods) have been stu
 \clearpage
 %%%%%%%%%%%%%%% NEW SECTION %%%%%%%%%%%%%%%
 \section{Sample 5B}
-Sample 5B has very large lattice constants ($a_x=315.4$ nm, $a_y=443.9$ nm) compared to the spectrum of interest ($\lambda=210-1700$ nm) thus creating a very large volume for the computational domain. The desktop computer was not able to solve the model for the lower wavelengths due to the large amount of mesh elements. The lowest wavelength resulting in a solvable mesh was $250$ nm, i.e. the simulated region is $\lambda=250-1700$ nm. The total wall time, including both TE and TM simulations, was 94 hours and 59 minutes, where over $82\%$ of this time was spent solving for wavelengths in the region $250-900$ nm. Multiplying the wall time by the number of CPU cores gives us an approximate CPU time of 23 days 17 hours and 54 minutes.
+Sample 5B has very large lattice constants ($a_x=315.4$ nm, $a_y=443.9$ nm) compared to the spectrum of interest ($\lambda=210-1700$ nm) thus creating a very large volume for the computational domain. As previously stated in section \ref{sec:ch3_sample5B}, the dielectric mound (with a height estimated at around $15$ nm) was not included in the simulated geometry. Even so, the desktop computer was not able to solve the model for the lower wavelengths due to the large amount of mesh elements. The lowest wavelength resulting in a solvable mesh was $250$ nm, i.e. the simulated region is $\lambda=250-1700$ nm where each wavelength is swept for azimuthal angles $\phi_0=0^\circ-180^\circ$. TE and TM simulations were not be able to run simultaneously on the desktop computer due to the computationally demanding calculations. The program used at most $23.4$ GB RAM, which was during full wave calculation of the lowest wavelength, $250$ nm, solved in 2 hours and 18 minutes in real-time. The solution time for each increasing wavelength decreased exponentially, finally solving for $1700$ nm in just under 2 minutes. The total wall time, including both TE and TM simulations, was 94 hours and 59 minutes, where over $82\%$ of this time was spent solving for wavelengths in the region $250-900$ nm. Multiplying the wall time by the number of CPU cores gives us an approximate CPU time of 23 days 17 hours and 54 minutes. 
 \begin{itemize}
 
     \item Feltfordeling rundt Rayleigh-linjer? COMSOL figurer?
@@ -1102,7 +1105,7 @@ Sample 5B has very large lattice constants ($a_x=315.4$ nm, $a_y=443.9$ nm) comp
         %\caption{}
     \end{subfigure}
     
-    \caption{Contour plots of (a) $R_{pp}$ (b) $R_{ss}$ and (c) $\Psi_{pp}$ for sample 5B. For reasons of improved visibility, energies above $2.5$ eV have independent colorbars. Rayleigh lines are shown corresponding to the boundaries of BZ-1 ($G_\parallel^{\bar{1}0}$), BZ-2 ($G_\parallel^{\bar{1}\bar{1}}$) and BZ-3 ($G_\parallel^{\bar{2}0}$) for air (white) and glass substrate (black). In addition, extended Rayleigh lines for the 1st BZs for both air and glass are shown in dashed lines. Brillouin zones with reciprocal lattice vectors $G_\parallel^{\bar{1}\bar{1}}$ for air and substrate are recognized by their $45^\circ$ symmetry, while the others are symmetric around $90^\circ$.}
+    \caption{Contour plots of (a) $R_{pp}$ (b) $R_{ss}$ and (c) $\Psi_{pp}$ for sample 5B. For reasons of improved visibility, energies above $2.5$ eV have independent colorbars. Rayleigh lines are shown corresponding to the boundaries of BZ-1 ($\mathbf{G}_\parallel^{\bar{1}0}$), BZ-2 ($\mathbf{G}_\parallel^{\bar{1}\bar{1}}$) and BZ-3 ($\mathbf{G}_\parallel^{\bar{2}0}$) for air (white) and glass substrate (black). In addition, extended Rayleigh lines for the 1st BZs for both air and glass are shown in dashed lines. Brillouin zones with reciprocal lattice vectors $\mathbf{G}_\parallel^{\bar{1}\bar{1}}$ for air and substrate are recognized by their $45^\circ$ symmetry, while the others are symmetric around $90^\circ$.}
     \label{fig:S5B_contour_RppRss_Psipp}
 \end{figure}
 
@@ -1137,11 +1140,17 @@ Sample 5B has very large lattice constants ($a_x=315.4$ nm, $a_y=443.9$ nm) comp
 
 Contour plots of the optical response of the reflected COMSOL sample are given in figure \ref{fig:S5B_contour_RppRss_Psipp} as $R_{pp}$, $R_{ss}$ and $\Psi_{pp}$. A SEM image of the experimental sample together with a schematic of the reciprocal (square!) lattice defining the azimuthal angle of incidence is repeated, for convenience. Figure \ref{fig:S5B_contour_Rss} reveal a resonance around $1.4$ eV excited by the transverse mode incident along the x-axis, and a very small resonance at $\phi_0=90^\circ$ around $2.1$ eV. The longitudinal mode seen in figure \ref{fig:S5B_contour_Rpp} excites two plasmon resonances along the y-axis: a weak resonance sharply defined at $1.9$ eV and a strong resonance between $1.20-1.54$ eV which is confined between the Rayleigh lines corresponding to the 1st BZs of SiO$_2$ and air. There is also observed a very weak resonance along the x-axis around $2.1$ eV. The field distributions for both modes at the strong LSPR located at photon energy $1.23$ eV with $\phi_0=90^\circ$ can be found in figure \ref{fig:S5B_fielddstribution_LSPR_phi90}. Notice a factor 10 difference in field strength between TM and TE polarizations, where values for $R_{pp}$ and $R_{ss}$ at the same location is $0.20$ and $0.128$, respectively, confirming an enhanced field when the incident light is polarized along the semi-major axis of a particle with high aspect ratio.
 
-Seeing as the LSPR is consentrated along the rim base of the Au particles in direct contact with the substrate, they may be subject to the dispersive SiO$_2$ refractive index which varies from $1.514$ to $1.446$ in the simulated region. It has been shown that gold nanoparticles with high aspect ratios are extremely sensitive to the ambient refractive index, where the longitudinal LSPR peak redshifts as the refractive index increases and the shift amplitude inreases with the aspect ratio\cite{LSPR_sensor_review}\cite{Au_nanorods_review}. It could be interesting to compare these results with a similar simulation using a glass substrate with constant refractive index, which could be source for future work.
+As a consequence of the large lattice constants the Rayleigh lines for the 1st BZ go deep into the LSPR region of the particles. These are seen to sharply define the edges of the resonance located at $\phi_0=90^\circ$ in $R_{pp}$, while the 1st BZ in glass also seem to dampen the $R_{ss}$ resonance at the $X$-point.
 
 In figure \ref{fig:S5B_N@LSPR} the position of peak resonances are plotted with respect to incident angle. Here, MM element $m_{12}$ is used as it is similar in profile to $\Psi_{pp}$ but with features more sharply defined.
 
-The experimental MM is found in figure \ref{fig:S5B_contour_MM_exp}. Note that the off-diagonal MM elements of the experimental sample are overall larger than its COMSOL counterpart. This suggest a structure-induced anisotropy caused by the dielectric mound, which is neglected in the simulation.
+Seeing as the LSPR is consentrated along the rim base of the Au particles in direct contact with the substrate, they may be subject to the dispersive SiO$_2$ refractive index which varies from $1.514$ to $1.446$ in the simulated region. It has been shown that gold nanoparticles with high aspect ratios are extremely sensitive to the ambient refractive index, where the longitudinal LSPR peak redshifts as the refractive index increases and the shift amplitude inreases with the aspect ratio\cite{LSPR_sensor_review}\cite{Au_nanorods_review}. It could be interesting to compare these results with a similar simulation using a glass substrate with constant refractive index, which could be source for future work.
+
+For energies above $2.5$ eV the sample is highly isotropic, as the reflection MM resembles equation (\ref{eq:isotropicMM}) and the majority of light is transmitted through the glass (transmission results not shown). There is a very weak polarization coupling present for $E>2.5$ eV, as seen in figure \ref{fig:S5B_contour_Rsp&Rps_Psisp&Psips}, which to a certain extent seem to follow the Rayleigh lines for air, particularly the extended lines for $\mathbf{G}_\parallel^{\bar{1}0}$. This weak conversion of polarization is also visible in the upper off-block-diagonal elements in figure \ref{fig:S5B_contour_MM} where a scaling has been applied to improve visibility.
+
+
+
+The experimental MM is found in figure \ref{fig:S5B_contour_MM_exp}. Note that the off-diagonal MM elements of the experimental sample are overall larger than its COMSOL counterpart. This suggest a structure-induced anisotropy caused by the dielectric mound, which has been neglected in the simulation.
 
 
 
@@ -1176,7 +1185,7 @@ The experimental MM is found in figure \ref{fig:S5B_contour_MM_exp}. Note that t
 \begin{figure}[h]  %% radial MM
     \centering
     \includegraphics[width=\linewidth, trim=3cm 1cm 0.4cm 0cm, clip]{figures/ch4/S5B/contour/Muller_rot_S5B_COMSOLSIM_55_final(2).pdf}
-    \caption{Contour plots of the normalized Mueller matrix elements for sample 5B. Energy and azimuthal angle of the incident light are represented by radius and rotation angle in each polar plot, respectively. Inner circle of the schematic in $m_{11}$ corresponds to photon energy 0.73 eV while the outermost circle corresponds to 4.96 eV. Scaling has been applied to a few elements, for reasons of improved clarity in energy regions above 2.3 eV; Resonant values in the upper off-block elements $m_{13}$, $m_{14}$, $m_{23}$ and $m_{24}$ were reduced by $|m_{ij}|^{1/4}\text{sign}(m_{ij})$ and similar for $m_{22}$, while element $m_{21}=m_{12}$ has been set completely void for energies below 2.35 eV. Furthermore, in $m_{44}$, reduced Rayleigh lines are drawn for air (white lines) and glass substrate (black lines). For glass, the first four Brillouin zones can be seen in this element, as well as parts of BZ-5 ($G_\parallel^{\bar{3}0}$) . The first BZ can be seen as the innermost upright rectangle, BZ-2 is the tilted semi-square, BZ-3 is again an upright semi-rectangle but larger, while BZ-4  ($G_\parallel^{\bar{2}\bar{2}}$) is the largest tilted semi-square. In elements $m_{23}$ and $m_{24}$, the extended Rayleigh lines (dotted lines) are also included for air and substrate, respectively. Lastly, in element $m_{21}$ all Rayleigh lines (excluding BZ-1) for both air and substrate are superimposed.} 
+    \caption{Contour plots of the normalized Mueller matrix elements for sample 5B. Energy and azimuthal angle of the incident light are represented by radius and rotation angle in each polar plot, respectively. Inner circle of the schematic in $m_{11}$ corresponds to photon energy 0.73 eV while the outermost circle corresponds to 4.96 eV. Scaling has been applied to a few elements, for reasons of improved clarity in energy regions above 2.3 eV; Resonant values in the upper off-block elements $m_{13}$, $m_{14}$, $m_{23}$ and $m_{24}$ were reduced by $|m_{ij}|^{1/4}\text{sign}(m_{ij})$ and similar for $m_{22}$, while element $m_{21}=m_{12}$ has been set completely void for energies below 2.35 eV. Furthermore, in $m_{44}$, reduced Rayleigh lines are drawn for air (white lines) and glass substrate (black lines). For glass, the first four Brillouin zones can be seen in this element, as well as parts of BZ-5 ($\mathbf{G}_\parallel^{\bar{3}0}$) . The first BZ can be seen as the innermost upright rectangle, BZ-2 is the tilted semi-square, BZ-3 is again an upright semi-rectangle but larger, while BZ-4  ($\mathbf{G}_\parallel^{\bar{2}\bar{2}}$) is the largest tilted semi-square. In elements $m_{23}$ and $m_{24}$, the extended Rayleigh lines (dotted lines) are also included for air and substrate, respectively. Lastly, in element $m_{21}$ all Rayleigh lines (excluding BZ-1) for both air and substrate are superimposed.} 
     \label{fig:S5B_contour_MM_exp}
     % BZ1 (10) BZ2 (11) BZ3 (20) BZ4 (22)
 \end{figure}
@@ -1188,25 +1197,24 @@ The experimental MM is found in figure \ref{fig:S5B_contour_MM_exp}. Note that t
     \label{fig:S5B_contour_MM}
     % BZ1 (10) BZ2 (11) BZ3 (20) BZ4 (22)
 \end{figure}
-
-
-
 \begin{figure}[h!]
-    \begin{subfigure}{0.49\textwidth}
+   \begin{subfigure}{0.32\linewidth}
         \centering
-        \includegraphics[width=\linewidth, trim=1.3cm  1.5cm 7.9cm 0cm, clip]{figures/ch4/S5B/contour/S5B_heatloss_TE_noscaling.png}
-        \caption{}
-        \label{}
-    \end{subfigure}
-    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\linewidth, trim= 0cm 0cm 2cm 0cm, clip]{figures/ch4/S5B/NCS/S5B_NCS_phi0.pdf}
+   \end{subfigure}
+   \begin{subfigure}{0.32\linewidth}
         \centering
-        \includegraphics[width=\linewidth,trim=1.3cm  1.5cm 7.9cm 0cm, clip]{figures/ch4/S5B/contour/S5B_heatloss_TM_noscaling.png}
-        \caption{}
-        \label{}
-    \end{subfigure}
-    \label{fig:S5B_contour_heatloss}
-    \caption{Energy from the incident light dissipated into the gold particle (given in SI units W) as a function of energy $E$ and azimuthal incident angle of the incoming beam. (a) Resistive heating $P_\text{resistive}$ of the gold particle when the incident light is s-polarized (TE) and (b) when the incident light is p-polarized (TM). For visual clarity in the color coding, (a) and (b) have independent colorbars for energies above and below $2.7$ eV. Rayleigh lines are superimposed corresponding to the borders of BZ-1, BZ-2 and BZ-3 for the ambient air (white lines) and the glass substrate (black lines), as well as their respective extended lines (dashed lines).}
+        \includegraphics[width=\linewidth, trim= 0cm 0cm 2cm 0cm, clip]{figures/ch4/S5B/NCS/S5B_NCS_phi45.pdf}
+   \end{subfigure}
+   \begin{subfigure}{0.32\linewidth}
+        \centering
+        \includegraphics[width=\linewidth, trim= 0cm 0cm 2cm 0cm, clip]{figures/ch4/S5B/NCS/S5B_NCS_phi90.pdf}
+   \end{subfigure}
+   \caption{Normalized MM elements $m_{12}$, $m_{33}$ and $m_{34}$ compared with experimental data for sample 5B at three chosen angles of azimuthal incidence.}
+   \label{fig:S5A_NCS}
 \end{figure}
+
+
 
 
 \begin{figure}[h]  %% Psi_ps & Psi_sp contour E and phi %% 
@@ -1235,6 +1243,29 @@ The experimental MM is found in figure \ref{fig:S5B_contour_MM_exp}. Note that t
     \label{fig:S5B_contour_Rsp&Rps_Psisp&Psips}
 \end{figure}
 
+
+\begin{figure}[h]
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth, trim=1.3cm  1.5cm 7.9cm 0cm, clip]{figures/ch4/S5B/contour/S5B_heatloss_TE_noscaling.png}
+        \caption{}
+        \label{}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth,trim=1.3cm  1.5cm 7.9cm 0cm, clip]{figures/ch4/S5B/contour/S5B_heatloss_TM_noscaling.png}
+        \caption{}
+        \label{}
+    \end{subfigure}
+    \label{fig:S5B_contour_heatloss}
+    \caption{Energy from the incident light dissipated into the gold particle (given in SI units W) as a function of energy $E$ and azimuthal incident angle of the incoming beam. (a) Resistive heating $P_\text{resistive}$ of the gold particle when the incident light is s-polarized (TE) and (b) when the incident light is p-polarized (TM). For visual clarity in the color coding, (a) and (b) have independent colorbars for energies above and below $2.7$ eV. Rayleigh lines are superimposed corresponding to the borders of BZ-1, BZ-2 and BZ-3 for the ambient air (white lines) and the glass substrate (black lines), as well as their respective extended lines (dashed lines).}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth, trim=1.2cm  1.8cm 6.5cm 0.3cm, clip]{figures/ch4/S5B/NCS/sumNCSsquared_contour.pdf}
+    \caption{Contour plot of the sum squared MM elements $m_{12}$, $m_{33}$, $m_{34}$ for sample 5B.}
+\end{figure}
 
 %%%%%%%%%%%%%%% NEW SECTION %%%%%%%%%%%%%%%
 \section{GaSb tilted cones}

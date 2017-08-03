@@ -101,7 +101,10 @@ Periodic boundaries must have compatible meshes. That is, boundary layers on opp
     \text{MES} = \frac{\lambda}{6n_i},
     \label{eq:MES=lambda/6n}
 \end{equation}
-where $n_i$ is the refractive index of either air, SiO$_2$, Au, or GaSb. This is further discussed in section \text{\color{red}ref: mesh convergence and wavelength dep. mesh}. 
+where $n_i$ is the (real part) refractive index of either air, SiO$_2$, Au, or GaSb. Convergence tests were performed with mesh factors $1/5$, $1/6$ and $1/8$, where all three gave reasonably similar results (not shown) so that we could assume a convergence limit was within close vicinity. Mesh factor $1/8$ proved to extremely costly in terms of computation time and memory usage while only a marginal (assumed) increase in accuracy. he extra cost of computation time and memory usage greatly outweighed the slight increase in accuracy. A convergence limit appeared to be approached already at factor 1/5 (see Appendix \ref{sec:AppendixA}, figure \ref{fig:AppendixConvergence}), so a factor 1/6 was deemed to be adequate enough.
+
+%This is further discussed in section \text{\color{red}ref: mesh convergence and wavelength dep. mesh}. 
+    %Mesh convergence. Fix plot av "error on approximation on coarser meshes", $e=u_{h2}-u_{h1}$ der 1 og 2 representerer to ulike mesh instillinger e.g. $\lambda/5$ vs $\lambda/6$ %https://www.comsol.com/multiphysics/finite-element-method#discret1
 
 \subsection{Study steps}
 The models were solved with a parametric sweep over wavelength $\lambda$ with stepsize $\Delta\lambda=5$ nm over a wide spectrum, typically 210 nm to 1600 nm which is approximately the same as the detection range of the RC2 ellipsometer used in the experimental works. For each wavelength, a full 360 degree sweep was performed for azimuthal AOI $\phi_0$ with stepsize $\Delta\phi_0=5^{\circ}$ using a study extension called \emph{auxiliary sweep}. Auxiliary sweep uses the solution from a previous parameter as a trial function for the current parameter, thus essentially re-using a previously calculated system matrix (equation (\ref{eq:FEM_mastereq_matrix})). Being relieved the burden of assembling the system matrix for every iteration of $\phi_0$ will in principle greatly reduce the computation time compared to iterating through a regular parameter sweep where COMSOL solves the problem for each parameter from scratch. 
@@ -302,14 +305,7 @@ In conclusion, all the above-mentioned changes to the COMSOL model has improved 
 
 
 
-\subsubsection*{Mesh convergence tests}
-As stated in equation (\ref{eq:MES=lambda/6n}), the maximum element size was decreased to a factor 1/6 for improved confidence in results. Convergence tests were also done with mesh factor 1/8, however, the extra cost of computation time and memory usage greatly outweighed the slight increase in accuracy. A convergence limit appeared to be approached already at factor 1/5 (see Appendix \ref{sec:AppendixA}, figure \ref{fig:AppendixConvergence}), so a factor 1/6 was deemed to be adequate enough.
-\text{\color{red}FIGUR}
 
-
-
-
-    Mesh convergence. Fix plot av "error on approximation on coarser meshes", $e=u_{h2}-u_{h1}$ der 1 og 2 representerer to ulike mesh instillinger e.g. $\lambda/5$ vs $\lambda/6$ %https://www.comsol.com/multiphysics/finite-element-method#discret1
 
 %%%%%%%%%%%%%%% NEW SECTION %%%%%%%%%%%%%%%
 %\section{Verification of model by analytic test equations}
@@ -1138,15 +1134,15 @@ Sample 5B has very large lattice constants ($a_x=315.4$ nm, $a_y=443.9$ nm) comp
     \label{fig:S5B_fielddstribution_LSPR_phi90}
 \end{figure}
 
-Contour plots of the optical response of the reflected COMSOL sample are given in figure \ref{fig:S5B_contour_RppRss_Psipp} as $R_{pp}$, $R_{ss}$ and $\Psi_{pp}$. A SEM image of the experimental sample together with a schematic of the reciprocal (square!) lattice defining the azimuthal angle of incidence is repeated, for convenience. Figure \ref{fig:S5B_contour_Rss} reveal a resonance around $1.4$ eV excited by the transverse mode incident along the x-axis, and a very small resonance at $\phi_0=90^\circ$ around $2.1$ eV. The longitudinal mode seen in figure \ref{fig:S5B_contour_Rpp} excites two plasmon resonances along the y-axis: a weak resonance sharply defined at $1.9$ eV and a strong resonance between $1.20-1.54$ eV which is confined between the Rayleigh lines corresponding to the 1st BZs of SiO$_2$ and air. There is also observed a very weak resonance along the x-axis around $2.1$ eV. The field distributions for both modes at the strong LSPR located at photon energy $1.23$ eV with $\phi_0=90^\circ$ can be found in figure \ref{fig:S5B_fielddstribution_LSPR_phi90}. Notice a factor 10 difference in field strength between TM and TE polarizations, where values for $R_{pp}$ and $R_{ss}$ at the same location is $0.20$ and $0.128$, respectively, confirming an enhanced field when the incident light is polarized along the semi-major axis of a particle with high aspect ratio.
+Contour plots of the optical response of the reflected COMSOL sample are given in figure \ref{fig:S5B_contour_RppRss_Psipp} as $R_{pp}$, $R_{ss}$ and $\Psi_{pp}$. A SEM image of the experimental sample together with a schematic of the reciprocal (square!) lattice defining the azimuthal angle of incidence is repeated, for convenience. Figure \ref{fig:S5B_contour_Rss} reveal a resonance around $1.4$ eV excited by the transverse mode incident along the x-axis, and a very small resonance at $\phi_0=90^\circ$ around $2.1$ eV. The longitudinal mode seen in figure \ref{fig:S5B_contour_Rpp} excites two plasmon resonances along the y-axis: a weak resonance sharply defined at $1.9$ eV and a strong resonance between $1.20-1.54$ eV which is confined between the Rayleigh lines corresponding to the 1st BZs of SiO$_2$ and air. There is also observed a very weak resonance along the x-axis around $2.1$ eV. The field distributions for both modes at the strong LSPR located at photon energy $1.23$ eV with $\phi_0=90^\circ$ can be found in figure \ref{fig:S5B_fielddstribution_LSPR_phi90}. Notice a factor 10 difference in field strength between TM and TE polarizations, where values for $R_{pp}$ and $R_{ss}$ at the same location is $0.20$ and $0.128$, respectively, confirming an enhanced field when the incident light is polarized along the semi-major axis of a particle with high aspect ratio. This is also observed for s-polarized light incident with azimuthal angles centered around the x-axis, i.e. the strong resonance around $\phi_0=0^\circ, 180^\circ$ in figure \ref{fig:S5B_contour_Rss} which is not present in figure \ref{fig:S5B_contour_Rpp}.
 
-As a consequence of the large lattice constants the Rayleigh lines for the 1st BZ go deep into the LSPR region of the particles. These are seen to sharply define the edges of the resonance located at $\phi_0=90^\circ$ in $R_{pp}$, while the 1st BZ in glass also seem to dampen the $R_{ss}$ resonance at the $X$-point.
+As a consequence of the large lattice constants the Rayleigh lines for the 1st BZ go deep into the LSPR region of the particles. These are seen to sharply define the edges of the resonance located at $\phi_0=90^\circ$ in $R_{pp}$, while the 1st BZ in glass also seem to dampen the $R_{ss}$ resonance at the $X$-point. \text{\color{red}dipolkopling?}
 
 In figure \ref{fig:S5B_N@LSPR} the position of peak resonances are plotted with respect to incident angle. Here, MM element $m_{12}$ is used as it is similar in profile to $\Psi_{pp}$ but with features more sharply defined.
 
 Seeing as the LSPR is consentrated along the rim base of the Au particles in direct contact with the substrate, they may be subject to the dispersive SiO$_2$ refractive index which varies from $1.514$ to $1.446$ in the simulated region. It has been shown that gold nanoparticles with high aspect ratios are extremely sensitive to the ambient refractive index, where the longitudinal LSPR peak redshifts as the refractive index increases and the shift amplitude inreases with the aspect ratio\cite{LSPR_sensor_review}\cite{Au_nanorods_review}. It could be interesting to compare these results with a similar simulation using a glass substrate with constant refractive index, which could be source for future work.
 
-For energies above $2.5$ eV the sample is highly isotropic, as the reflection MM resembles equation (\ref{eq:isotropicMM}) and the majority of light is transmitted through the glass (transmission results not shown). There is a very weak polarization coupling present for $E>2.5$ eV, as seen in figure \ref{fig:S5B_contour_Rsp&Rps_Psisp&Psips}, which to a certain extent seem to follow the Rayleigh lines for air, particularly the extended lines for $\mathbf{G}_\parallel^{\bar{1}0}$. This weak conversion of polarization is also visible in the upper off-block-diagonal elements in figure \ref{fig:S5B_contour_MM} where a scaling has been applied to improve visibility.
+For energies above $2.5$ eV the sample is highly isotropic, as the reflection MM resembles equation (\ref{eq:isotropicMM}) and the majority of light is transmitted through the glass (transmission results not shown). There is a very weak polarization coupling present for $E>2.5$ eV, as seen in figure \ref{fig:S5B_contour_Rsp&Rps_Psisp&Psips}, which to a certain extent seem to follow the Rayleigh lines for air, particularly the extended lines for $\mathbf{G}_\parallel^{\bar{1}0}$. This weak conversion of polarization is also visible in the upper off-block-diagonal elements in figure \ref{fig:S5B_contour_MM} where a scaling has been applied to improve visibility. 
 
 
 
@@ -1270,7 +1266,7 @@ The experimental MM is found in figure \ref{fig:S5B_contour_MM_exp}. Note that t
 %%%%%%%%%%%%%%% NEW SECTION %%%%%%%%%%%%%%%
 \section{GaSb tilted cones}
 \label{sec:results_gasb}
-The main motivation of modelling these densely packed GaSb cones was to retrieve a high energy optical response beyond what an experimental ellipsometer is capable of, preferably up to 24 eV. This would not be possible without the model improvements on optimization discussed in section \ref{sec:Optimization_of_model}. Even so, the desktop computer managed at most to compute the model for 13.78 eV, or 90 nm wavelength, before running out of memory. Furthermore, each TE and TM simulation had to be split into three parts running for different regions of the wavelength spectrum, otherwise the computer would run memory issues. The elapsed real time (wall time) of these simulations are shown in table \ref{tab:gasb_computationtimes}. Total wall time for the entire process was 4 days, 4 hours and 1 minute, however, for wavelengths larger than 195 nm it was possible to run both TE and TM simulations simultaneously. The total CPU time, assuming the labour was at all times divided evenly among the 6 CPU cores, was approximately 25 days and 6 minutes. Again, figure \ref{fig:GaSb_comptime} reveals how the computation time of each iteration depends on the wavelength.
+A motivation for modelling these densely packed GaSb cones was to retrieve a high energy optical response beyond what was achieved in \cite{gasbcones}, preferably up to 24 eV. This would not be possible without the model improvements on optimization discussed in section \ref{sec:Optimization_of_model}. Even so, the desktop computer managed at most to compute the model for 13.78 eV, or 90 nm wavelength, before running out of memory. Furthermore, each TE and TM simulation had to be split into three parts running for different regions of the wavelength spectrum, otherwise the computer would run memory issues. The elapsed real time (wall time) of these simulations are shown in table \ref{tab:gasb_computationtimes}. Total wall time for the entire process was 4 days, 4 hours and 1 minute, however, for wavelengths larger than 195 nm it was possible to run both TE and TM simulations simultaneously. The total CPU time, assuming the labour was at all times divided evenly among the 6 CPU cores, was approximately 25 days and 6 minutes. Again, figure \ref{fig:GaSb_comptime} reveals how the computation time of each iteration depends on the wavelength.
 
 \begin{table}[htb]
     \centering
@@ -1284,36 +1280,52 @@ The main motivation of modelling these densely packed GaSb cones was to retrieve
     \end{tabular}
 \end{table}
 
-Polarization coupling in COMSOL data less anisotropic than experimental data?
-\begin{figure}[h!]
+In both the experimental sample and simulated model the cones are aligned so that their tilts are pointing in the direction of the incident plane at $\psi_0=0^\circ$. Figure \ref{fig:gasb_contour_MM_simvsexp} includes both the simulated and experimental MM plotted with respect to incident photon energy and azimuthal angle, for energies limited by the ellipsometer instrumentation. They are deemed in good agreement with each other. However, it is clear that the simulated results does not exhibit the rotational asymmetry in the off-diagonal elements $m_{23}, m_{24}, m_{32}, m_{42}$ to the same extent as the ellipsometry results. This implies subtle differences in the cone geometry of the model and experimental sample. The sample is observed to be pseudo isotropic along $\psi_0=0^\circ$ as block off-diagonal elements are zero.
+\begin{figure}
     \begin{subfigure}{\textwidth}
         \centering
-        \includegraphics[width=\linewidth, trim=2cm 1.5cm 0cm 0cm, clip]{figures/ch4/gasb/contour/GaSbCones_contour_MM.png}   
+        \includegraphics[width=\linewidth, trim=3.6cm 1.5cm 0cm 0cm, clip]{figures/ch4/gasb/contour/GaSbCones_contour_MM.pdf}   
     \end{subfigure}
     
     \begin{subfigure}{\textwidth}
         \centering
         \includegraphics[width=0.9\linewidth]{figures/ch4/gasb/expdata/GasB_exp_contour_MM_theta45.PNG}  
     \end{subfigure}
+    \caption{MM contour plots of tilted GaSb cones simulated in COMSOL (top) compared to experimental results (bottom) as found in \cite{gasbcones}, for incident polar angle $\theta_0=45^\circ$. Inner radius for simulated and experimental plots corresponds to 0.775 eV and 0.73 eV, respectively, while outer circle corresponds to 5.9 eV for both.} %[placeholder caption] COMSOL model of GaSb tilted cones. (a) #elements in mesh at a given wavelength. (b) Computation time (in seconds) and amount of physical memory (given in gigabytes) at a given wavelength
     \label{fig:gasb_contour_MM_simvsexp}
-    \caption{MM contour plots of tilted GaSb cones simulated in COMSOL (top) compared to experimental results (bottom) as found in \cite{gasbcones}. Inner radius for simulated and experimental plots corresponds to 0.775 eV and 0.73 eV, respectively, while outer circle corresponds to 5.9 eV for both.} %[placeholder caption] COMSOL model of GaSb tilted cones. (a) #elements in mesh at a given wavelength. (b) Computation time (in seconds) and amount of physical memory (given in gigabytes) at a given wavelength
 \end{figure}
 
-\begin{figure}[h!]
+The full spectrum MM of the simulation can be seen in figure \ref{fig:gasb_contour_MM_simvsexp}, revealing strong polarization coupling around $6-10$ eV as the incidence plane is rotated. Note that the manifestations of polarization coupling seen in the block off-diagonal elements in figure \ref{fig:gasb_contour_MM_simvsexp} are too weak to be seen here, although they are considered to be the onset of polarization conversion observed for the higher energies. The block off-diagonal elements have two alternating maxima and minima. The coupling is also clearly observed in the cross-polarized reflectance plots in figure \ref{fig:gasb_contour_Psisp_Psips}, reporting an equal amount of conversion from both polarizations.
+
+\begin{figure}
     \centering
-    \includegraphics[width=\linewidth, trim=2.4cm 1.6cm 0.4cm 0cm, clip]{figures/ch4/gasb/contour/GaSbCones_contour_MM_13point78eV.png}
+    \includegraphics[width=\linewidth, trim=3.9cm 2.1cm 0.4cm 0cm, clip]{figures/ch4/gasb/contour/GaSbCones_contour_MM_13point78eV.pdf}
     \label{fig:gasb_contour_MM_full}
     \caption{Contour plots of the MM elements for the simulated GaSb tilted cones in the energy range 0.775 eV (innermost circle in each element) to 13.78 eV (outer circle). The inner circles in the schematic replacing the $m_{11}$ element marks the radii at energies 4 eV, 8 eV and 12 eV.}
 \end{figure}
-
-\begin{figure}[h!]  %% GaSb contour Psi_sp Psi_ps %% 
-    \centering
-    \includegraphics[width=0.65\linewidth, trim= 0.5cm 0cm 5.1cm 0cm, clip]{figures/ch4/gasb/contour/GaSbCones_contour_Psisp_Psips(1).png}
-    \caption{GaSb tilted cones. $\Psi_{sp}$ (top), $\Psi_{ps}$ (bottom).}
+\begin{figure} %% GaSb contour Psi_sp Psi_ps %% 
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/ch4/gasb/contour/GaSbcones_Rsp.pdf}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/ch4/gasb/contour/GaSbcones_Rps.pdf}
+    \end{subfigure}
+    
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/ch4/gasb/contour/GaSbcones_Psisp.pdf}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/ch4/gasb/contour/GaSbcones_Psisp.pdf}
+    \end{subfigure}
+    \caption{Contour plots of (a) $R_{sp}$ (b) $R_{ps}$ (c) $\Psi_{sp}$ and (d) $\Psi_{ps}$ for inclined GaSb cones simulated in COMSOL.}
     \label{fig:gasb_contour_Psisp_Psips}
 \end{figure} 
 
 
 
-Placeholder text. Placeholder text. Placeholder text. Placeholder text. Placeholder text. Placeholder text. Placeholder text. Placeholder text. Placeholder text. Placeholder text. Placeholder text. Placeholder text. 
+
 %\cleardoublepage

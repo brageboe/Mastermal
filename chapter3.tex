@@ -108,14 +108,32 @@ The geometric parameters that ended up being used in COMSOL simulations for the 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Tilted GaSb Cones}
-\text{\color{red}Motivation for Nanostructured surfaces of semi-conducting materials.} 
+\section{Tilted GaSb cones}
+Ion beam sputtering of flat surfaces can in some circumstances lead to spontaneous formation of nanoscale patterns, a phenomena which could open alternative ways of controlling the surface roughness of functional materials\cite{Nerbo_insituFormationGasb}. A distinct type of pattern formation was found for sputtering on certain semiconductors, like GaSb. These materials form pillar patterns and GaSb is considered to be the most conspicuous example\cite{Nerbo_insituFormationGasb}.
 
-\text{\color{red} Why GaSb in particular? Se Nerbø PhD.}
+In the works of \cite{gasbcones}, densely packed GaSb nanocones are self-assembled using low energy Ion Beam Sputtering, which involves ejecting mono-crystalline GaSb from a targeting source onto a substrate, where the growth is driven by the difference in diffusion velocity and sputtering yield of the two components of the semiconductor. A misalignment of the ion gun caused a slight tilt of the cones, which were originally intended to be directed normal to the substrate surface\cite{gasbcones}. Ellipsometric characterization of such structures are particularly practical since shadowing effects render atomic force microscopy non-applicable\cite{Nerbo_inclinedGasb}.
 
-In the works of \cite{gasbcones}, densely packed GaSb nanocones are self-assembled using Ion Beam Sputtering, which involves ejecting mono-crystalline GaSb from a targeting source onto a substrate . A misalignment of the ion gun caused a slight tilt of the cones, which were originally intended to be directed normal to the substrate surface.
+Spectroscopic Mueller Matrix Ellipsometry gives access to anisotropic electronic characteristics of the material, where an anisotropic Bruggeman effective medium model was applied to model the spectroscopic data. The anisotropic Bruggeman model is essentially a generalization of equation (\ref{eq:EMA_Bruggeman}) for ellipsoidal inclusion by applying the polarizability of an ellipsoid (\ref{eq:polarizability_ellipsoid}). Through mathematical models, parameters like the tilt of the cones and relative diameters and average height of the cones are found\cite{gasbcones}. Average cone separation was found using another non-destructive technique called Grazing-Incidence Small-Angle X-ray Scattering (GISAXS) where surface sensitivity is obtained by using a grazing incident angle of X-rays. GISAXS was also used to confirm film anisotropy induced by the nanopillar tilt\cite{gasbcones}. These sample parameters are summarized in table \ref{tab:gasbparameters} while figure \ref{fig:GaSbConeGeometry} visualizes the cone geometry.
 
-Spectroscopic Mueller Matrix Ellipsometry as discussed in section [REF] gives access to anisotropic electronic characteristics of the material, and through mathematical models parameters like the tilt of the cones and relative diameters and average height of the cones are found\cite{gasbcones}. Average cone seperation was found using another technique called Grazing-Incidence Small-Angle X-ray Scattering (GISAXS) where surface sensitivity is obtained by using a grazing incident angle of X-rays.\text{\color{red}ref}\unsure{IsGISAXS og MME er komplementære for å finne ut parametrene. Dvs hvis du først begynner å snakke om MM ellipsometri ble brukt til å finne D1,D2,h, tiltvinkel, burde du også forklare hvordan de finner d? } These sample parameters are summarized in table \ref{tab:gasbparameters} while figure \ref{fig:GaSbConeGeometry} visualizes the cone geometry. \text{\color{red}manglende delkapitell}
+%\unsure{IsGISAXS og MME er komplementære for å finne ut parametrene. Dvs hvis du først begynner å snakke om MM ellipsometri ble brukt til å finne D1,D2,h, tiltvinkel, burde du også forklare hvordan de finner d? }
+\begin{table}[h]
+\centering
+\caption{Parameter values for tilted cones of GaSb as found in \cite{gasbcones}.}
+\label{tab:gasbparameters}
+\begin{tabular}{l l}
+    \hline 
+    $h$         &   39 nm    \\
+    $\theta$    &   4.8$^\circ$   \\
+    $D_1$       &   $d$    \\
+    $D_2$       &   0.04$d$    \\
+    $d$         &   40 nm   \\
+    $\beta$     &   64^$$\circ$ \\
+    \hline
+\end{tabular}
+\end{table}
+
+
+The main motivation of modeling these tilted GaSb cones is to attempt a continuation of the COMSOL model for other periodic nanostructures than the gold hemispheroids on glass substrate, which the model initially will be tailored for. The nanocones differ greatly from the other samples in both size and shape, and the dense cone distribution should not be represented by a square lattice. The secondary objective is to attempt a high energy simulation up to $24$ eV to model the response the ellipsometer and the anisotropic Bruggeman model\footnote{The EMA is limited to structures sufficiently smaller than the wavelength of light, i.e. the electric field is assumed to be constant over an inclusion in the mixed material so that the phase of the wave is approximately the same over the size of the inclusion. Models taking into account retardation effects must be applied for smaller wavelengths.} is unable to capture. AFM analysis found the cones to be distributed with six nearest neighbours, which allows an assumption of a hexagonal lattice\cite{gasbcones}. 
 
 \begin{figure}
     \centering
@@ -126,19 +144,5 @@ Spectroscopic Mueller Matrix Ellipsometry as discussed in section [REF] gives ac
 
 
 
-\begin{table}[h]
-\centering
-\caption{Parameter values for tilted cones of GaSb to be used in numerical simulation, as found in \cite{gasbcones}.}
-\label{tab:gasbparameters}
-\begin{tabular}{l l}
-    \hline 
-    $h$         &   39 nm    \\
-    $\theta$    &   4.8$^\circ$   \\
-    $D_1$       &   $d$    \\
-    $D_2$       &   0.04$d$    \\
-    $d$         &   40 nm   \\
-    \hline
-\end{tabular}
-\end{table}
 
 \clearpage

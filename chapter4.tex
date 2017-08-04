@@ -56,7 +56,7 @@ Creating the geometries in COMSOL is a straightforward manner of combining solid
 Materials used were a dispersive SiO$_2$ and complex Au and GaSb. The refractive indices for the materials were linearly interpolated imported data tables identical to the ones used in the ellipsometric modelling of the experimental results \text{\color{red}usikker. MK: kilde til (n,k) brukt?} 
 
 \subsection{The EWFD interface}
-Two periodic ports were defined on the top boundary of the physical air domain (port 1) and bottom boundary of the substrate domain (port 2), see figure \ref{fig:implementation_ewfd_ports}. Port 1 excites an EM wave with polar AOI $\theta_0$ and azimuthal AOI $\phi_0$, while also absorbing outgoing (reflected) waves. Port 2 is a listener node, absorbing outgoing (transmitted) waves polar incident at an angle $\theta_1 = \arcsin[\sin\theta_0 n_{\text{air}}/n_{\text{sub}}(\lambda)]$ and azimuthal incidence $\phi_1=\phi_0$. Each periodic port was \text{\color{red}is?} also equipped with diffraction ports absorbing specific modes. Most notably, port 3 (top) and port 4 (bottom) read waves polarized orthogonal to the wave entering the model. The incident wave excited at port 1 is linearly polarized in either p- or s-polarization. Floquet periodicity was applied to boundaries shown in figure \ref{fig:implementation_ewfd_pc1} and \ref{fig:implementation_ewfd_pc2}
+Two periodic ports were defined as entry and exit boundaries of the physical domain: one on the top boundary of the physical air domain (port 1) and one on the bottom boundary of the substrate domain (port 2), see figure \ref{fig:implementation_ewfd_ports}. Port 1 excites an EM wave with polar AOI $\theta_0$ and azimuthal AOI $\phi_0$, while also absorbing outgoing (reflected) waves. Port 2 is a listener node, absorbing outgoing (transmitted) waves polar incident at an angle $\theta_1 = \arcsin[\sin\theta_0 n_{\text{air}}/n_{\text{sub}}(\lambda)]$ and azimuthal incidence $\phi_1=\phi_0$. Each periodic port was \text{\color{red}is?} additionally equipped with diffraction ports absorbing specific modes. Most notably, port 3 (top) and port 4 (bottom) read waves of the fundamental mode polarized orthogonal to the wave entering the model. The incident wave excited at port 1 is linearly polarized in either p- or s-polarization. Floquet periodicity was applied to boundaries shown in figure \ref{fig:implementation_ewfd_pc1} and \ref{fig:implementation_ewfd_pc2}
 
 \begin{figure}[htb]
     \begin{subfigure}{0.19\textwidth}
@@ -89,19 +89,21 @@ Two periodic ports were defined on the top boundary of the physical air domain (
         \caption{}
         \label{fig:implementation_ewfd_sbc}
     \end{subfigure}
-    \caption{Setup of the EWFD interface; (a) top: port 1 and port 3, bottom: port 2 and port 4; (b)-(c) periodic boundary conditions subject to Floquet periodicity; (d) PML domains; (e) SBC boundaries.}
+    \caption{Setup of the EWFD interface; (a) top highlighted boundary: port 1 and port 3, bottom highlighted boundary: port 2 and port 4; (b)-(c) periodic boundary conditions subject to Floquet periodicity; (d) PML domains; (e) SBC boundaries. \color{red}Include $h_air$ $h_PML$ port 1-4 etc}
     \label{fig:implementation_ewfd_setup}
 \end{figure}
 
 PML domains are shown in figure \ref{fig:implementation_ewfd_pml}, while the physical domain is considered to be the volume between port 1 and 2. Because a PML region acts as an infinite open domain, any boundary conditions and material properties must be carried over to the PML region. Thus, the PML domain share the same Floquet periodicity as the physical domain as figures \ref{fig:implementation_ewfd_pc1} and \ref{fig:implementation_ewfd_pc2} shows. The upper and lower PML domains also share the refractive indices of the interior region they are adjacent to, i.e. air and substrate, respectively. First order SBC were implemented in addition to PMLs to further reduce reflection at normal incidence and was not expected to have noticeable influence on computation cost. These boundaries are shown in figure \ref{fig:implementation_ewfd_sbc}.
 
 \subsection{Meshing}
-Periodic boundaries must have compatible meshes. That is, boundary layers on opposing sides must be equal in order to properly simulate the infinite structure. Using figure \ref{fig:implementation_ewfd_pc1} as an example, the meshed boundary of the highlighted walls must be exact copies of each other, and similarly for the highlighted walls in figure \ref{fig:implementation_ewfd_pc2}. In choosing the maximum element size, a satisfactory compromise between accuracy and computational memory usage was found to be 
+Periodic boundaries must have compatible meshes. That is, boundary layers on opposing sides must be equal in order to properly simulate the infinite structure. Using figure \ref{fig:implementation_ewfd_pc1} as an example, the meshed boundary of the highlighted walls must be exact copies of each other, and similarly for the highlighted walls in figure \ref{fig:implementation_ewfd_pc2}. 
+
+In choosing the maximum element size, a satisfactory compromise between accuracy and computational memory usage was found to be 
 \begin{equation}
     \text{MES} = \frac{\lambda}{6n_i},
     \label{eq:MES=lambda/6n}
 \end{equation}
-where $n_i$ is the (real part) refractive index of either air, SiO$_2$, Au, or GaSb. Convergence tests were performed with mesh factors $1/5$, $1/6$ and $1/8$, where all three gave reasonably similar results (not shown) so that we could assume a convergence limit was within close vicinity. Mesh factor $1/8$ proved to extremely costly in terms of computation time and memory usage while only a marginal (assumed) increase in accuracy. he extra cost of computation time and memory usage greatly outweighed the slight increase in accuracy. A convergence limit appeared to be approached already at factor 1/5 (see Appendix \ref{sec:AppendixA}, figure \ref{fig:AppendixConvergence}), so a factor 1/6 was deemed to be adequate enough.
+where $n_i$ is the (real part) refractive index of either air, SiO$_2$, Au, or GaSb. Convergence tests were performed with mesh factors $1/5$, $1/6$ and $1/8$, where all three gave reasonably similar results (not shown) so that we could assume a convergence limit was within close vicinity. Mesh factor $1/8$ proved to be extremely costly in terms of computation time and memory usage while only a marginal (assumed\footnote{Converging result does not always mean correct result.}) increase in accuracy. A convergence limit appeared to be approached already at factor $1/5$, while the computations were completed six times faster than a similar simulation with $1/8$ mesh factor. The difference in solution time and memory usage was not merely as drastic between mesh factors $1/5$ and $1/6$ in terms of what the desktop computer could handle, so equation (\ref{eq:MES=lambda/6n}) was deemed to be adequate.
 
 %This is further discussed in section \text{\color{red}ref: mesh convergence and wavelength dep. mesh}. 
     %Mesh convergence. Fix plot av "error on approximation on coarser meshes", $e=u_{h2}-u_{h1}$ der 1 og 2 representerer to ulike mesh instillinger e.g. $\lambda/5$ vs $\lambda/6$ %https://www.comsol.com/multiphysics/finite-element-method#discret1
@@ -150,36 +152,31 @@ Integrated in COMSOL is the possibility to plot certain physical quantities as f
     \label{eq:normE}
 \end{equation}
 and given in SI units V$/$m. It can in simplified terms be considered the amplitude of the electric field, $E_\text{norm}=\sqrt{E_x^2+E_y^2+E_z^2}$. We will use the notation $E_\text{norm}$ when presenting results of equation (\ref{eq:normE}), for simplicity.
-\subsection{Tilted GaSb cones \color{red}fjern?}
-\label{sec:implementation_gasb_cones}
-
-
-\text{\color{red}improve/move this paragraph}Previous computational models of these samples, performed using GranFilm implementation of the Bedeaux-Vlieger model, neglected finite size and retardation effects in each particle, the influence of Rayleigh/Wood anomalies, polarization coupling, and the SiO$_2$ ridge underneath each particle. A simple COMSOL model had been attempted on Sample 6, neglecting the mound geometry, which broke down for higher energies where it failed to account for diffracted modes.
+%\subsection{Tilted GaSb cones \color{red}fjern?}
+%\label{sec:implementation_gasb_cones}
+%\text{\color{red}improve/move this paragraph}Previous computational models of these samples, performed using GranFilm implementation of the Bedeaux-Vlieger model, neglected finite size and retardation effects in each particle, the influence of Rayleigh/Wood anomalies, polarization coupling, and the SiO$_2$ ridge underneath each particle. A simple COMSOL model had been attempted on Sample 6, neglecting the mound geometry, which broke down for higher energies where it failed to account for diffracted modes.
 
 %%%%%%%%%%%%%%% NEW SECTION %%%%%%%%%%%%%%%
 \section{Optimization of model}
-Early versions of the COMSOL models were computationally extremely demanding due to a very large amount of elements, where in most cases the computer ran out of memory before completing a simulation. Furthermore, the models did not manage to account for diffracted modes, resulting in nonsensical results in higher energy regimes. 
-
 \label{sec:Optimization_of_model}
-\begin{itemize}
-    \item state of old model/no mound compared with experimental and reduced rayleigh
-    \item uniform mesh vs physical mesh $=>$ improved accuracy (and computation time?)
-    \item implementing PML regions $=>$ fixed UV region
-    \item Decreasing height of computational region (achieving same results due to PML?) $=>$ reduce computation time and performance requirement
-\end{itemize}
+A great amount of effort has been put into finding ways to improve computational performance of the models, in order to reduce memory usage and thus solution time. While FEM is an efficient simulation tool for full wave solutions of highly customizable geometries, 3D models quickly places a high requirement on the computer's hardware, specifically random access memory (\ac{ram}) \cite{Comsol_RAM_usage}. There are two main reasons for optimizing the COMSOL model; the first one simply being that it's practical not having to wait days or even weeks for a simulation to complete; the other being that a more efficient model leaves the user with the possibility to model more complex structures or define more demanding study steps. In fact, without the measures taken in this section, none of the results presented later in the chapter would be possible to simulate. The thesis work began with a simple model of sample 6\footnote{Sample 6 is considered to be the least computationally demanding sample due to its short lattice constants causing a small volume unit cell domain that needs fewer finite elements to discretize compared to the other samples.} with a no mound geometry (flat substrate) or absorbing elements such as PMLs or SBCs, working only for a single azimuthal angle of incidence. COMSOL spent around 3 minutes per wavelength for either TE or TM polarization at this point, while running out of memory when attempting to solve e.g. sample 5A. In comparison, the optimizied model presented here use 10 seconds per wavelength at one incident angle for sample 6, while furthermore including its mound geometry.
+
+
+
+
 
 %%%%%%%%%%%%%%%
 \subsection{Effect of PML implementation}
-The height of PML domain is supposedly not a critical factor, as the equations within the PML are scaled with respect to the length of the PML. Dialog with COMSOL support suggested a PML height equal to the wavelength, but seeing as the simulations are calculated for a large spectrum, it seemed appropriate to more or less arbitrarily set it to $h_{\text{PML}}=\lambda_{\text{max}/3}$, as seen in figures \ref{fig:meshDomainHeight_c} and \ref{fig:meshDomainHeight_d}. \text{\color{red}kjedelig/unødvendig avsnitt?}
+One of the major problems encountered during the development of the model, was its inability to account for the onset of diffracted modes, resulting in nonsensical output for energy regions where Rayleigh anomalies occur. This behaviour was likely due to unwanted numerical reflection of diffracted waves on the port boundaries. Inserting PMLs on the backside of each port as shown in figure \ref{fig:implementation_ewfd_pml} immediately solved the problem. In figure \ref{fig:noPML_vs_PML_S6} we can see the effect of the PML implementation for sample 6. The model is observed to be working for $E>4.2$ eV, although the implementation brought with it an artifact seen as a slight oscillation for energies $2.8-3.7$ eV. The spectral shift and dampening of the LSPR seen around $2.1$ eV is not due to the PML, but is attributed to the dielectric mound. The implementation of PMLs was also found to release computational requirements in that both memory usage and computation time were significantly reduced, which is supported by literature\cite{PML_Berenger}\cite{PML_Berenger_3D}
 
-\begin{itemize}
-    \item before/after comparison 
-    \begin{itemize}
-        \item Result accuracy
-        \item Computation time
-        \item Memory usage
-    \end{itemize}
-\end{itemize}
+The height of PML domain is supposedly not a critical factor, as the equations within the PML are scaled with respect to the length of the PML. Dialog with COMSOL support suggested a PML height equal to the wavelength, but seeing as the simulations are calculated for a large spectrum of wavelengths, the height was more or less arbitrarily set to $h_{\text{PML}}=\lambda_{\text{max}/3}$, as seen in figures \ref{fig:meshDomainHeight_c} and \ref{fig:meshDomainHeight_d}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/ch4/implem/m12_PMLcomparison.pdf}
+    \caption{Mueller matrix element $N=m_{12}$ of the experimental data (dotted line) of sample 6 at incidence angle $(\theta_0=55^\circ, \phi_0=0^\circ)$, together with an early version COMSOL model without PML or SiO$_2$ mound (blue line) and the finalized model with both PML and mound implemented (red line). The latter is also found in figure \ref{fig:S6_NCS}.} 
+    \label{fig:noPML_vs_PML_S6}
+\end{figure}
 
 \begin{figure}[htb]
     \centering
@@ -212,7 +209,7 @@ The height of PML domain is supposedly not a critical factor, as the equations w
 \end{figure}
 
 %%%%%%%%%%%%%%%
-\subsection{Meshing Improvements}
+\subsection{Meshing improvements}
 \label{sec:optimization_mesh}
 \subsubsection{Physics dependent mesh}
 Early models meshed the computational domain indiscriminately, resulting in an extremely fine resolved mesh distributed equally throughout the volume and thus a very large amount of finite elements. Later versions made the mesh dependent on the refractive index. In figure \ref{fig:meshDomainHeight_a} one can see that the air domain has slightly coarser mesh than the glass substrate, while the Au particle is even more detailed due to the higher refractive index of gold, but also due to the curvature of the geometry. 
@@ -358,7 +355,7 @@ Reflectance coefficients $R_{pp}$ and $R_{ss}$ as functions of photon energy and
 
 Contour plots of the matrix elements of the normalized MM of sample 6 is presented in figure \ref{fig:S6_contour_MM}, where the photon energy $E$ and the azimuthal rotation angle $\phi_0$ represent the radius and the angle in each polar plot, respectively. One can observe that the MM is nearly block-diagonal, i.e. similar in shape as equation (\ref{eq:isotropicMM}) for non-depolarizing isotropic samples, for photon energies up till about $4$ eV. The LSPR is observed as a near-perfect circle around $2.1$ eV in all block diagonal elements. Rayleigh lines corresponding to the boundary of the 1st BZ in air (white lines) and substrate (black semi-square) are superposed in MM elements $m_{21}$ and $m_{33}$. In element $m_{24}$ the extended Rayleigh lines are additionally included. A slight polarization coupling is observed around the LSPR in the off-block-diagonal elements, while a stronger polarization conversion is clearly observed in the regions surrounding the Rayleigh lines of the same elements. The polarization coupling is more visible in the contour plots of $R_{sp}$, $R_{ps}$, $\Psi_{sp}$ and $\Psi_{ps}$ found in figure \ref{fig:S6_contour_Rsp&Rps_Psisp&Psips}. For convenience, figure \ref{fig:reciprocallattice} is repeated here in figure \ref{fig:S6_reciprocallattice_schematic}, showcasing how the azimuthal angle $\phi_0$ is defined as zero along the $\Gamma-X$-point of the reciprocal lattice.
 
-The normalized MM of the experimental data can be found in figure \ref{fig:S6_contour_MM_exp}, to be readily compared with figure \ref{fig:S6_contour_MM}. In figure \ref{fig:S6_NCS} experimental data is compared to COMSOL data in terms of the MM elements $N=m_{12}$, $C=m_{33}$, and $S=m_{34}$ for three selected angles. Note that $N$ and $\Psi_{pp}$ have similar profiles. The COMSOL simulation is found to be in good compliance with the experimental data. It is interesting, however, to note an additional polarization coupling observed at around $3$ eV in elements $m_{31}$ and $m_{32}$ in figure \ref{fig:S6_contour_MM}, which is not observed in the experimental data.
+The normalized MM of the experimental data can be found in figure \ref{fig:S6_contour_MM_exp}, to be readily compared with figure \ref{fig:S6_contour_MM}. In figure \ref{fig:S6_NCS} experimental data is compared to COMSOL data in terms of the MM elements $N=m_{12}$, $C=m_{33}$, and $S=m_{34}$ for three selected angles. Note that $N$ and $\Psi_{pp}$ have similar profiles. The COMSOL simulation is found to be in good compliance with the experimental data. It is interesting, however, to note an additional polarization coupling observed at around $3$ eV in elements $m_{31}$ and $m_{32}$ in figure \ref{fig:S6_contour_MM}, which is not observed in the experimental data. As already seen in figure \ref{fig:noPML_vs_PML_S6}, where experimental data is plotted up against two COMSOL models with and without the dielectric mound, the presence of a dielectric mound beneath the Au particles causes a blueshift and dampening of the plasmon resonance located at $2.1$ eV. 
 
 %\clearpage
 \begin{figure}[h]  %% radial MM

@@ -19,7 +19,7 @@ The Component node further consists of subnodes \emph{Definitions}, \emph{Geomet
 \begin{itemize}
     \item The model geometry is defined by a sequence geometric objects and operations under the Geometry node in the Model Builder. Geometries can be formed as a combination of solid objects using Boolean operations like union, intersection, and difference. Furthermore, 3D objects can be formed by defining 2D solids and then extruding or revolving these into 3D solids.
     \item In the Material node material properties are assigned to the geometric domains. The materials may be chosen from an integrated materials library, or user-specified materials defined under the Global Definitions node.
-    \item The physics interface varies depending on which add-on module the user has chosen. In the example figure \ref{fig:comsol_ui}, the physics interface is \emph{Electromagnetic Waves, Frequency Domain}, which is part of the Wave Optics module.
+    \item The physics interface varies depending on which add-on module the user has chosen. In the example figure \ref{fig:comsol_ui}, the physics interface is \emph{Electromagnetic Waves, Frequency Domain} (\ac{ewfd}), which is part of the Wave Optics module.
     \item The Mesh node specifies how the geometry should be discretizied. The user may customize their own mesh or automatically generate a physics-controlled mesh based on the configurations set in the associated physics interface.
 \end{itemize}
 
@@ -70,6 +70,7 @@ Note that in this case $S_{ij}=0$ for all $j\neq1$ as there are no fields being 
 To get $S_{22}$ and $S_{12}$ port 2 can be excited in the same way.
 
 \subsection{The \emph{Electromagnetic Waves, Frequency Domain} interface}
+\label{sec:COMSOL_ewfd}
 The Electromagnetic Waves, Frequency Domain (EWFD) interface in COMSOL's Wave Optics module is used to solve for time-harmonic electromagnetic field distributions. The main governing equation in the interface is the time-harmonic wave equation for the electric field \text{\color{red}ref. introduser i teoridel.} The EWFD supports study types in wavelength and frequency domains (among others\cite{comsol_waveopticsmodule}), used for source driven simulations for a single wavelength/frequency or a sequence of wavelengths/frequencies.
 
 For this physics interface, the maximum mesh element size should be limited to a fraction of the wavelength. Thus, the domain size that can be simulated scales with the wavelength and the amount of available computer memory. By default, COMSOL Multiphysics uses second-order elements\footnote{Element order refers to the type of basis function used.} to discretize the governing equations\cite{comsol_ElementOrder}, in contrast to the first-order elements illustrated in figures \ref{fig:FEM_1Ddomain} and \ref{fig:FEM_2Ddomain} with linear basis functions. As a bare minimum, two elements per wavelength are then necessary to solve the problem\footnote{The idea is fundamentally similar to the Nyquist sampling theorem in signal processing, which states that in order to recover all Fourier components of a waveform, the sampling rate must be at least twice the highest frequency of the signal.}, but such a coarse mesh would result in poor accuracy. 

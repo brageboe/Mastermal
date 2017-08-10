@@ -3,15 +3,42 @@
 \chapter{Introduction}
 
 \section{Background}
-localized surface plasmon resonances (LSPR) of noble metal nanoparticles, originating from the collective oscillations of conduction electrons, are strongly dependent on the size, shape, composition and the surrounding environment. %http://pubs.acs.org/doi/pdf/10.1021/jp500638u
+Plasmonic nanostructures is an active field of research due to their fascinating optical, electrical and chemical properties and due to their current and potential practical applications\cite{Trugler_metallicnanoparticles}\cite{Stockman:11}. Researchers are investigating the optical properties of an increasing variety of metallic nanostructures with the hope of effectively concentrating light into nanoscale volumes. In resonant structures, timevarying electric fields associated with light waves exert a force on the gas of negatively charged electrons inside a metal and drive them into a collective oscillation. At specific frequencies this oscillation is resonantly driven to produce a very strong charge displacement and associated (light) field concentration, known as a localized surface plasmon resonance (LSPR). 
 
-This plasmon resonance of coupled particles depends on interparticle distance, and its wavelength position is influenced by particle charge and the refractive index of the particle's immediate environment.
+Plasmonics enables the ability to concentrate light and/or produce high local-field enhancements in subwavelength structures. This manipulation of light have applications such as photothermal cancer treatment, in vivo bio-imaging, catalysis, thermal emitters, metamaterials, nonlinear optics, photodetectors, and in engineering of radiative decay\cite{Au_nanorods_review}\cite{Schuller_plasmonicapplications_review}. In photovoltaics, plasmonic nanoparticles have shown great potential in boosting performance of solar cells while reducing the material costs \cite{Trugler_metallicnanoparticles}\cite{Green_plasmonic_solarcells}.
+
+LSPRs in nanostructures of noble metals can be excited by electromagnetic radiation in the optical regime, and optical characterization methods can therefore be applied. Since the excitation is polarization dependent\cite{maier}, ellipsometry is a natural candidate for sample characterization as it exploits the polarization aspect of light. Spectroscopic ellipsometry is an established non-invasive method of retrieving valuable amplitude and phase information from metal-dielectric interfaces of thin films, from which one can determine the effective dielectric function and how it relates to the material nanostructure and define exactly the system's plasmonic characteristics\cite{hans_arwin_reviewarticle}.
+
+
+\text{\color{red}hvorfor simulering?}There are several different methods in computational electromagnetics, each with their own advantages and disadvantages depending on the problem at hand. The discrete dipole approximation (DDA) computes electromagnetic scattering and absorption by targets of arbitrary shape, but is limited by requiring a interdipole separation small compared the structural lengths in the target and to the wavelength\cite{DDA}. In the finite difference time domain (FDTD) method, Maxwell's equations in their differential form are discretized in space and time and the time evolution of electromagnetic near-fields is calculated directly\cite{FDTD}. FDTD is an attractive method due to being relatively easy to implement for specific problems, however it is very restricted to handling only simple geometries. The finite element method (FEM) is another full-wave differential equation solver, it discretizes the system volume into smaller, simpler parts that are numerically easier to solve. These subsets are then re-assembled into a larger system of equations that models the entire problem\cite{FEM_in_EM_jianming_jin}. FEM is a mature method that is efficient and unconditionally stable\footnote{That is, if a wavelength step-size no matter how large can be used without resulting in the type of nonsense results associated with a numerical instability.}\cite{CEM_course}. Its most attractive feature, however, is its ability to handle complicated geometries with relative ease, making FEM the numerical method of choice for this thesis. 
+
+% Choosing the right technique is important, as choosing the wrong one may result in incorrect results or have excessively long computation time\text{\color{red}fjern setning?}.
+%Something FEM. Full wave solution. Retardation effects. Can model intricate geometries such as curved objects more accurately than.
+%localized surface plasmon resonances (LSPR) of noble metal nanoparticles, originating from the collective oscillations of conduction electrons, are strongly dependent on the size, shape, composition and the surrounding environment. %http://pubs.acs.org/doi/pdf/10.1021/jp500638u
+
+%The plasmon resonance of an ensemble of coupled particles depends on interparticle distance, and its wavelength position is influenced by particle charge and the refractive index of the particle's immediate environment.
 %https://link.springer.com/content/pdf/10.1007%2Fs11468-010-9130-2.pdf !!
 
 \section{Problem formulation}
-Will report simulation results for the plasmonic properties for [samples] under both longitudinal and transverse polarizations 
+This thesis will investigate methods to simulate the optical properties of periodic metallic nanostructures using COMSOL Multiphysics, a commercial finite element method software. There will be a focus on structures that are possible to fabricate in NTNU NanoLab and characterize with optical methods in a laboratory. Simulation results for these nanostructures will be reported for both longitudinal and transverse polarizations, including in the form of spectroscopic Mueller matrices.
 
-Why optimization
+\text{\color{red}OK??}
+%in particular gold hemispheroidal particles on a glass substrate\cite{Brakstad:15}\cite{Kildemo2017} and densely packed inclined GaSb cones\cite{gasbcones}. An attempt should be made to create a user-friendly model 
+
+%Preferably, a successful model should be applicable to other nanostructures 
+
+%Will report simulation results for the plasmonic properties of these nanostructures under both longitudinal and transverse polarizations
+
+
+
+%I denne oppgaven skal en studere forskjellige metodikker for å kunne modellere optiske egenskaper til metamaterialer og nanoplasmonikk materialer
+
+%Why optimization
 \section{Thesis overview}
+In the following chapter, an introduction to electromagnetic theory will be given; the polarization of light, Stokes-Mueller formalism, ellipsometry, and electromagnetic interaction with matter including surface plasmons and diffraction grating, before finally introducing the finite element method. Chapter 3 will present the various fabricated nanostructures to be modeled as well as a brief summary of their experimental background. The commercial FEM software COMSOL Multiphysics will be presented in chapter 4, beginning with a general overview of the program before delving further into the wave optics module used to simulate electromagnetic wave propagation. The results and discussion in chapter 5 will be divided into three main parts; a detailed explanation of the modeling process in COMSOL will be given first; next, measures taken to optimize the model and their effects on performance and accuracy are presented; lastly, the simulation results and analysis of each of the four samples are given. Conclusions and recommendations for future work will be given in chapter 6. 
+
+\text{\color{red}appendix hvis inkludert}
+
+
 
 %\cleardoublepage

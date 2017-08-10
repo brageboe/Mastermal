@@ -1,27 +1,30 @@
 %===================================== CHAP 3 =================================
 
 \chapter{Experimental} \label{chapter3}
-This chapter will introduce the experimental samples that will be investigated by computational models. It will begin by introducing the various nano tools used in the works of Brakstad \cite{brakstad_thesis} and \cite{gasbcones} in fabricating and characterizing the samples, before ... . The nanostructures introduced in this chapter will be modelled with a finite element method approach via the commercial FEM software COMSOL Multiphysics.
-\section{Quick notes regarding nano tools}
-\text{\color{red}fjern seksjon?}
-\begin{itemize}
-    \item FIB
-    \item SEM
-    \item e-beam evaporation
-\end{itemize}
+This chapter will introduce the experimental samples that will be investigated by computational FEM models. Background information about their fabrication and characterization processes will be given, as well as any special considerations that had to be taken into account when implementing them into COMSOL that would differentiate them from their experimental counterparts. A total of four nanostructures will be studied in this thesis, three of them was created as part of the thesis work of Brakstad\cite{brakstad_thesis} and the final sample was prepared as part of the doctorate dissertation of Aas\cite{gasbcones}.
+
+%Brakstad \cite{brakstad_thesis} and Aas \cite{gasbcones} in fabricating and characterizing the samples, before ... . The nanostructures introduced in this chapter will be modelled with a finite element method approach via the commercial FEM software COMSOL Multiphysics.
+%\section{Quick notes regarding nano tools}
+%\text{\color{red}fjern seksjon?}
+%\begin{itemize}
+%    \item FIB
+%    \item SEM
+%    \item e-beam evaporation
+%\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Hemispheroidal gold particles on SiO$_2$ substrate}
-\begin{itemize}
-    \item introduce samples. AFM/SEM pictures. over-etching. Total height of gold particles and the assumed mound is found to be 40nm[?] by studying AFM data [ref til figur hvis brukt i ch2] in the open-source software Gwyddion[ref].
-    \item Problems with previous model
-    \item Achievement goals   
-    \item Why are these type of nanostructures interesting? Evt ha kun i Introduction
-\end{itemize}
 
-In the thesis works of Brakstad \cite{brakstad_thesis}, several 3-material nanostructures were manufactured consisting of Au-nanoparticles on a flat SiO$_2$ substrate in air. The substrates were covered with a thin gold film by an e-beam evaporator\footnote{Electron beam physical vapor deposition; a vacuum deposition method used to produce thin films and coatings. An electron beam evaporates atoms from a target anode under high vacuum, causing everything in the vacuum chamber to be coated with a thin layer of the anode material.} before the nanostructures were milled out with focused ion beam microscopy. \unsure{elaborate?} The nanostructures appeared as Au hemispheroids distributed in a square or rectangular pattern on a glass surface, see figure \ref{fig:ch3_AuSiO2_sketch+SEM}. Three chosen structures from this work will henceforth be discussed, known as sample 6, sample 5A and sample 5B. The deposited Au film thickness before milling were initially 40nm (samples 5A and 5B) and 20nm (sample 6). These samples were characterized by scanning electron microscopy (SEM) images and MM ellipsometer measurements \cite{brakstad_thesis}, while samples 5A and 6 were further discussed in detail by M. Kildemo et al. \cite{Brakstad:15}\cite{Kildemo2017}. The ellipsometric measurements done in \cite{brakstad_thesis} were performed with a RC2 ellipsometer provided by J.A. Woollam Co., which detects wavelengths from 210 nm (5.9 eV) to 1700 nm (0.73 eV). In addition, full azimuthal rotational measurements (varying $\phi_0$) were done for a given AOI, $\theta_0$, in order to identify symmetries caused by any anisotropic geometries in the fabricated samples. For all samples there was found next to zero depolarization. They were also shown to exhibit rich optical responses supporting LSPRs\cite{brakstad_thesis}. 
+%\begin{itemize}
+%    \item introduce samples. AFM/SEM pictures. over-etching. Total height of gold particles and the assumed mound is found to be 40nm[?] by studying AFM data [ref til figur hvis brukt i ch2] in the open-source software Gwyddion[ref].
+%    \item Problems with previous model
+%    \item Achievement goals   
+%    \item Why are these type of nanostructures interesting? Evt ha kun i Introduction
+%\end{itemize}
+
+In the thesis works of Brakstad \cite{brakstad_thesis}, several 3-material nanostructures were manufactured consisting of Au-nanoparticles on a flat SiO$_2$ substrate in air. The substrates were covered with a thin gold film by an e-beam evaporator\footnote{Electron beam physical vapor deposition; a vacuum deposition method used to produce thin films and coatings. An electron beam evaporates atoms from a target anode under high vacuum, causing everything in the vacuum chamber to be coated with a thin layer of the anode material\cite{ebeam_evap_nanolab}.} before the nanostructures were milled out with focused ion beam (FIB) microscopy\footnote{FIB systems use a finely focused beam of ions (usually gallium) that can be operated at low beam currents for sample imaging or high beam currents for surface manipulation of the sample via sputtering or milling\cite{fib_nanolab}.}. The nanostructures appeared as Au hemispheroids distributed in a square or rectangular pattern on a glass surface, see figure \ref{fig:ch3_AuSiO2_sketch+SEM}. Three chosen structures from this work will henceforth be discussed, known as sample 6, sample 5A and sample 5B. The deposited Au film thickness before milling were initially 40nm (samples 5A and 5B) and 20nm (sample 6). These samples were characterized by scanning electron microscopy (SEM) images and MM ellipsometer measurements \cite{brakstad_thesis}, while samples 5A and 6 were further discussed in detail by M. Kildemo et al. \cite{Brakstad:15}\cite{Kildemo2017}. The ellipsometric measurements done in \cite{brakstad_thesis} were performed with a RC2 ellipsometer provided by J.A. Woollam Co., which detects wavelengths from 210 nm (5.9 eV) to 1700 nm (0.73 eV). In addition, full azimuthal rotational measurements (varying $\phi_0$) were done for three polar AOI, $\theta_0$, in order to identify symmetries caused by any anisotropic geometries in the fabricated samples. For all samples there was found next to zero depolarization. They were also shown to exhibit rich optical responses supporting LSPRs\cite{brakstad_thesis}. 
 
 \begin{figure}[htb]
     \begin{subfigure}{0.3\textwidth}
@@ -49,25 +52,26 @@ In the thesis works of Brakstad \cite{brakstad_thesis}, several 3-material nanos
 An unintended effect of the milling process caused an over-etching into the substrate of several nanometers, suggesting that each Au particle on all the samples lies on top of a dielectric mound, as sketched in figure \ref{fig:ch3_AuSiO2_sketch} (however, the exact shape of the mound can only be speculated). This can also be observed by close inspection of figure \ref{fig:ch3_S5A_SEM}, where a vague mound geometry can be made out surrounding each particle. The geometry of all three samples are characterized by their lattice constants $a_{x,y}$, Au particle radii $R_{x,y,z}$ and the thickness $t$ of the SiO$_2$ mound as depicted in figure \ref{fig:ch3_AuSiO2_sketch}.
 
 \subsection{Sample 6}
-Sample 6 was originally made to fabricate small dots close to the quasi-static approximation arranged in a square array. A SEM image of the sample can be found in figure \ref{fig:ch3_S6_SEM}. After the milling, the particles were found to be hemispheroids with lateral radius $R_{xy} = 38$nm and lattice constant $a_{xy} = 125$nm, see figure \ref{fig:ch3_AuSiO2_sketch}. Through a combination of atomic-force microscopy (AFM) and SEM images, the total height of particle and mound was found to be 40nm. Separating particle height $R_z$ and mound height $t$ individually was however more difficult to estimate. Under the assumption that the other parameter estimations were accurate, a parameter sweep of $R_z$ and $t$ was performed in the COMSOL model of sample 6. The set of parameters with a resulting LSPR resonance closest resembling that of the experimental results were chosen, see appendix \ref{appendix:sample_parameters}. This concluded in $R_z=32$nm and $t=8$nm, however, the uncertainty associated with the height profiling must be emphasized.
+Sample 6 was originally made to fabricate small dots, operating within the quasi-static approximation arranged in a square array, ideally with particle radius $20$ nm and lattice constant $125$ nm\cite{brakstad_thesis}. However, after the milling, the particles were derived from \ac{sem}\footnote{SEM is a type of electron microscope that produces images by scanning the surface of a sample with a focused beam of electrons. The electrons interact with the atoms of the sample which produces signals that contains information about the surface composition and topography.} images to be hemispheroids with lateral radius $R_{xy} = 38$nm and lattice constant $a_{xy} = 125$nm, see figure \ref{fig:ch3_AuSiO2_sketch}. A SEM image of the sample is shown in figure \ref{fig:ch3_S6_SEM}. Through a combination of atomic-force microscopy (\ac{afm})\footnote{AFM is a type of scanning probe microscopy. Information about the sample is gathered by probing the surface with a mechanical cantilever with a sharp tip attached to its end. Forces between the tip and the sample leads to a deflection of the cantilever which is measured by a detector\cite{afm_nanolab}.} and SEM images, the total height of particle and mound were roughly estimated to $40$ nm. Separating particle height $R_z$ and mound height $t$ individually was more difficult to estimate. The perpendicular radius $R_z$ was initially assumed to be equal to the thickness of the Au thin film of $20$ nm. However, COMSOL simulations using $20$ nm for both particle and mound height resulted in a redshift of the LSPR compared to experimental data. Under the assumption that the lateral parameter estimations were accurate, a parameter sweep of $R_z$ and $t$ was performed in the COMSOL model of sample 6. The set of parameters with a resulting LSPR resonance closest resembling that of the experimental results were chosen. This concluded in $R_z=32$ nm and $t=8$ nm, where the particle height exceeds the initial film thickness. However, the uncertainty associated with the height profiling must be emphasized.
 
 \subsection{Sample 5A}
-Sample 5A was originally created as one in a series of similar nanostructures to investigate the how the distance between the Au spheres influence the LSP resonance energy. The GranFilm software\footnote{\url{http://web.phys.ntnu.no/~ingves/Software/GranFilm/}} was used to estimate the sample 5A parameters\footnote{Simulations performed by PhD. student Jean-Philippe Banon at the Department of Physics, NTNU.}, see appendix \text{\color{red}ref}. The experimental data sets were fitted with respect to the morphological parameters of the sample ($R_x$, $R_y$, $R_z$, $a_x$, $a_y$) using GranFilm\cite{Kildemo2017}. The sample was found to be less uniform than originally intended, the lattice being slightly rectangular and the Au particle slightly elliptic in the lateral direction while lying on top of a large mound, see table \ref{tab:GoldLatticeParameters}. 
+Sample 5A was originally created as one in a series of similar nanostructures to investigate the how the distance between the Au spheres influence the LSP resonance energy, ideally with radius $40$ nm and lattice constant around $208$ nm\cite{brakstad_thesis}. SEM images after milling found the parameters to be $52\pm7$ nm and $210\pm18$ nm for radius and lattice, respectively\cite{brakstad_thesis}, see figure \ref{fig:ch3_S5A_SEM}. In an attempt to more accurately determine the sample parameters, a Bedeaux-Vlieger formalism\cite{BV} was initially used by fitting the experimental data sets with respect to the morphological parameters of the spheroidal lattice ($R_{xy}, R_z, a_{xy}$) using the GranFilm software\footnote{\url{http://web.phys.ntnu.no/~ingves/Software/GranFilm/}}\cite{Kildemo2017}\cite{Brakstad:15}. Further research \cite{JP_RRE} using an algorithm based on the reduced Rayleigh equation\footnote{The reduced Rayleigh equation was combined with the angle-resolved spectroscopic Mueller matrix ellipsometric data to produce a numerically efficient and reliable method for reconstructing the geometrical parameters of the 2D photonic crystal\cite{JP_RRE}.} (\ac{rre})\cite{simonsen_RRE} found the lattice to be rectangular and the Au particle slightly elliptic in the lateral direction. The mound thickness was also adjusted\cite{JP_RRE}. The final sample 5A parameters used in the simulations are found in table \ref{tab:GoldLatticeParameters}. 
+%\footnote{Simulations performed by PhD. student Jean-Philippe Banon at the Department of Physics, NTNU.}
 
 \subsection{Sample 5B}
 \label{sec:ch3_sample5B}
-Sample 5B is a biaxial anisotropic system due to the high eccentricity of the Au particles and rectangular lattice, as seen in figure \ref{fig:S5B_schematic_overview}. This was done by making ellipses of the 40 nm Au film. The sample was found to have little re-deposition and exhibit relatively stable geometric shape\cite{brakstad_thesis}. It was created for the purpose of observing how different dielectric functions in each of the three spatial directions would present itself in the ellipsometric data. 
+Sample 5B is a biaxial anisotropic system due to the high eccentricity of the Au particles and rectangular lattice, as seen in figure \ref{fig:S5B_schematic_overview_topview}, with ideal lattice constants $a_1\approx312$ nm and $a_2\approx454$ nm. The ellipses were milled out of a $40$ nm Au film. After milling, SEM images (see figure \ref{fig:S5B_schematic_overview_SEM_sideview}) found the sample to have little redeposition with parameters $r_1\approx19\pm19$ nm, $r_2\approx50\pm8$ nm and $a\approx495\pm26$ nm\cite{brakstad_thesis}. It was created for the purpose of observing how different dielectric functions in each of the three spatial directions would present itself in the ellipsometric data. 
 
 \begin{figure}
     \begin{subfigure}{0.5\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/Ch3/s5b/S5B_topview_phi.png}
+        \includegraphics[width=0.8\linewidth]{figures/Ch3/s5b/S5B_topview_phi.png}
         \caption{}
         \label{fig:S5B_schematic_overview_topview}
     \end{subfigure}
     \begin{subfigure}{0.5\textwidth}
         \centering
-        \includegraphics[width=0.83\linewidth]{figures/Ch3/s5b/S5B_sideview+SEM.png}
+        \includegraphics[width=0.66\linewidth]{figures/Ch3/s5b/S5B_sideview+SEM.png}
         \caption{}
         \label{fig:S5B_schematic_overview_SEM_sideview}
     \end{subfigure}
@@ -75,11 +79,7 @@ Sample 5B is a biaxial anisotropic system due to the high eccentricity of the Au
     \label{fig:S5B_schematic_overview}
 \end{figure}
 
-The same GranFilm optimization process was done for sample 5B parameters as for sample 5A. A mound thickness of around 15 nm \text{\color{red} 20?} was found by studying the total height profile from AFM images and subtracting particle height $R_z$ found from the parameter fitting procedure. An indication of a dielectric mound can also be observed around each Au particle by close inspection of figure \ref{fig:S5B_schematic_overview_SEM_sideview}. However, due to limitations in computer power, sample 5B was simulated with no mound (i.e. flat substrate) as the amount of finite elements to solve when having a fine mesh detailing the mound geometry in such a large unit cell system were beyond the scope of the desktop computer used for the simulations. 
-
-\text{\color{red}skal denne seksjonen \emph{kun} ha experimentell info,} 
-
-\text{\color{red}eller er det greit å skyte inn info om modelleringa her?}
+The same RRE optimization process was done for sample 5B parameters as for sample 5A. A mound thickness of around 15 nm was found by studying the total height profile from AFM images and subtracting particle height $R_z$ found from the parameter fitting procedure. An indication of a dielectric mound can also be observed around each Au particle by close inspection of figure \ref{fig:S5B_schematic_overview_SEM_sideview}. The sample was found to be computationally demanding when implementing it into COMSOL, due to the extreme amount of finite elements to solve in such a large unit cell system. In fact, the COMSOL model was not able to converge a solution for the lowest desirable wavelength ($210$ nm) for this sample\footnote{The mesh resolution, or in other words the amount of elements, will depend on the size of the geometry compared to the wavelength. See sections \ref{sec:COMSOL_ewfd} and \ref{sec:implementation_meshing}.}. A compromise of sacrificing the dielectric mound had to be made in order to solve the model for a satisfactory low wavelength (further explained in section \ref{sec:S5B_results_COMSOL}), since resolving the mesh in the curved mound geometry requires a significant amount of elements for all wavelength iterations. In other words, sample 5B was simulated with a flat substrate surface (no mound). 
 
 The geometric parameters that ended up being used in COMSOL simulations for the three samples are summarized in table \ref{tab:GoldLatticeParameters}. 
 
@@ -109,11 +109,16 @@ The geometric parameters that ended up being used in COMSOL simulations for the 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Tilted GaSb cones}
-Ion beam sputtering of flat surfaces can in some circumstances lead to spontaneous formation of nanoscale patterns, a phenomena which could open alternative ways of controlling the surface roughness of functional materials\cite{Nerbo_insituFormationGasb}. A distinct type of pattern formation was found for sputtering on certain semiconductors, like GaSb. These materials form pillar patterns and GaSb is considered to be the most conspicuous example\cite{Nerbo_insituFormationGasb}.
+Ion beam sputtering of flat surfaces can in some circumstances lead to spontaneous formation of nanoscale patterns, a phenomena which could open alternative ways of controlling the surface roughness of functional materials\cite{Nerbo_insituFormationGasb}. A distinct type of pattern formation was found for sputtering on certain semiconductors, like GaSb. These materials form pillar patterns, and GaSb is considered to be the most conspicuous example\cite{Nerbo_insituFormationGasb}.
 
-In the works of \cite{gasbcones}, densely packed GaSb nanocones are self-assembled using low energy Ion Beam Sputtering, which involves ejecting mono-crystalline GaSb from a targeting source onto a substrate, where the growth is driven by the difference in diffusion velocity and sputtering yield of the two components of the semiconductor. A misalignment of the ion gun caused a slight tilt of the cones, which were originally intended to be directed normal to the substrate surface\cite{gasbcones}. Ellipsometric characterization of such structures are particularly practical since shadowing effects render atomic force microscopy non-applicable\cite{Nerbo_inclinedGasb}.
+In the works of \cite{gasbcones}, densely packed GaSb nanocones are formed by sputtering a clean GaSb substrate by low energy Ar+ ions using ion beam sputtering (IBS)\footnote{IBS is a sputter deposition method in which the target is external to the ion source. An ion beam strikes and sputters a target of material, which then coats the substrate tilted toward the target with the sputtered material. The properties of the resulting film will depend on the target material properties and on the ion sputter beam parameters (flux, energy, etc.) as well as the chamber ion source-target-substrate configuration.}. A misalignment of the ion gun caused a slight tilt of the cones, which were originally intended to be directed normal to the substrate surface\cite{gasbcones}. Ellipsometric characterization of such structures are particularly practical since shadowing effects render atomic force microscopy non-applicable\cite{Nerbo_inclinedGasb}.
 
-Spectroscopic Mueller Matrix Ellipsometry gives access to anisotropic electronic characteristics of the material, where an anisotropic Bruggeman effective medium model was applied to model the spectroscopic data. The anisotropic Bruggeman model is essentially a generalization of equation (\ref{eq:EMA_Bruggeman}) for ellipsoidal inclusion by applying the polarizability of an ellipsoid (\ref{eq:polarizability_ellipsoid}). Through mathematical models, parameters like the tilt of the cones and relative diameters and average height of the cones are found\cite{gasbcones}. Average cone separation was found using another non-destructive technique called Grazing-Incidence Small-Angle X-ray Scattering (GISAXS) where surface sensitivity is obtained by using a grazing incident angle of X-rays. GISAXS was also used to confirm film anisotropy induced by the nanopillar tilt\cite{gasbcones}. These sample parameters are summarized in table \ref{tab:gasbparameters} while figure \ref{fig:GaSbConeGeometry} visualizes the cone geometry.
+
+%In the works of \cite{gasbcones}, densely packed GaSb nanocones are formed using low energy Ion Beam Sputtering, which involves ejecting mono-crystalline GaSb from a targeting source onto a substrate, where the growth is driven by the difference in diffusion velocity and sputtering yield of the two components of the semiconductor. 
+
+
+
+Spectroscopic Mueller Matrix Ellipsometry gives access to anisotropic electronic characteristics of the material, where an anisotropic Bruggeman effective medium model was applied to model the spectroscopic data. The anisotropic Bruggeman model is essentially a generalization of equation (\ref{eq:EMA_Bruggeman}) for ellipsoidal inclusion by applying the polarizability of an ellipsoid (\ref{eq:polarizability_ellipsoid}). Through mathematical models, parameters like the tilt of the cones and relative diameters and average height of the cones are found\cite{gasbcones}. Average cone separation was found using another non-destructive technique called Grazing-Incidence Small-Angle X-ray Scattering (GISAXS) where surface sensitivity is obtained by using a grazing incident angle of X-rays\cite{gasbcones}. GISAXS was also used to confirm film anisotropy induced by the nanopillar tilt\cite{gasbcones}. These sample parameters are summarized in table \ref{tab:gasbparameters} while figure \ref{fig:GaSbConeGeometry} visualizes the cone geometry.
 
 %\unsure{IsGISAXS og MME er komplementære for å finne ut parametrene. Dvs hvis du først begynner å snakke om MM ellipsometri ble brukt til å finne D1,D2,h, tiltvinkel, burde du også forklare hvordan de finner d? }
 \begin{table}[h]
@@ -127,7 +132,7 @@ Spectroscopic Mueller Matrix Ellipsometry gives access to anisotropic electronic
     $D_1$       &   $d$    \\
     $D_2$       &   0.04$d$    \\
     $d$         &   40 nm   \\
-    $\beta$     &   64^$$\circ$ \\
+    $\beta$     &   64$^\circ$ \\
     \hline
 \end{tabular}
 \end{table}

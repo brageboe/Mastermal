@@ -4,9 +4,9 @@
 
 \section{Polarized light}
 \label{sec:PolarizedLight}
-Light, in accordance with Maxwell's equations, is described as a propagating electromagnetic (\ac{em}) wave with fundamental properties wavelength, propagation speed and polarization.  blahblabhbalh plane wave blahblah [short facts, e.g. human's visual range of light]
+Light, in accordance with Maxwell's equations, is described as a propagating electromagnetic (\ac{em}) wave with fundamental properties wavelength, propagation speed and polarization.  \text{\color{red}blahblabhbalh plane wave blahblah [short facts, e.g. human's visual range of light]}
 
-The electric field of completely polarized light travelling the $\hat{z}$ direction can be described as a decomposition into two orthogonal field components oscillating in the $\hat{x}$ and $\hat{y}$ directions,
+The electric field of monochromatic completely polarized light travelling the $\hat{z}$ direction can be described as a decomposition into two orthogonal field components oscillating in the $\hat{x}$ and $\hat{y}$ directions,
 \begin{equation}
     \mathbf{E}(z,t) = E_{0x}\cos(\omega t - kz + \delta_x)\mathbf{\hat{x}} + E_{0y}\cos(\omega t - kz + \delta_y)\mathbf{\hat{y}}
     \label{eq:cosEfield}
@@ -18,9 +18,7 @@ where $\omega$ and $k$ are the angular frequency and wave vector of the light, w
 \end{equation}
 where taking the real part of equation (\ref{eq: Efield}) results in the physical field. The magnetic field can be described in a similar manner. However, since the magnetic susceptibility of materials studied in this thesis is comparable to that of vacuum, it is usually sufficient to only account for the electric field. 
 
-Polarization of light is described by the electric field amplitude $E_{0x}$, $E_{0y}$ and phase difference $\delta = \delta_x-\delta_y$. If the two components in equation (\ref{eq: Efield}) have different phases, the oscillating electric field will trace out an ellipse in the plane perpendicular to its direction of propagation. While if, say, $E_{0y}=0$, the electric field will oscillate only in $\hat{x}$-direction and the light is said to be linearly horizontally polarized\cite{collett}.
-
-[convention of $e^{i\omega t}$] Convention is defined when looking towards the source
+Polarization of light is described by the electric field amplitude $E_{0x}$, $E_{0y}$ and phase difference $\delta = \delta_x-\delta_y$. If the two components in equation (\ref{eq: Efield}) have different phases, the oscillating electric field will trace out an ellipse in the plane perpendicular to its direction of propagation. While if, say, $E_{0y}=0$, the electric field will oscillate only in $\hat{x}$-direction and the light is said to be linearly horizontally polarized\cite{collett}. The time dependence in equation (\ref{eq: Efield}), $e^{(i\omega t)}$, is chosen so that in the case of elliptical polarized light, right circular polarization is defined as a clockwise rotation of the electric field when looking towards the source\cite{hauge}.
 
 The polarization of an electromagnetic wave may also be described in complex vector notation by a so-called Jones vector, 
 \begin{equation}
@@ -60,7 +58,7 @@ When describing the change of polarization of light after interaction with an op
 where the 2x2 matrix is called the Jones Matrix and its elements $j_{kl}\quad(k,l = 1,2)$ are complex reflection or transmission coefficients translating linear interactions of completely polarized light. Reflectance or transmittance, which is the fraction of incident electromagnetic power that is reflected or transmitted at the optical element, is given by $J_{kl} = \abs{j_{kl}}^2$.
 
 \section{Stokes-Mueller formalism}
-The Jones formalism provides us with a description of completely polarized light. However, often in nature and practical cases, light is not a perfectly monochromatic wave\footnote{A wave is monochromatic if amplitude and phase factors are constant for all time, as in section \ref{sec:PolarizedLight}.}. Sunlight, for example, is unpolarized light, meaning that the beam's polarization changes so quickly and randomly that it cannot be determined for any practical purposes. Real-world measurement systems and samples may cause a fraction of the light to become unpolarized. This process where the light's degree of polarization is reduced is called \emph{depolarization}, and describes the percentage of light that has become unpolarized\cite{hans_arwin}[SJEKK]. Another limitation of the Jones formalism regarding experimental work is that detectors measure light intensities, not field amplitudes. There is thus a practical motivation for an alternative representation of light in terms of intensities which also takes into account depolarization.
+The Jones formalism provides us with a description of completely polarized light. However, often in nature and practical cases, light is not a perfectly monochromatic wave\footnote{A wave is monochromatic if amplitude and phase factors are constant for all time, as in section \ref{sec:PolarizedLight}.}. Sunlight, for example, is unpolarized light, meaning that the beam's polarization changes so quickly and randomly that it cannot be determined for any practical purposes. Real-world measurement systems and samples may cause a fraction of the light to become unpolarized. This process where the light's degree of polarization is reduced is called \emph{depolarization}, and describes the percentage of light that has become unpolarized\cite{hans_arwin}. Another limitation of the Jones formalism regarding experimental work is that detectors measure light intensities, not field amplitudes. There is thus a practical motivation for an alternative representation of light in terms of intensities which also takes into account depolarization.
 
 The Stokes-Mueller formalism may represent quasi-monochromatic light that is unpolarized, partially polarized or completely polarized. A quasi-monochromatic wave will have time-dependent phase factors $\delta_i(t)$ and amplitude $E_i(t)$ that fluctuate slowly compared to the rapid oscillations of the cosinusoids in equation (\ref{eq:cosEfield}) \cite{collett}.The Stokes vector provide a full description of any polarization state\cite{azzam},
 \begin{equation}
@@ -87,7 +85,7 @@ The Stokes-Mueller formalism may represent quasi-monochromatic light that is unp
     \label{eq:StokesVector}
 \end{equation}
 where $<...>$ denotes the time-average, so that $S_0$ represents the total intensity of the light beam, $S_1$ and $S_2$ are the differences between horizontally/vertically polarized light and $+45\degree$/$-45\degree$ polarized light, respectively. Finally $S_3$ is the difference between right handed and left handed circularly polarized light.
-Whereas the Jones vector represent light with field amplitude and phase, the Stokes vector represent light with field intensities.
+Whereas the Jones vector represent light with field amplitude and phase, the Stokes vector represent light with field intensities. %$I_{x,y}$ is the intensity of linearly polarized light in $\hat{x}$ and $\hat{y}$ directions, 
 
 The degree of polarization $P$ is defined as the ratio between the intensity of completely polarized light to the total intensity of the beam. In terms of Stokes parameters this is 
 \begin{equation}
@@ -95,7 +93,7 @@ The degree of polarization $P$ is defined as the ratio between the intensity of 
 \end{equation}
 The value $P=1$ corresponds to completely polarized light, $P=0$ corresponds to unpolarized light, and $0<P<1$ corresponds to partially polarized light.
 
-A change in polarization state, from one Stokes vector to another, due to interaction with an optical element is expressed through matrix equation $\mathbf{S}_{out} = \mathbf{M}\mathbf{S}_{inc}$, where $\mathbf{M}$ is a 4x4 matrix called the Mueller matrix (\ac{mm}) of the system. Written out in terms of the elements, this becomes
+A change in polarization state, from one Stokes vector to another, due to interaction with an optical element is expressed through the matrix equation $\mathbf{S}_{out} = \mathbf{M}\mathbf{S}_{inc}$, where $\mathbf{M}$ is a 4x4 matrix called the Mueller matrix (\ac{mm}) of the system. Written out in terms of the elements, this becomes
 \begin{equation}
     \begin{pmatrix}
         S_0 \\
@@ -117,7 +115,7 @@ A change in polarization state, from one Stokes vector to another, due to intera
         S_3
     \end{pmatrix}_{inc},
 \end{equation}
-where the elements are real numbers that may take values $M_{ij}\in[-1,1]$. The MM describes the optical element, and contains all the information about what happens to the polarization state during the interaction. The polarization state may be changed by changing the orthogonal field amplitudes unequally (diattenuation), changing the phase (retardance), changing the direction of the orthogonal field components (rotation), or transferring energy from polarized states to unpolarized states (diattenuation\text{\color{red}depolarization?}). Any system's MM may be deconstructed into a succession of optical components, each described by its own MM, i.e.\cite{hans_arwin}
+where the elements are real numbers that may take values $M_{ij}\in[-1,1]$. The MM describes the optical element, and contains all the information about what happens to the polarization state during the interaction. The polarization state may be changed by changing the orthogonal field amplitudes unequally (diattenuation), changing the phase (retardance), changing the direction of the orthogonal field components (rotation), or transferring energy from polarized states to unpolarized states (depolarization). Any system's MM may be deconstructed into a succession of optical components, each described by its own MM, i.e.\cite{hans_arwin}
 \begin{equation}
     \mathbf{M} = \mathbf{M}_N \mathbf{M}_{N-1}...\mathbf{M}_1, 
 \end{equation}
@@ -239,12 +237,11 @@ If assuming a sharp interface between the two media, as in figure \ref{fig:SE}, 
     \langle\epsilon\rangle_{pp} =  \sin^2\theta_0\left[ \epsilon_0 + \frac{(1-\rho_{pp})^2}{(1+\rho_{pp})^2}\tan^2\theta_0 \right],
     \label{eq:generalized_pseudo_dielectricfunction}
 \end{equation}
-known as the \emph{generalized pseudo-dielectric function}\cite{hans_arwin_reviewarticle}. If surface layers can be neglected then $\langle\epsilon\rangle_{pp}=\epsilon_1$. Note that $\epsilon_0$ is the dielectric function of the upper (ambient) media, not the vacuum permittivity. The pseudodielectric function only works for the case where there is no thin film or overlayer on the surface. If light is able to penetrate the film and reflect from the film/substrate interface the effects
-of multiple reflections in the film must be accounted for.
+known as the \emph{generalized pseudo-dielectric function}\cite{hans_arwin_reviewarticle}. If surface layers can be neglected then $\langle\epsilon\rangle_{pp}=\epsilon_1$. Note that $\epsilon_0$ is the dielectric function of the upper (ambient) media, not the vacuum permittivity. %The pseudodielectric function only works for the case where there is no thin film or overlayer on the surface. If light is able to penetrate the film and reflect from the film/substrate interface the effects of multiple reflections in the film must be accounted for.
 
 \subsubsection{Mueller-matrix ellipsometry}
 \label{sec:MM_ellipsometry}
-So far we have assumed no depolarization in the sample. When depolarization occurs Jones formalism is no longer valid and one should use Mueller-matrix formalism in describing how an electromagnetic wave interacts with the elements within an ellipsometer (including the sample). Depolarization may be caused by effects such as thickness non-uniformity, non-coherent reflection and backside reflections from a transparent substrate. Furthermore, information such as s- and p-reflectance, and the isotropic and anisotropic ellipsometry parameters may be extracted from the Mueller matrix. In transmission mode, the MM may be useful to see effects of s- and p-transmittance, optical rotation and circular dichroism\footnote{Dichroism is either when light splits up into distinct beams of different wavelengths, or when light rays experience a different absorption coefficient (diattenuation) depending on its polarization state. Circular dichroism is dichroism involving circularly polarized light, i.e. the differential absorption of left- and right-handed light.}.
+So far we have assumed no depolarization in the sample. When depolarization occurs Jones formalism is no longer valid and one should use Mueller-matrix formalism in describing how an electromagnetic wave interacts with the elements within an ellipsometer (including the sample). Depolarization may be caused by effects such as thickness non-uniformity, non-coherent reflection and backside reflections from a transparent substrate. Furthermore, information such as s- and p-reflectance, and the isotropic and anisotropic ellipsometry parameters may be extracted from the Mueller matrix. In transmission mode, the MM may be useful to observe effects of s- and p-transmittance, optical rotation and circular dichroism\footnote{Dichroism is either when light splits up into distinct beams of different wavelengths, or when light rays experience a different absorption coefficient (diattenuation) depending on its polarization state. Circular dichroism is dichroism involving circularly polarized light, i.e. the differential absorption of left- and right-handed light.}.
 
 The reflection MM of a non-depolarizing sample is readily available from equation (\ref{eq:JonesToMueller}). An isotropic sample is fully described by $\rho = \tan\Psi e^{i\Delta} = r_{pp}/r_{ss}$ as there is no cross-polarization, $r_{sp} = r_{ps} = 0$. It is then fairly straight forward to show that the MM in equation (\ref{eq:JonesToMueller}) becomes block-diagonal as it reduces to
 \begin{equation}
@@ -318,12 +315,12 @@ The optical response of metals can be, over a wide frequency range, be explained
     m\mathbf{\ddot{x}} + m\gamma\mathbf{\dot{x}} = -e\mathbf{E}
     \label{eq:drude eom}
 \end{equation}
-with $m$ being the effective optical mass of the electron and $e$ the electron charge. The electron will oscillate in response to the applied field and its motion is damped through collisions described by the characteristic collision frequency $\gamma$. Assuming the driving field has a harmonic time dependence, $\mathbf{E}(t) = \mathbf{E}_0e^{-i\omega t}$, equation (\ref{eq:drude eom}) has a solution describing the electron oscillating as $\mathbf{x}(t)=\mathbf{x}_0e^{-i\omega t}$. The complex amplitude $\mathbf{x}_0$ includes any phase shifts between the driving field and response by \cite{maier}
+with $m$ being the effective optical mass of the electron and $e$ the electron charge. The electron will oscillate in response to the applied field and its motion is damped through collisions described by the characteristic collision frequency $\gamma$. Assuming the driving field has a harmonic time dependence, $\mathbf{E}(t) = \mathbf{E}_0e^{-i\omega t}$, equation (\ref{eq:drude eom}) has a solution describing the electron oscillating as $\mathbf{x}(t)=\mathbf{x}_0e^{-i\omega t}$. The complex amplitude $\mathbf{x}_0$ includes any phase shifts between the driving field and response, and is given by \cite{maier}
 \begin{equation}
     \mathbf{x}(\omega) = \frac{e}{m(\omega^2 + i\gamma\omega)} \mathbf{E}(\omega),
     \label{eq:drude x}
 \end{equation}
-where a Fourier transform has been performed \text{\color{red}usikker}. This displacement from its equilibrium due to the applied electric field results in a polarization $\mathbf{P} = -ne\mathbf{x}$, where $n$ is the electron number density. Inserting this into equation (\ref{eq:drude x}) gives us
+where a Fourier transform has been performed. This displacement from its equilibrium due to the applied electric field results in a polarization $\mathbf{P} = -ne\mathbf{x}$, where $n$ is the electron number density. Inserting this into equation (\ref{eq:drude x}) gives us
 \begin{equation}
     \mathbf{P}(\omega) = -\frac{ne^2}{m(\omega^2 + i\gamma\omega)} \mathbf{E}(\omega).
     \label{eq:polarization}
@@ -367,7 +364,7 @@ so that interband transitions are represented by the classical picture of a boun
 \end{equation}
 The plot in figure \ref{fig:lorentzian} shows the typical behaviour of a Lorentz oscillator. [kort forklaring]
 
-This simple model neglects several types of forces[??]; one can more accurately describe the material as a sum of several Lorentz oscillators, generalizing equation (\ref{eq:lorentz osc single}) as
+This simple model neglects several types of forces\text{\color{red}[??]}; one can more accurately describe the material as a sum of several Lorentz oscillators, generalizing equation (\ref{eq:lorentz osc single}) as
 \begin{equation}
     \epsilon(\omega) = \epsilon_\infty - \omega_p^2\sum_{j}\frac{f_j}{\omega^2-\omega_j^2+i\omega\gamma_j}
     \label{eq:lorentz osc sum}
@@ -420,6 +417,9 @@ Figure \ref{fig:dielectricresponses} shows a dielectric function over a wide fre
     At $\omega=0$, the dielectric function is composed of contributions from permanent dipoles, vibrational oscillators and electronic oscillators. As the frequency increases, the permanent dipoles cannot respond and the real part $\epsilon_1$ drops to a value at a frequency low compared to the characteristic vibrational frequency. As the frequency increases through the vibrational region, $\epsilon_1$ oscillates and settles down at a low-frequency limit for electronic modes. After finally the frequency reaches beyond the point where all electronic modes are exhausted, $\epsilon_1$ approaches 1.
     
     At each relaxation frequency of $\epsilon_1$ there is an associative peak in absorption $\epsilon_2$.
+    \item "For noble metals such
+as gold or silver on the other hand, transitions between electronic bands lead
+to strong absorption in this regime." -Maier
 \end{itemize}
 
 
@@ -472,9 +472,7 @@ where $f_A$ is the volume fraction of material $A$ and $f_B = 1 - f_A$ is the vo
 The field of plasmonics explores how electromagnetic fields may be confined and/or enhanced over sub-wavelength dimensions. It is based on the interaction between light and the conduction electrons at a metallic interface or metallic nanoparticles, resulting in an enhanced electromagnetic field over dimensions smaller than the wavelength of light. There are two types of surface plasmons. One is a dispersive electromagnetic wave coupled to the electron plasma of a conducting material propagating along the interface between the conductor and a dielectric. This is called a surface plasmon polariton resonance (\ac{sppr}), or just SPP or \ac{spr}. The other type is a non-propagating excitation of the electron plasma of metallic nanostructures coupled to an incident electromagnetic field called a localized surface plasmon resonance (\ac{lspr}). This thesis will focus on describing the latter.
 
 \subsection{Localized surface plasmons}
-LSPRs occur naturally in the scattering of an oscillating electromagnetic field from a small, sub-wavelength conductive nanoparticle. The surface curvature of the particle acts as an effective restoring force on the driven electron-plasma so that a resonance arises, field amplifications both inside and in the near-field zone outside the particle.
-
-[Kort om anvendelser]
+LSPRs occur naturally in the scattering of an oscillating electromagnetic field from a small, sub-wavelength conductive nanoparticle. The surface curvature of the particle acts as an effective restoring force on the driven electron-plasma so that a resonance arises, field amplifications both inside and in the near-field zone outside the particle. The spectral location of the LSPR is characteristic for the size, the shape, the material and the surrounding medium of the nanoparticle.
 
 \subsubsection{Normal modes}
 The interaction process between light and a sub-wavelength metal particle with diameter $d$ may be examined by using the \emph{quasi-static approximation}, assuming $d\ll \lambda$. The  phase  of  the  harmonically  oscillating  field is then considered to be practically constant over the particle volume, i.e. the particle is assumed to be surrounded by an electrostatic field. By ignoring spatial retardation effects over the particle the spatial field distribution can be calculated, while the harmonic time dependence may be added to the solution afterwards. This approximation has been shown to be reasonable for spherical and ellipsoidal particles with dimensions below 100 nm when illuminated by visual or near-IR light\cite{maier}.
@@ -653,7 +651,7 @@ where $n_i$ is the refractive index of either ambient or substrate, depending on
 \end{equation}
 that is, solving equation (\ref{eq:RayleighLines}) with respect to $k=2\pi/\lambda_R$ for a given angle of incidence $(\theta_0,\phi_0)$ tells us which wavelengths of incident light that will result in diffracted modes propagating exactly along the air/substrate interface. 
 
-It is known that for a wave in a periodic medium whose wave vector terminates on the boundary of a Brillouin zone (\ac{bz}), satisfy the condition of diffraction \text{\color{red}CITE kittel}. \info{Direction of diffracted beam is defined by equation (\ref{eq:RayleighDiffractedBeam}).} Therefore, inserting $G_\parallel^{\bar{1}0}$, $G_\parallel^{\bar{1}\bar{1}}$, or $G_\parallel^{\bar{2}0}$ as $G_\parallel^{\mathbf{m}}$ in equation (\ref{eq:RayleighLines}) results in the boundaries of the first, second or third Brillouin zones, respectively, when solved over varying $\phi_0$ for a fixed polar angle of incidence $\theta_0$ and refractive index $n_i$. The boundaries of the 1st and 2nd BZ of a two-dimensional square lattice are shown in figure \ref{fig:reciprocallattice}.
+It is known that for a wave in a periodic medium whose wave vector terminates on the boundary of a Brillouin zone (\ac{bz}), satisfy the condition of diffraction \text{\color{red}CITE kittel}. \info{Direction of diffracted beam is defined by equation (\ref{eq:RayleighDiffractedBeam}).} Therefore, for a square lattice, inserting $G_\parallel^{\bar{1}0}$, $G_\parallel^{\bar{1}\bar{1}}$, or $G_\parallel^{\bar{2}0}$ as $G_\parallel^{\mathbf{m}}$ in equation (\ref{eq:RayleighLines}) results in the boundaries of the first, second or third Brillouin zones, respectively, when solved over varying $\phi_0$ for a fixed polar angle of incidence $\theta_0$ and refractive index $n_i$. The boundaries of the 1st and 2nd BZ of a two-dimensional square lattice are shown in figure \ref{fig:reciprocallattice}.
  %https://books.google.no/books?id=HtjgrALoyAMC&lpg=PR5&ots=pUIcVvIXfY&dq=%22Giessen%22%20Photonic%20Crystals%3A%20Advances%20in%20Design%2C%20Fabrication%2C%20and%20Characterization&lr&hl=no&pg=PA89#v=onepage&q=rayleigh%20anomal&f=false ctrl+f rayleigh anom Chapter 5 H.Giessen et al som igjen refererer til https://journals.aps.org/prb/pdf/10.1103/PhysRevB.58.6779
 
 
@@ -685,17 +683,17 @@ The finite element method will here be formulated using the weighted residual me
     \mathcal{L}\phi = f,
     \label{eq:FEM_difflikn}
 \end{equation}
-where $\mathcal{L}$ is a differential operator, $f$ is the excitation or force function, and $\phi$ is the unknown quantity to be solved. In order to numerically solve the governing equation one must first discretize it. Discretization implies looking for an approximate solution to equation (\ref{eq:FEM_difflikn}) in a finite-dimensional subspace to Hilbert space so that $\phi\approx\phi_h$.\footnote{A Hilbert space is an infinite-dimensional \emph{function space}, which in simplified terms can be viewed as a collection of functions that can be conveniently manipulated in the same way as ordinary vectors in Euclidean space.\text{\color{red}fjern?}} This suggests that the approximate solution may be expanded as a linear combination of a set of \emph{basis functions} $v_i$ that belong to the subspace, so that\cite{FEM_comsol}
+where $\mathcal{L}$ is a differential operator, $f$ is the excitation or force function, and $\phi$ is the unknown quantity to be solved. In order to numerically solve the governing equation one must first discretize it. Discretization implies looking for an approximate solution to equation (\ref{eq:FEM_difflikn}) in a finite-dimensional subspace to Hilbert space so that $\phi\approx\phi_h$.\footnote{A Hilbert space is an infinite-dimensional \emph{function space}, which in simplified terms can be viewed as a collection of functions that can be conveniently manipulated in the same way as ordinary vectors in Euclidean space.} This suggests that the approximate solution may be expanded as a linear combination of a set of \emph{basis functions} $v_i$ that belong to the subspace, so that\cite{FEM_comsol}
 \begin{equation}
     \phi_h = \sum_{i=1}^N \phi_i v_i
     \label{eq:FEM_difflikn_linearcomb}
 \end{equation}
-where $\phi_i$ are the unknown expansion coefficients. The weighted residual method attempts to determine $\phi_i$ by inserting equation (\ref{eq:FEM_difflikn_linearcomb}) into (\ref{eq:FEM_difflikn}), then integrate with a \emph{weighting function} $w_j$ over the entire domain $\Omega$, which results in\cite{FEM_TheoryAndCompOfEM_Jian-Ming_Jin}
+where $\phi_i$ are the unknown expansion coefficients. The weighted residual method attempts to determine $\phi_i$ by first inserting equation (\ref{eq:FEM_difflikn_linearcomb}) into (\ref{eq:FEM_difflikn}), then integrate with a \emph{weighting function} $w_j$ over the entire domain $\Omega$, which results in\cite{FEM_TheoryAndCompOfEM_Jian-Ming_Jin}
 \begin{equation}
-    \int_\Omega w_j \mathcal{L} \left( \sum_{i=1}^N \phi_i v_i \right) \text{d}\Omega = \int_\Omega w_j f \text{d}\Omega
+    \int_\Omega w_j \mathcal{L} \left( \sum_{i=1}^N \phi_i v_i \right) \text{d}\Omega = \int_\Omega w_j f \text{d}\Omega.
     \label{eq:FEM_difflikn_w}
 \end{equation}
-Given a set of weighting functions and applying the boundary conditions of the problem, equation (\ref{eq:FEM_difflikn_w}) will define a set of linear algebra equations that can be solved for $\phi_i$. By Galerkin's method\cite{FEM_in_EM_jianming_jin} one chooses $w_j = v_j$, so that (\ref{eq:FEM_difflikn_w}) becomes 
+Finally, given a set of weighting functions and applying the boundary conditions of the problem, equation (\ref{eq:FEM_difflikn_w}) will define a set of linear algebra equations that can be solved for $\phi_i$. By Galerkin's method\cite{FEM_in_EM_jianming_jin} one chooses $w_j = v_j$, so that (\ref{eq:FEM_difflikn_w}) becomes 
 \begin{equation}
     \sum_{i=1}^N\phi_i \int_\Omega v_j \mathcal{L} (v_i) \text{d}\Omega = \int_\Omega v_j f \text{d}\Omega \quad\quad j=1,2,...N
     \label{eq:FEM_mastereq_integral}
@@ -722,7 +720,7 @@ In matrix form, equation (\ref{eq:FEM_mastereq_sum}) becomes
 \end{equation}
 where $\vec{\phi}_h = \{\phi_1, ...,\phi_i, ..., \phi_N\}$ is the vector of unknowns, and $\mathbf{A}$ is a $N\times N$ matrix known as the \emph{system matrix}\cite{FEM_comsol}. \text{\color{red}forklar kort}
 
-In short, FEM is a systematic way of converting functions in an infinite dimensional function space (Hilbert space) to first functions in a finite dimensional function space and then finally ordinary vectors (in a vector space) that are tractable with numerical methods.
+In short, FEM is a systematic way of converting functions in an infinite dimensional function space (Hilbert space) to first functions in a finite dimensional function space and then finally to ordinary vectors (in a vector space) that are tractable with numerical methods.
 
 \subsection{Discretizing the domain}
 \text{\color{red}improve} Classical methods (Ritz and Galerkin) for solving boundary-value problems (predecessors of FEM) requires a trial function defined over the entire solution domain which must represent, at least approximately, the true solution of the problem\cite{FEM_in_EM_jianming_jin}. This is very difficult, often impossible, for two- or three dimensional problems having irregularly shaped solution domains. This can be overcome by dividing the entire domain into small subdomains and employ test (basis) functions defined over each subdomain. These test functions tend to be much simpler because of the small size of the subdomains, thus meaning that the variation of the unknown function to be solved ($\phi$ above) is less drastic over each subdomain.
@@ -770,7 +768,7 @@ The next step in a FEM procedure is to combine all the local equations for all e
 Such basis functions are visualized in figure \ref{fig:FEM_2Ddomain} where a 2D domain is discretized into a triangular mesh with linear basis functions with a value of 1 at their respective nodes and zero on all other nodes. In figure \ref{fig:FEM_2Ddomain_overlap} two neighbouring nodes $i$ and $j$ are depicted. Their respective basis functions share two triangular elements and will thus have a non-zero contribution to the system matrix, as per equation (\ref{eq:FEM_mastereq_sum_Aji_bj}). If $i=j$ there is a complete overlap of the two basis functions. In figure \ref{fig:FEM_2Ddomain_nooverlap} the nodes are further apart and share no elements except having a common element vertex. When there is no overlap between $v_i$ and $v_j$ their contribution $A_{ij}$ to the system matrix is zero. Hence, in each row of $\mathbf{A}$ there will only be a few non-zero entries no matter how large the dimension of the matrix is. and the memory required to store the system matrix is thus proportional to $O(N)$\cite{FEM_TheoryAndCompOfEM_Jian-Ming_Jin}. After imposing boundary conditions to obtain the final form of the matrix equation (\ref{eq:FEM_mastereq_matrix}), it can be efficiently solved by linear solvers that exploit properties of sparse matrices\cite{FEM_TheoryAndCompOfEM_Jian-Ming_Jin}. FEM is therefore very suitable for large-scale applications with a large number of unknowns.
 
 \subsection{Finite element analysis of vector fields}
-The formulation of the finite element method so far is applicable to scalar fields. However, as all electrodynamic problems in three dimensions deal with vector electromagnetic fields, there is clear motivation to extend the formulation to include vector fields. This section will not go into details but will rather mention the most important steps. The derivation is similar to section \ref{sec:FEM_generalprinciple}, but involves using vector basis functions which assigns degrees of freedom to the edges rather than to the nodes of the elements\cite{FEM_in_EM_jianming_jin}.%The finite element method described so far can be extended to deal with problems that involve vector fields. Such a formulation is important as all electrodynamic problems in three dimensions deal with vector electromagnetic fields. 
+The formulation of the finite element method so far is applicable to scalar fields. However, as all electrodynamic problems in three dimensions deal with vector electromagnetic fields, there is clear motivation to extend the formulation to include vector fields. This section will not go into details, but will rather mention the most important steps. The derivation is similar to section \ref{sec:FEM_generalprinciple}, but involves using vector basis functions which assigns degrees of freedom to the edges rather than to the nodes of the elements\cite{FEM_in_EM_jianming_jin}.%The finite element method described so far can be extended to deal with problems that involve vector fields. Such a formulation is important as all electrodynamic problems in three dimensions deal with vector electromagnetic fields. 
 
 A typical electrodynamic problem involves finding the electric field $\mathbf{E}$ by solving Maxwell's equations (\ref{eq:ME}) subject to certain boundary conditions. The problem may be reduced to solving a single vector wave equation with well defined boundary conditions. As before, instead of solving these equations directly, a weak form solution may be sought by introducing vector weighting functions $\mathbf{W}_j$ and integrating over the entire domain $\Omega$. Discretization is obtained by first dividing the domain into small finite elements, typically triangular elements for a 2D domain and tetrahedral elements for a 3D domain. Within each element, $\mathbf{E}$ is interpolated using a set of discrete values. However, using the approach in section \ref{sec:FEM_generalprinciple}, where the unknown field is assigned to a few points (nodes) on the element and then interpolated elsewhere using a set of scalar interpolation functions\improvement{språk}, turns out to be very problematic; a series of difficulties arise when applying boundary conditions to the interpolated $\mathbf{E}$-field\cite{FEM_in_EM_jianming_jin}\cite{FEM_TheoryAndCompOfEM_Jian-Ming_Jin}. 
 
@@ -849,7 +847,7 @@ Perfectly matched layers were first introduced in 1994 by Berenger\cite{PML_Bere
     \label{fig:PML_region}
 \end{figure}
 
-The original formulation by Berenger\cite{PML_Berenger} was based on splitting the EM wave solutions into a sum of two artificial fields inside the PML region. Later, it was found that the PML could be derived from a modified form of Maxwell's equations based on stretched coordinates\cite{PML_coordstretch}. This complex-coordinate approach is essentially based on analytic continuation of Maxwell's equations into complex spatial coordinates where the fields are exponentially decaying\cite{web:PML_MIT}. In implementing PML to the finite element method, the preferred approach is to consider the PML as an anisotropic medium, a derivation can be found in \cite{FEM_TheoryAndCompOfEM_Jian-Ming_Jin}. \text{\color{red}fjern avsnitt?}
+The original formulation by Berenger\cite{PML_Berenger} was based on splitting the EM wave solutions into a sum of two artificial fields inside the PML region. Later, it was found that the PML could be derived from a modified form of Maxwell's equations based on stretched coordinates\cite{PML_coordstretch}. This complex-coordinate approach is essentially based on analytic continuation of Maxwell's equations into complex spatial coordinates where the fields are exponentially decaying\cite{web:PML_MIT}. In implementing PML to the finite element method, the preferred approach is to consider the PML as an anisotropic medium, a derivation can be found in \cite{FEM_TheoryAndCompOfEM_Jian-Ming_Jin}.
 
 PML is perfectly reflectionless only when solving the exact wave equations. As soon as the problem is discretized (as in FEM) to an approximate wave equation, the analytical perfection of PML is no longer valid. The PML is still an absorbing material; the discrete waves within the layer are still being attenuated. However, the boundary between the PML and the regular medium is no longer reflectionless, but these reflections are small as long as the discretization is a good approximation of the exact wave equation\cite{web:PML_MIT}. To further minimize this reflection it is desirable to use a mesh in the PML that aligns with the anisotropy in the material properties\cite{PML_SBC_comsol}. In figure \ref{fig:PML_mesh} the appropriate PML meshes are shown for 2D circular and 3D spherical domains, with 5 layers uniformly distributed. \text{\color{red}}
 

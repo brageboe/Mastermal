@@ -3,10 +3,10 @@
 \chapter{Background Theory}
 
 \section{Polarized light}
-\label{sec:PolarizedLight}
-Light, in accordance with Maxwell's equations, is described as a propagating electromagnetic (\ac{em}) wave with fundamental properties wavelength, propagation speed and polarization.  \text{\color{red}blahblabhbalh plane wave blahblah [short facts, e.g. human's visual range of light]}
+\label{sec:PolarizedLight} % \text{\color{red}blahblabhbalh plane wave blahblah [short facts, e.g. human's visual range of light]}
+Light, in accordance with Maxwell's equations, is described as a propagating electromagnetic (\ac{em}) wave with fundamental properties such as wavelength, intensity and polarization. 
 
-The electric field of monochromatic completely polarized light travelling the $\hat{z}$ direction can be described as a decomposition into two orthogonal field components oscillating in the $\hat{x}$ and $\hat{y}$ directions,
+The electric field of a monochromatic plane wave that is completely polarized light and travelling in the $\hat{z}$ direction can be described as a decomposition into two orthogonal field components oscillating in the $\hat{x}$ and $\hat{y}$ directions,
 \begin{equation}
     \mathbf{E}(z,t) = E_{0x}\cos(\omega t - kz + \delta_x)\mathbf{\hat{x}} + E_{0y}\cos(\omega t - kz + \delta_y)\mathbf{\hat{y}}
     \label{eq:cosEfield}
@@ -18,7 +18,7 @@ where $\omega$ and $k$ are the angular frequency and wave vector of the light, w
 \end{equation}
 where taking the real part of equation (\ref{eq: Efield}) results in the physical field. The magnetic field can be described in a similar manner. However, since the magnetic susceptibility of materials studied in this thesis is comparable to that of vacuum, it is usually sufficient to only account for the electric field. 
 
-Polarization of light is described by the electric field amplitude $E_{0x}$, $E_{0y}$ and phase difference $\delta = \delta_x-\delta_y$. If the two components in equation (\ref{eq: Efield}) have different phases, the oscillating electric field will trace out an ellipse in the plane perpendicular to its direction of propagation. While if, say, $E_{0y}=0$, the electric field will oscillate only in $\hat{x}$-direction and the light is said to be linearly horizontally polarized\cite{collett}. The time dependence in equation (\ref{eq: Efield}), $e^{(i\omega t)}$, is chosen so that in the case of elliptical polarized light, right circular polarization is defined as a clockwise rotation of the electric field when looking towards the source\cite{hauge}.
+Polarization of light is described by the electric field amplitude $E_{0x}$, $E_{0y}$ and phase difference $\delta = \delta_x-\delta_y$. If the two components in equation (\ref{eq: Efield}) have different phases, the oscillating electric field will trace out an ellipse in the plane perpendicular to its direction of propagation. If, for example, $E_{0y}=0$, the electric field will oscillate only in $\hat{x}$-direction and the light is said to be linearly horizontally polarized\cite{collett}. The time dependence in equation (\ref{eq: Efield}), $e^{(i\omega t)}$, is chosen so that in the case of elliptical polarized light, right circular polarization is defined as a clockwise rotation of the electric field when looking towards the source\cite{hauge}.
 
 The polarization of an electromagnetic wave may also be described in complex vector notation by a so-called Jones vector, 
 \begin{equation}
@@ -55,10 +55,10 @@ When describing the change of polarization of light after interaction with an op
         E_{y} 
     \end{pmatrix}_{inc}
 \end{equation}
-where the 2x2 matrix is called the Jones Matrix and its elements $j_{kl}\quad(k,l = 1,2)$ are complex reflection or transmission coefficients translating linear interactions of completely polarized light. Reflectance or transmittance, which is the fraction of incident electromagnetic power that is reflected or transmitted at the optical element, is given by $J_{kl} = \abs{j_{kl}}^2$.
+where the 2x2 matrix is called the Jones Matrix and its elements $j_{kl}\quad(k,l = 1,2)$ are complex reflection or transmission coefficients translating linear interactions of completely polarized light. Reflectance or transmittance, which is the fraction of incident electromagnetic power that is reflected or transmitted by the optical element, is given by $J_{kl} = \abs{j_{kl}}^2$.
 
 \section{Stokes-Mueller formalism}
-The Jones formalism provides us with a description of completely polarized light. However, often in nature and practical cases, light is not a perfectly monochromatic wave\footnote{A wave is monochromatic if amplitude and phase factors are constant for all time, as in section \ref{sec:PolarizedLight}.}. Sunlight, for example, is unpolarized light, meaning that the beam's polarization changes so quickly and randomly that it cannot be determined for any practical purposes. Real-world measurement systems and samples may cause a fraction of the light to become unpolarized. This process where the light's degree of polarization is reduced is called \emph{depolarization}, and describes the percentage of light that has become unpolarized\cite{hans_arwin}. Another limitation of the Jones formalism regarding experimental work is that detectors measure light intensities, not field amplitudes. There is thus a practical motivation for an alternative representation of light in terms of intensities which also takes into account depolarization.
+The Jones formalism provides a description of completely polarized light. However, often in nature and practical cases, light is not a perfectly monochromatic wave\footnote{A wave is monochromatic if amplitude and phase factors are constant for all time, as in section \ref{sec:PolarizedLight}.}. Sunlight, for example, is unpolarized light, meaning that the beam's polarization changes so quickly and randomly that it cannot be determined for any practical purposes. Real-world measurement systems and samples may cause a fraction of the light to become unpolarized. This process where the light's degree of polarization is reduced is called \emph{depolarization}, and describes the percentage of light that has become unpolarized\cite{hans_arwin}. Another limitation of the Jones formalism regarding experimental work is that detectors measure light intensities, not field amplitudes. There is thus a practical motivation for an alternative representation of light in terms of intensities which also takes into account depolarization.
 
 The Stokes-Mueller formalism may represent quasi-monochromatic light that is unpolarized, partially polarized or completely polarized. A quasi-monochromatic wave will have time-dependent phase factors $\delta_i(t)$ and amplitude $E_i(t)$ that fluctuate slowly compared to the rapid oscillations of the cosinusoids in equation (\ref{eq:cosEfield}) \cite{collett}.The Stokes vector provide a full description of any polarization state\cite{azzam},
 \begin{equation}
@@ -84,7 +84,7 @@ The Stokes-Mueller formalism may represent quasi-monochromatic light that is unp
     \end{pmatrix},
     \label{eq:StokesVector}
 \end{equation}
-where $<...>$ denotes the time-average, so that $S_0$ represents the total intensity of the light beam, $S_1$ and $S_2$ are the differences between horizontally/vertically polarized light and $+45\degree$/$-45\degree$ polarized light, respectively. Finally $S_3$ is the difference between right handed and left handed circularly polarized light.
+where $<...>$ denotes the time-average, so that $S_0$ represents the total intensity of the light beam, $S_1$ is the intensity difference between horizontally and vertically polarized light, and $S_2$ the difference between $+45\degree$ and $-45\degree$ polarized light. Finally $S_3$ is the difference between right handed and left handed circularly polarized light.
 Whereas the Jones vector represent light with field amplitude and phase, the Stokes vector represent light with field intensities. %$I_{x,y}$ is the intensity of linearly polarized light in $\hat{x}$ and $\hat{y}$ directions, 
 
 The degree of polarization $P$ is defined as the ratio between the intensity of completely polarized light to the total intensity of the beam. In terms of Stokes parameters this is 
@@ -144,8 +144,8 @@ In the case of reflection off a non-depolarizing sample, in a coordinate system 
         r_{sp}  &   r_{ss}  \\
     \end{pmatrix},
     \label{eq:reflectionJonesMatrix}
-\end{equation}
-see figure \ref{fig:principle_of_ellipsometry}. The matrix elements in equation (\ref{eq:reflectionJonesMatrix}) are complex reflection coefficients. The convention of subscript notation is here used such that $r_{\alpha\beta}$ indicates the portion of the incident beam that initially was $\beta$-polarized is converted to $\alpha$-polarization after reflection. The off-diagonal elements therefore describe conversion between the two polarization modes. Below is listed conversion equations for the equivalent MM \cite{hauge}, found by inserting the reflection Jones matrix (\ref{eq:reflectionJonesMatrix}) into equation (\ref{eq:JonesMuellerConversion})
+\end{equation} % the portion of the incident beam that initially was $\beta$-polarized is converted to $\alpha$-polarization after reflection.
+see figure \ref{fig:principle_of_ellipsometry}. The matrix elements in equation (\ref{eq:reflectionJonesMatrix}) are complex reflection coefficients. The convention of subscript notation is here used such that $r_{\alpha\beta}$ indicates the portion of the initially $\beta$-polarized wave that is converted to $\alpha$-polarization after reflection. The off-diagonal elements therefore describe conversion between the two polarization modes. Conversion equations for the equivalent MM \cite{hauge}, found by inserting the reflection Jones matrix (\ref{eq:reflectionJonesMatrix}) into equation (\ref{eq:JonesMuellerConversion}), are listed below
 \begin{subequations}
 \begin{align}
     M_{11} &= \frac{1}{2}(\abs{r_{pp}}^2 + \abs{r_{ps}}^2 + \abs{r_{sp}}^2 + \abs{r_{ss}}^2)    \\
@@ -163,7 +163,7 @@ see figure \ref{fig:principle_of_ellipsometry}. The matrix elements in equation 
     M_{41} &= -\text{Im}[r_{pp}r_{ps}^* + r_{sp}r_{ss}^*]    \\
     M_{42} &= -\text{Im}[r_{pp}r_{ps}^* - r_{sp}r_{ss}^*]    \\
     M_{43} &= -\text{Im}[r_{pp}r_{ss}^* + r_{ps}r_{sp}^*]    \\
-    M_{44} &= \text{Re}[r_{pp}r_{ss}^* - r_{ps}r_{sp}^*]    \\
+    M_{44} &= \text{Re}[r_{pp}r_{ss}^* - r_{ps}r_{sp}^*].    \\
 \end{align}
     \label{eq:JonesToMueller}
 \end{subequations}
@@ -176,7 +176,7 @@ Note that there is a clear indication of polarization coupling induced by the sa
     \label{fig:principle_of_ellipsometry}
 \end{figure}
 
-There are many necessary conditions that must be met for a MM to be physically realizable\cite{hans_arwin}\cite{realizableMM}. Here, however, the subject will only be briefly discussed. The question is which conditions should be imposed on the elements of $\mathbf{M}$ in order for it to correspond to a real physical system. Consider the optical system in figure \ref{fig:principle_of_ellipsometry}. The emerging light, i.e. the resulting Stokes vector $\mathbf{S}_{out}$ after the incident light $\mathbf{S}_{inc}$ is operated on  $\mathbf{M}$ cannot have a degree of polarization larger than one and its total intensity must be positive. In other words, it must hold that $S_0^2 \geq S_1^2+S_2^2+S_3^2$ and $S_0 \geq 0$. What are the conditions on a given MM that will ensure that the output light is partially polarized for any polarization of the input light, or equivalently, when will the degree of polarization $P$ of the output Stokes vector satisfy $P\leq1$ for any physical input Stokes vector? This is a non-trivial matter and many constraints have been derived\cite{realizableMM}\cite{Kostinski:93}. The constraints may even be used for calibration of polarimetric instruments, estimation of experimental errors, and testing computational procedures.
+There are many necessary conditions that must be met for a MM to be physically realizable\cite{hans_arwin}\cite{realizableMM}. Here, however, the subject will only be briefly discussed. The question is which conditions should be imposed on the elements of $\mathbf{M}$ in order for it to correspond to a real physical system. Consider the optical system in figure \ref{fig:principle_of_ellipsometry}. The emerging light, i.e. the resulting Stokes vector $\mathbf{S}_{out}$ after the incident light $\mathbf{S}_{inc}$ is operated on by $\mathbf{M}$, cannot have a degree of polarization larger than one and its total intensity must be positive. In other words, it must hold that $S_0^2 \geq S_1^2+S_2^2+S_3^2$ and $S_0 \geq 0$. What are the conditions on a given MM that will ensure that the output light is partially polarized for any polarization of the input light, or equivalently, when will the degree of polarization $P$ of the output Stokes vector satisfy $P\leq1$ for any physical input Stokes vector? This is a non-trivial matter and many constraints have been derived\cite{realizableMM}\cite{Kostinski:93}. The constraints may even be used for calibration of polarimetric instruments, estimation of experimental errors, and testing computational procedures.
 
 \section{Ellipsometry}
 Ellipsometry is an experimental technique for investigating optical properties of thin films and surfaces. It is a form of polarimetry, which is to measure and interpret the polarization state of light. The basic principle of ellipsometry is to measure the change in phase and amplitude of two orthogonal electric field components after it has reflected or transmitted at the sample of interest, see figure \ref{fig:principle_of_ellipsometry}. However, for most samples, an analytic inversion of the ellipsometric equations (discussed in the next section) is not possible and thus the unknown parameters cannot be obtained directly. Instead, a model can be created to calculate a response which is compared to the experimental response. Using regression analysis, fit parameters of the model are adjusted to find a minimum between the model data and experimental data. If the results of the assumed model are not fully in agreement with the experimental data, one may go back and redefine its properties e.g. by adding a roughness layer, anisotropy or graded optical properties. This is repeated until a satisfactory fit is found. How good a fit is can be quantified by a mean-square error or another error function. Figure \ref{fig:ellipsometryOverview} presents an overview of this process\cite{JAWoolam_DataAnalysis}.
@@ -393,34 +393,33 @@ It is clear that the term $(\epsilon-1)$ represents the optical response as it r
         \epsilon_1 - 1 = \frac{2}{\pi}\mathscr{P}\int_0^\infty\frac{\epsilon_2(\omega')\omega'}{\omega'^2-\omega^2}d\omega'    \\
         \epsilon_2 = -\frac{2\omega}{\pi}\mathscr{P}\int_0^\infty\frac{\epsilon_1(\omega')-1}{\omega'^2-\omega^2}d\omega'
     \end{align}
+    \label{eq:KramerKronig}
 \end{subequations}
 where $\mathscr{P}$ denotes the principal part of the integral.
 
-Both dispersion (described by $\epsilon_1$) and absorption (described by $\epsilon_2$) originate from the same underlying process, excitation of dipoles in the material. If the dipoles can follow the field instantaneously in a frequency region, there will be no absorption ($\epsilon_2 = 0$). For the same reason there will be no dispersion, as $\epsilon_1$ is constant. In the frequency region around a relaxation (see figure \ref{fig:lorentzian}), the dipoles will still try to match the field but cannot follow it completely. The dipoles will not move as much as at lower frequencies and thus the polarization becomes smaller ($\epsilon_1$ decreases). At the same time absorption occurs ($\epsilon_2 \neq 0$) because energy is tapped from the electromagnetic field into the dipoles and then subsequently into the material. No dispersion can occur if there is no absorption and vice versa. This is the physical interpretation of the Kramer-Kronig relations, that absorption and dispersion are coupled properties of the same phenomenon. 
+Both dispersion (described by $\epsilon_1$) and absorption (described by $\epsilon_2$) originate from the same underlying process, excitation of dipoles in the material. If the dipoles can follow the field instantaneously in a frequency region, there will be no absorption ($\epsilon_2 = 0$). For the same reason there will be no dispersion, as $\epsilon_1$ is constant. In the frequency region around a relaxation (see figure \ref{fig:lorentzian}), the dipoles will still try to match the field but cannot follow it completely. The dipoles will not move as much as at lower frequencies and thus the polarization becomes smaller ($\epsilon_1$ decreases). At the same time absorption occurs ($\epsilon_2 \neq 0$) because energy is tapped from the electromagnetic field into the dipoles and then subsequently into the material. No dispersion can occur if there is no absorption and vice versa. This is the physical interpretation of the Kramer-Kronig relations, that absorption and dispersion are coupled properties of the same phenomenon\cite{hans_arwin}. 
 
 \begin{figure}
     \centering 
-    \includegraphics[scale=0.4]{figures/Ch2/DielectricResponses.png}
-    \caption{Placeholder figure(?)}
+    \includegraphics[scale=0.5]{figures/Ch2/DielectricResponses.png}
+    \caption{Frequency variation of the dielectric function, showing various dielectric mechanisms: ionic and dipolar relaxation, and resonances of vibrational and electric oscillators. Figure from \cite{wiki_dielectricfunction}.}
     \label{fig:dielectricresponses}
     % https://en.wikipedia.org/wiki/Permittivity#cite_note-5
 \end{figure}
 
-Figure \ref{fig:dielectricresponses} shows a dielectric function over a wide frequency range. One quickly observes that at each relaxation frequency of $\epsilon_1$ there is an associative peak in absorption $\epsilon_2$. Starting at $\omega=0$, the dielectric function is composed of contributions from each polarization mechanism (permanent dipoles, vibrational oscillators and electronic oscillators), with the lowest-frequency mechanism contributing the most. As the frequency increases, the permanent dipoles cannot respond and the real part $\epsilon_1$ drops to a value at a frequency low compared to the characteristic vibrational frequency. As the frequency increases through the vibrational region, $\epsilon_1$ oscillates and settles down at a low-frequency limit for electronic modes. For frequencies far above all absorption bands $\epsilon_1$ approaches the free-space value 1; the frequencies are so high that none of the polarization mechanisms can respond.
-\begin{itemize}
-    \item [Dispersion occurs when real part $\epsilon_1$ is non-constant. Absorption occurs when the imaginary part is non-zero, $\epsilon_2 \neq 0$.]
+Figure \ref{fig:dielectricresponses} shows a dielectric function over a wide frequency range. One quickly observes that at each relaxation frequency of $\epsilon_1$ there is an associative peak in absorption $\epsilon_2$. Starting at $\omega=0$, the dielectric function is composed of contributions from each polarization mechanism (permanent dipoles, vibrational oscillators and electronic oscillators), with the lowest-frequency mechanism contributing the most. As the frequency increases, the permanent dipoles cannot respond and the real part $\epsilon_1$ drops to a value at a frequency low compared to the characteristic vibrational frequency. As the frequency increases through the vibrational region, $\epsilon_1$ oscillates and settles down at a low-frequency limit for electronic modes. For frequencies far above all absorption bands $\epsilon_1$ approaches the free-space value 1; the frequencies are so high that none of the polarization mechanisms can respond, see equation (\ref{eq:KramerKronig})\cite{BH}.
+%\begin{itemize}
+    %\item [Dispersion occurs when real part $\epsilon_1$ is non-constant. Absorption occurs when the imaginary part is non-zero, $\epsilon_2 \neq 0$.]
     
-    \item Studying the dielectric function as a function of frequency over a vast spectrum, one observes that energy is mainly absorbed at relaxation or resonance frequencies. Why does it not cost energy to excite dipoles at lower frequencies? It does in fact cost energy, but this energy is paid back to the field from the dipoles. This is called virtual dispersion.
+    %\item Studying the dielectric function as a function of frequency over a vast spectrum, one observes that energy is mainly absorbed at relaxation or resonance frequencies. Why does it not cost energy to excite dipoles at lower frequencies? It does in fact cost energy, but this energy is paid back to the field from the dipoles. This is called virtual dispersion.
     
-    \item For frequencies far above all absorption bands $\epsilon_1$ approaches the free-space value 1; the frequencies are so high that none of the polarization mechanisms can respond.
+    %\item For frequencies far above all absorption bands $\epsilon_1$ approaches the free-space value 1; the frequencies are so high that none of the polarization mechanisms can respond.
     
-    At $\omega=0$, the dielectric function is composed of contributions from permanent dipoles, vibrational oscillators and electronic oscillators. As the frequency increases, the permanent dipoles cannot respond and the real part $\epsilon_1$ drops to a value at a frequency low compared to the characteristic vibrational frequency. As the frequency increases through the vibrational region, $\epsilon_1$ oscillates and settles down at a low-frequency limit for electronic modes. After finally the frequency reaches beyond the point where all electronic modes are exhausted, $\epsilon_1$ approaches 1.
+   % At $\omega=0$, the dielectric function is composed of contributions from permanent dipoles, vibrational oscillators and electronic oscillators. As the frequency increases, the permanent dipoles cannot respond and the real part $\epsilon_1$ drops to a value at a frequency low compared to the characteristic vibrational frequency. As the frequency increases through the vibrational region, $\epsilon_1$ oscillates and settles down at a low-frequency limit for electronic modes. After finally the frequency reaches beyond the point where all electronic modes are exhausted, $\epsilon_1$ approaches 1.
     
-    At each relaxation frequency of $\epsilon_1$ there is an associative peak in absorption $\epsilon_2$.
-    \item "For noble metals such
-as gold or silver on the other hand, transitions between electronic bands lead
-to strong absorption in this regime." -Maier
-\end{itemize}
+  %  At each relaxation frequency of $\epsilon_1$ there is an associative peak in absorption $\epsilon_2$.
+ %   \item "For noble metals such as gold or silver on the other hand, transitions between electronic bands lead to strong absorption in this regime." -Maier
+%\end{itemize}
 
 
 \subsection{Joule heating}
@@ -576,24 +575,25 @@ The dipolar approximation may be assumed when the particle sizes are much smalle
     \label{fig:nearfield_coupling}
 \end{figure}
 
-For larger particle seperations the external dipole fields become spherical in shape and the far-field dipolar coupling dominates with a distance dependence of $d^{-1}$\cite{maier}. This coupling via diffraction has been studied for two-dimensional arrays of gold nanoparticles with various lattice constants\cite{Lamprecht_LSPRfarfieldcoupling}. Figure \ref{fig:nearfield_coupling} shows that far-field coupling influences the plasmon resonance both in terms of peak strength and spectral width. The spectral shift and broadening of the plasmon resonances are attributed to the periodicity of a square array. The dipolar fields of neighbouring particles are superimposed with their respective phase shifts, which depend on the interparticle distance\cite{Lamprecht_LSPRfarfieldcoupling}.
+For larger particle seperations the external dipole fields become spherical in shape and the far-field dipolar coupling dominates with a distance dependence of $d^{-1}$\cite{maier}. This coupling via diffraction has been studied for two-dimensional arrays of gold nanoparticles with various lattice constants\cite{Lamprecht_LSPRfarfieldcoupling}. Figure \ref{fig:farfield_coupling} shows that far-field coupling influences the plasmon resonance both in terms of peak strength and spectral width. The spectral shift and broadening of the plasmon resonances are attributed to the periodicity of a square array. The dipolar fields of neighbouring particles are superimposed with their respective phase shifts, which depend on the interparticle distance\cite{Lamprecht_LSPRfarfieldcoupling}.
 
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{figures/Ch2/farfieldcoupling.png}
     \caption{Extinction spectra for square two-dimensional gratings of circular gold nanoparticles (height $14$ nm, diameter $150$ nm) on an indium-tin-oxide coated glass substrate with grating constant $d$. Figure from \cite{Lamprecht_LSPRfarfieldcoupling}.}
-    \label{fig:nearfield_coupling}
+    \label{fig:farfield_coupling}
 \end{figure}
 
 \section{Diffraction anomalies in periodic nanostructures}
-Periodic metallic nanostructures are known to show certain intensity anomalies. In 1902 Wood discovered anomalies in his data when studying the spectrum of an optical metallic diffraction grating, remarking that the anomalies were present only for p-polarized light, i.e. when the magnetic field is parallel to the grating grooves\cite{Wood1902}. There were found to be two types of such anomalies. \unsure{second type?}
+Periodic metallic nanostructures are known to show certain intensity anomalies. In 1902 Wood discovered anomalies in his data when studying the spectrum of an optical metallic diffraction grating, remarking that the anomalies were present only for p-polarized light, i.e. when the magnetic field is parallel to the grating grooves\cite{Wood1902}. It was later discoverd by Fano that there could be distinguished two types of such anomalies\cite{fano1941}. The first type is an abrupt change in reflectivity appearing at sharply defined wavelengths at a given angle of incidence of the incoming light, known today as \emph{Rayleigh anomalies}\cite{plasmonics_wood}. These are independent of the metal on which the grating was ruled on, and are furthermore found to also occur (albeit weakly) for incident light with the electric field polarized parallel to the grooves, i.e. s-polarization, if the grooves are sufficiently deep\cite{RayleighWood_simonsen}. The second type is a diffuse anomaly, consisting generally of a minimum and a maximum of intensity, associated with the excitation of a SPP due to both the geometry and the optical properties of the metal grating\cite{RayleighWood_simonsen}\cite{fano1941}. A thorough explanation and derivation of the latter type, known as \emph{Wood anomaly}, can be found in \cite{plasmonics_wood}. Both anomalies are strongly dependent on the grating geometry, the presence of sharp edges in the profile of the grooves being a necessary condition for their existence\cite{fano1941}. This section will focus on explaining the Rayleigh anomalies.
 
-The first type of anomaly is an abrupt change in reflectivity appearing at sharply defined wavelengths at a given angle of incidence of the incoming light. It was first shown by Rayleigh that these anomalies occur at wavelengths where the diffracted light of a given order disappears at grazing angles along the grating surface\cite{Rayleigh_onWood1907}\cite{Rayleigh_onGratings1907}. For regular periodic structures of nanoparticles on a transparent substrate, a diffracted beam will disappear as it attempts to cross the boundary between the ambient (usually air) and substrate media. The transition between air and substrate is prohibited due to different dispersion relations for light in both media. The diffraction mode is said to be cut off at a Rayleigh cutoff wavelength $\lambda_R$, resulting in a sudden change in reflection. There are two types of Rayleigh cutoff wavelengths for every mode; one for the disappearance of an "air" diffraction mode, where the mode crosses the boundary from air to substrate; the other for the disappearance of a "substrate" diffraction mode, crossing the boundary from substrate to air. \unsure{Fjern følgende setning? Unødvendig?}Assuming a square array with lattice constant $a$ and incident light aligned along the array (azimuthal angle $\phi_0=0$), the simplest air and substrate $\lambda_R$ are given by \text{\color{red}CITE}%https://journals.aps.org/prl/pdf/10.1103/PhysRevLett.101.087403
-\begin{equation}
-    \lambda_R^m = \frac{a}{m}[n_i \pm \sin\theta_0]
-\end{equation}
-where $m$ is an integer defining the diffraction mode, and $n_i$ the refractive index of whichever ambient or substrate medium the beam is crossing from. \improvement{Plasser følgende "fun-fact" der det passer}When light with wavelength $\lambda_R$ is incident on the array, one of the diffracted waves will travel exactly along the substrate surface and subsequently will interact with other nanoparticles. It is therefore interesting to note that if $\lambda_R$ is close to the wavelength of an individual nanoparticle's LSPR, very sharp plasmon resonances may be obtained as energy from the incident light is transferred into localized plasmon modes in the narrow wavelength range near the Wood anomaly\cite{narrowLSPRfromDiffractionCoupling}.
+ It was first shown by Rayleigh that these anomalies occur at wavelengths where the diffracted light of a given order disappears at grazing angles along the grating surface\cite{Rayleigh_onWood1907}\cite{Rayleigh_onGratings1907}. For regular periodic structures of nanoparticles on a transparent substrate, a diffracted beam will disappear as it attempts to cross the boundary between the ambient (usually air) and substrate media. The transition between air and substrate is prohibited due to different dispersion relations for light in both media. The diffraction mode is said to be cut off at a Rayleigh cutoff wavelength $\lambda_R$, resulting in a sudden change in reflection. There are two types of Rayleigh cutoff wavelengths for every mode; one for the disappearance of an "air" diffraction mode, where the mode crosses the boundary from air to substrate; the other for the disappearance of a "substrate" diffraction mode, crossing the boundary from substrate to air. %Assuming a square array with lattice constant $a$ and incident light aligned along the array (azimuthal angle $\phi_0=0$), the simplest air and substrate $\lambda_R$ are given by \text{\color{red}CITE}%https://journals.aps.org/prl/pdf/10.1103/PhysRevLett.101.087403
+%\begin{equation}
+%    \lambda_R^m = \frac{a}{m}[n_i \pm \sin\theta_0]
+%\end{equation}
+%where $m$ is an integer defining the diffraction mode, and $n_i$ the refractive index of whichever ambient or substrate medium the beam is crossing from. 
+When light with wavelength $\lambda_R$ is incident on the array, one of the diffracted waves will travel exactly along the substrate surface and subsequently will interact with other nanoparticles. It is therefore interesting to note that if $\lambda_R$ is close to the wavelength of an individual nanoparticle's LSPR, very sharp plasmon resonances may be obtained as energy from the incident light is transferred into localized plasmon modes in the narrow wavelength range near the Wood anomaly\cite{narrowLSPRfromDiffractionCoupling}.
 
 %For the $n$th diffraction order scattered along the grating surface these anomalies will occur at wavelengths
 %\begin{equation}
@@ -601,10 +601,12 @@ where $m$ is an integer defining the diffraction mode, and $n_i$ the refractive 
 %\end{equation}
 %where $d$ is the grating period, $\theta_0$ the angle of incidence and $n$ the diffraction order integer.
 
-More generally, one may determine all Rayleigh cut-off wavelengths for a given mode by \improvement{Gi en motivasjon for utledningen som følger. Momentum space. Introduser Rayleigh lines?}... Consider an array of scatterers where the position of each unit cell describing the periodicity is given by the lattice vector
+The remaining part of this section will derive an equation that can determine all Rayleigh anomalies, i.e. the condition for a scattered or transmitted wave vector along the surface of a diffraction grating. 
+
+Consider an array of scatterers where the position of each unit cell describing the periodicity is given by the lattice vector
 \begin{equation}
     \mathbf{x}^\mathbf{l}=l_1\mathbf{a}_1+l_2\mathbf{a}_2
-\end{equation} \unsure{Write equation in text and instead set $\mathbf{k}_\parallel$ in equation environment below?}
+\end{equation} 
 where $\mathbf{a}_{1,2}$ are two noncollinear primitive translation vectors and $\mathbf{l}=(l_1,l_2)$ with $l_{1,2}$ being integers labeling the unit cells. The associated reciprocal lattice is given by
 \begin{subequations}
 \label{eq:reciprocalLatticeVector}
@@ -630,7 +632,7 @@ Figure \ref{fig:reciprocallattice} shows a schematic diagram of the reciprocal a
 \begin{figure}
     \centering
     \includegraphics[scale=0.45]{figures/Ch2/ReciprocalLattice.png}
-    \caption{Schematic overview of the reciprocal lattice of a square array. Azimuthal angle of incident wave is defined as $\phi_0\angle(\mathbf{G_\parallel^\mathbf{(10)}},\mathbf{k}_\parallel)$. The boundary of the first three Brillouin zones are indicated by dotted lines, accompanied by critical symmetry points. Figure taken from \cite{Brakstad:15}.}
+    \caption{Schematic overview of the reciprocal lattice of a square array. Azimuthal angle of incident wave is defined as $\phi_0\angle(\mathbf{G_\parallel^{(10)}},\mathbf{k}_\parallel)$. The boundary of the first three Brillouin zones are indicated by dotted lines, accompanied by critical symmetry points. Figure taken from \cite{Brakstad:15}.}
     \label{fig:reciprocallattice}
 \end{figure}
 
@@ -641,23 +643,19 @@ Let us now define the diffraction wave vector into the air or substrate, paralle
 \end{equation}
 The dispersion of Rayleigh anomalies in a two-dimensional planar grating follows the relation $\mathbf{q}_\parallel^\mathbf{m} = \mathbf{q}^\mathbf{m}$, which suggests that 
 \begin{equation}
-    \abs{\mathbf{q}_\parallel^\mathbf{m}}^2 = n_i^2 k^2.
+    \abs{\mathbf{q}_\parallel^\mathbf{m}}^2 = n_i^2 k^2
     \label{eq:RayleighLineCondition}
 \end{equation}
-where $n_i$ is the refractive index of either ambient or substrate, depending on which side of the interface the light is approaching from\improvement{formulering}. By using equations (\ref{eq:reciprocalLatticeVector})-(\ref{eq:RayleighLineCondition}) one may derive an equation determining all Rayleigh anomalies, resulting in \cite{Brakstad:15}
+is the condition for a grazing diffracted wave, where $n_i$ is the refractive index of either ambient or substrate, depending on which side of the interface the light is approaching from. By using equations (\ref{eq:reciprocalLatticeVector})-(\ref{eq:RayleighLineCondition}) one may derive an equation determining all Rayleigh anomalies, resulting in \cite{Brakstad:15}
 \begin{equation}
     k^2 - \frac{2\sin\theta_0G_\parallel^\mathbf{m}\cos(\phi_m-\phi_0)}{n_i^2-\sin^2\theta_0}k - \frac{(G_\parallel^\mathbf{m})^2}{n_i^2-\sin^2\theta_0} = 0,
     \label{eq:RayleighLines}
 \end{equation}
 that is, solving equation (\ref{eq:RayleighLines}) with respect to $k=2\pi/\lambda_R$ for a given angle of incidence $(\theta_0,\phi_0)$ tells us which wavelengths of incident light that will result in diffracted modes propagating exactly along the air/substrate interface. 
 
-It is known that for a wave in a periodic medium whose wave vector terminates on the boundary of a Brillouin zone (\ac{bz}), satisfy the condition of diffraction \text{\color{red}CITE kittel}. \info{Direction of diffracted beam is defined by equation (\ref{eq:RayleighDiffractedBeam}).} Therefore, for a square lattice, inserting $G_\parallel^{\bar{1}0}$, $G_\parallel^{\bar{1}\bar{1}}$, or $G_\parallel^{\bar{2}0}$ as $G_\parallel^{\mathbf{m}}$ in equation (\ref{eq:RayleighLines}) results in the boundaries of the first, second or third Brillouin zones, respectively, when solved over varying $\phi_0$ for a fixed polar angle of incidence $\theta_0$ and refractive index $n_i$. The boundaries of the 1st and 2nd BZ of a two-dimensional square lattice are shown in figure \ref{fig:reciprocallattice}.
+It is known that for a wave in a periodic medium whose wave vector terminates on the boundary of a Brillouin zone (\ac{bz}), satisfy the condition of diffraction\cite{kittel}. Therefore, for a square lattice, inserting $G_\parallel^{\bar{1}0}$, $G_\parallel^{\bar{1}\bar{1}}$, or $G_\parallel^{\bar{2}0}$ as $G_\parallel^{\mathbf{m}}$ in equation (\ref{eq:RayleighLines}) results in the boundaries of the first, second or third Brillouin zones, respectively, when solved over $\phi_0\in[0^\circ,45^\circ]$ for a fixed polar angle of incidence $\theta_0$ and refractive index $n_i$. The boundaries of the 1st and 2nd BZ of a two-dimensional square lattice are shown in figure \ref{fig:reciprocallattice}.
  %https://books.google.no/books?id=HtjgrALoyAMC&lpg=PR5&ots=pUIcVvIXfY&dq=%22Giessen%22%20Photonic%20Crystals%3A%20Advances%20in%20Design%2C%20Fabrication%2C%20and%20Characterization&lr&hl=no&pg=PA89#v=onepage&q=rayleigh%20anomal&f=false ctrl+f rayleigh anom Chapter 5 H.Giessen et al som igjen refererer til https://journals.aps.org/prb/pdf/10.1103/PhysRevB.58.6779
 
-
-
-
-[Periodic metallic nanostructures are known to show abrupt changes in reflection as well as more diffuse anomalies extending over a larger wavelength interval.]
 
 \subsection{Decay length of normal component}
 It is of interest to note the decay length of evanescent waves associated with the cut-off diffraction orders produced by periodic nanostructures, particularly the component normal to the substrate surface. For the square array, the normal component of the longitudinal wave vector of the first order, $k_z^{(1)}=[k^2-(2\pi/a+k_\parallel)^2]^{1/2}$, is imaginary, where $k$ and $k_\parallel$ are the magnitudes of the total and transverse wave numbers of the incident light. The next order is $k_z^{(2)}=[k^2-(2\pi/a-k_\parallel)^2]^{1/2}$. The decay length $\delta$ of the evanescent field is defined as the distance for which the field amplitude has decayed by a factor $e^{-1}$, and is here given by \cite{decaylength_comsolsupport}
@@ -671,7 +669,7 @@ For sub-wavelength sized structures we have $k\ll2\pi/a$, so that equation (\ref
 \section{Finite element method}
 % http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=5628376
 % http://ieeexplore.ieee.org/xpl/ebooks/bookPdfWithBanner.jsp?fileName=5628380.pdf&bkn=5628376&pdfType=chapter
-The finite element method (\ac{fem}) is a numerical method for finding approximate solutions to boundary value problems for partial differential equations (\ac{pde}s). It is applicable to many physical problems, such as finding the electric potential in an electrostatic environment where the potential is a solution of the Laplace equation ($\nabla^2\phi=0$) and the boundary conditions are the interface conditions of the electromagnetic fields. \marginnote{fiks?} The main advantage of FEM, however, lies in its ability to handle arbitrary geometries via unstructured meshes of the domain of interest. For the vast majority of physical geometries and problems, their PDEs cannot be solved analytically. \unsure{flytt evt til Introduction?} The FEM divides the model into smaller elements of geometrically simpler shapes and solves these numerically easier subsets before assembling them together in a larger system of equations that models the entire problem.
+The finite element method (\ac{fem}) is a numerical method for finding approximate solutions to boundary value problems for partial differential equations (\ac{pde}s). It is applicable to many physical problems, such as finding the electric potential in an electrostatic environment where the potential is a solution of the Laplace equation ($\nabla^2\phi=0$) and the boundary conditions are the interface conditions of the electromagnetic fields. \marginnote{fiks?} The main advantage of FEM, however, lies in its ability to handle arbitrary geometries via unstructured meshes of the domain of interest. For the vast majority of physical geometries and problems, their PDEs cannot be solved analytically. The FEM divides the model into smaller elements of geometrically simpler shapes and solves these numerically easier subsets before assembling them together in a larger system of equations that models the entire problem.
 
 
 
@@ -770,7 +768,7 @@ Such basis functions are visualized in figure \ref{fig:FEM_2Ddomain} where a 2D 
 \subsection{Finite element analysis of vector fields}
 The formulation of the finite element method so far is applicable to scalar fields. However, as all electrodynamic problems in three dimensions deal with vector electromagnetic fields, there is clear motivation to extend the formulation to include vector fields. This section will not go into details, but will rather mention the most important steps. The derivation is similar to section \ref{sec:FEM_generalprinciple}, but involves using vector basis functions which assigns degrees of freedom to the edges rather than to the nodes of the elements\cite{FEM_in_EM_jianming_jin}.%The finite element method described so far can be extended to deal with problems that involve vector fields. Such a formulation is important as all electrodynamic problems in three dimensions deal with vector electromagnetic fields. 
 
-A typical electrodynamic problem involves finding the electric field $\mathbf{E}$ by solving Maxwell's equations (\ref{eq:ME}) subject to certain boundary conditions. The problem may be reduced to solving a single vector wave equation with well defined boundary conditions. As before, instead of solving these equations directly, a weak form solution may be sought by introducing vector weighting functions $\mathbf{W}_j$ and integrating over the entire domain $\Omega$. Discretization is obtained by first dividing the domain into small finite elements, typically triangular elements for a 2D domain and tetrahedral elements for a 3D domain. Within each element, $\mathbf{E}$ is interpolated using a set of discrete values. However, using the approach in section \ref{sec:FEM_generalprinciple}, where the unknown field is assigned to a few points (nodes) on the element and then interpolated elsewhere using a set of scalar interpolation functions\improvement{språk}, turns out to be very problematic; a series of difficulties arise when applying boundary conditions to the interpolated $\mathbf{E}$-field\cite{FEM_in_EM_jianming_jin}\cite{FEM_TheoryAndCompOfEM_Jian-Ming_Jin}. 
+A typical electrodynamic problem involves finding the electric field $\mathbf{E}$ by solving Maxwell's equations (\ref{eq:ME}) subject to certain boundary conditions. The problem may be reduced to solving a single vector wave equation with well defined boundary conditions. As before, instead of solving these equations directly, a weak form solution may be sought by introducing vector weighting functions $\mathbf{W}_j$ and integrating over the entire domain $\Omega$. Discretization is obtained by first dividing the domain into small finite elements, typically triangular elements for a 2D domain and tetrahedral elements for a 3D domain. Within each element, $\mathbf{E}$ is interpolated using a set of discrete values. However, using the approach in section \ref{sec:FEM_generalprinciple} --- where the unknown field is assigned to a few points (nodes) on the element and then interpolated elsewhere using a set of scalar interpolation functions --- turns out to be very problematic; a series of difficulties arise when applying boundary conditions to the interpolated $\mathbf{E}$-field\cite{FEM_in_EM_jianming_jin}\cite{FEM_TheoryAndCompOfEM_Jian-Ming_Jin}. 
 
 
 
